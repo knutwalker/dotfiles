@@ -20,7 +20,7 @@ alias h="history"
 alias j="jq '.'"
 alias jj="jq -C '.' | less -R"
 alias op="openport"
-alias od="opendocker"
+# alias od="opendocker"
 alias gg="git status -sb"
 alias gs="git status -s"
 alias ga='git ap'
@@ -37,13 +37,13 @@ alias got="git"
 alias gir="git"
 
 # Managing two archs
-alias intelbrew="arch -x86_64 /usr/local/bin/brew"
+# alias intelbrew="arch -x86_64 /usr/local/bin/brew"
 # alias intelcargo="arch -x86_64 env HOME=/Users/knut/.x86_64 /Users/knut/.x86_64/.cargo/bin/cargo"
 # alias intelrustup="arch -x86_64 env HOME=/Users/knut/.x86_64 /Users/knut/.x86_64/.cargo/bin/rustup"
-alias intelrs="arch -x86_64 env HOME=/Users/knut/.x86_64 PATH=/Users/knut/.x86_64/.cargo/bin:$PATH CARGO_HOME=/Users/knut/.x86_64/.cargo RUSTUP_HOME=/Users/knut/.x86_64/.rustup"
+# alias intelrs="arch -x86_64 env HOME=/Users/knut/.x86_64 PATH=/Users/knut/.x86_64/.cargo/bin:$PATH CARGO_HOME=/Users/knut/.x86_64/.cargo RUSTUP_HOME=/Users/knut/.x86_64/.rustup"
 # https://twitter.com/emorydunn/status/1345443732154245121
 alias steep="env HOMEBREW_INSTALL_BADGE=🍵 brew"
-alias intelsteep="arch -x86_64 env HOMEBREW_INSTALL_BADGE=🍵 /usr/local/bin/brew"
+# alias intelsteep="arch -x86_64 env HOMEBREW_INSTALL_BADGE=🍵 /usr/local/bin/brew"
 
 # Replacements
 # Inspired by https://remysharp.com/2018/08/23/cli-improved
@@ -112,12 +112,12 @@ alias httpv='http -pHhBb'
 alias week='date +%V'
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='brew update; brew upgrade; brew cleanup;'
-alias brupdate='update'
+# alias update='brew update; brew upgrade; brew cleanup;'
+# alias brupdate='update'
 
 # Google Chrome
-alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
+# alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+# alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
 
 # IP addresses
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -151,9 +151,9 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 command -v sha1sum > /dev/null || alias sha1sum="shasum"
 
 # JavaScriptCore REPL
-jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc";
-[ -e "${jscbin}" ] && alias jsc="${jscbin}";
-unset jscbin;
+# jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc";
+# [ -e "${jscbin}" ] && alias jsc="${jscbin}";
+# unset jscbin;
 
 # Trim new lines and copy to clipboard
 alias ctrlc="tr -d '\n' | pbcopy"
@@ -164,7 +164,7 @@ alias cleanup="find . \( \( -type d -name target \) -or \( -type d -name build \
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.
 # Finally, clear download history from quarantine. https://mths.be/bum
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
+# alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -208,13 +208,15 @@ alias pumpitup="osascript -e 'set volume output volume 100'"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+# alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # default options for some binaries
 [ -x /usr/local/bin/git ] && alias git='/usr/local/bin/git'
+
+# Refresh htop every second (every 10 100ms units)
 alias htop='sudo htop -d 10'
 
 # Reload the shell (i.e. invoke as a login shell)
@@ -224,22 +226,22 @@ alias reload="exec ${SHELL} -l"
 alias path='echo -e ${PATH//:/\\n}'
 
 # JVM switching
-alias j6='sdk offline enable > /dev/null && sdk use java 6 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j7='sdk offline enable > /dev/null && sdk use java 7 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j8='sdk offline enable > /dev/null && sdk use java 8 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j9='sdk offline enable > /dev/null && sdk use java 9 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j10='sdk offline enable > /dev/null && sdk use java 10 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j11='sdk offline enable > /dev/null && sdk use java 11 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j12='sdk offline enable > /dev/null && sdk use java 12 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j13='sdk offline enable > /dev/null && sdk use java 13 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j14='sdk offline enable > /dev/null && sdk use java 14 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j15='sdk offline enable > /dev/null && sdk use java 15 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j16='sdk offline enable > /dev/null && sdk use java 16 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j17='sdk offline enable > /dev/null && sdk use java 17 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j18='sdk offline enable > /dev/null && sdk use java 18 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j19='sdk offline enable > /dev/null && sdk use java 19 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias j20='sdk offline enable > /dev/null && sdk use java 20 > /dev/null && sdk offline disable > /dev/null && java -version'
-alias jg='sdk offline enable > /dev/null && sdk use java graal > /dev/null && sdk offline disable > /dev/null && java -version'
+alias j6='jdk 6 && java -version'
+alias j7='jdk 7 && java -version'
+alias j8='jdk 8 && java -version'
+alias j9='jdk 9 && java -version'
+alias j10='jdk 10 && java -version'
+alias j11='jdk 11 && java -version'
+alias j12='jdk 12 && java -version'
+alias j13='jdk 13 && java -version'
+alias j14='jdk 14 && java -version'
+alias j15='jdk 15 && java -version'
+alias j16='jdk 16 && java -version'
+alias j17='jdk 17 && java -version'
+alias j18='jdk 18 && java -version'
+alias j19='jdk 19 && java -version'
+alias j20='jdk 20 && java -version'
+# alias jg='sdk offline enable > /dev/null && sdk use java graal > /dev/null && sdk offline disable > /dev/null && java -version'
 
 
 # move with rsync, use rmove -z /a /b to enable gzip for full speedup when downloading text files from servers
@@ -252,5 +254,5 @@ alias rcopy-all="rsync -Phav"
 alias ssh_unshare="ps ax | grep ssh | grep ssh_persist | grep -v grep |  awk '{print \$1}' | xargs -r kill"
 
 # stats infos
-alias hot='macstats cpu'
-alias fast='macstats fan'
+# alias hot='macstats cpu'
+# alias fast='macstats fan'

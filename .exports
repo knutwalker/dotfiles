@@ -51,7 +51,7 @@ test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
 
 # Shell Bookmarks
 # http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
-export MARKPATH=$HOME/.marks
+# export MARKPATH=$HOME/.marks
 
 # http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
 # Use RipGrep for better search
@@ -61,13 +61,13 @@ export FZF_ALT_C_COMMAND="cd ${HOME}/dev; bfs -type d -nohidden | sed s*^\.*${HO
 bind -x '"\C-x\C-p": vim $(fzf);'
 
 # fw: https://github.com/brocode/fw/blob/b797b3c51e1400400b2d9b5c2b602b7c733e4f5b/doc/installation.org
-if [[ -x "$(command -v fw)" ]]; then
-  if [[ -x "$(command -v fzf)" ]]; then
-    eval "$(fw print-bash-setup -f 2>/dev/null)"
-  else
-    eval "$(fw print-bash-setup 2>/dev/null)"
-  fi
-fi
+# if [[ -x "$(command -v fw)" ]]; then
+#   if [[ -x "$(command -v fzf)" ]]; then
+#     eval "$(fw print-bash-setup -f 2>/dev/null)"
+#   else
+#     eval "$(fw print-bash-setup 2>/dev/null)"
+#   fi
+# fi
 
 # SDKMAN
 export SDKMAN_DIR="${HOME}/.sdkman"

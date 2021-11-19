@@ -217,13 +217,13 @@ function e() {
 }
 
 # `z` with no arguments opens the zoxide db in fzf, otherwise it jumps to the zoxide directory
-function z() {
-	if [ $# -eq 0 ]; then
-		__zoxide_zi "$@"
-	else
-		__zoxide_z "$@"
-	fi
-}
+# function z() {
+# 	if [ $# -eq 0 ]; then
+# 		__zoxide_zi "$@"
+# 	else
+# 		__zoxide_z "$@"
+# 	fi
+# }
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
 # the `.git` directory, listing directories first. The output gets piped into
@@ -244,25 +244,25 @@ function tabname() {
 
 # Shell Bookmarks
 # http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
-function jump {
-	cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
+# function jump {
+# 	cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
+# }
 
-function mark {
-	mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
-}
+# function mark {
+# 	mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
+# }
 
-function unmark {
-	rm -i "$MARKPATH/$1"
-}
+# function unmark {
+# 	rm -i "$MARKPATH/$1"
+# }
 
-function marks {
-	\ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
-}
+# function marks {
+# 	\ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
+# }
 
 # http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/#update
 fzf_log() {
-	hash=$(git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" | fzf | awk '{print $1}')
+	hash=$(git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" | fzf --ansi | awk '{print $1}')
 	echo $hash | pbcopy
 	git showtool $hash
 }
@@ -311,7 +311,7 @@ function git-delete-merged-force() {
 }
 
 # checkout an Github PR
-function git-coprs() {
-	local pr=$(k-git-tools list-prs --sort-by=updated_at --me=knutwalker | fzf --ansi --with-nth=1 --delimiter='\t' --preview='echo -e {2}' --preview-window='up' --layout='reverse' | sd '#(\d+).*' '$1')
-	[[ -n "$pr" ]] && gh pr checkout "$pr"
-}
+# function git-coprs() {
+# 	local pr=$(k-git-tools list-prs --sort-by=updated_at --me=knutwalker | fzf --ansi --with-nth=1 --delimiter='\t' --preview='echo -e {2}' --preview-window='up' --layout='reverse' | sd '#(\d+).*' '$1')
+# 	[[ -n "$pr" ]] && gh pr checkout "$pr"
+# }
