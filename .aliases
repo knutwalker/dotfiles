@@ -211,7 +211,8 @@ alias pumpitup="osascript -e 'set volume output volume 100'"
 # alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Lock the screen (when going AFK)
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+# Update from https://github.com/mathiasbynens/dotfiles/pull/946
+alias afk="osascript -e 'tell app \"System Events\" to key code 12 using {control down, command down}'"
 
 # default options for some binaries
 [ -x /usr/local/bin/git ] && alias git='/usr/local/bin/git'
