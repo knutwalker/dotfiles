@@ -6,6 +6,10 @@
 	# search git log
 	sl = !bash -c 'source $HOME/.functions && fzf_log'
 
+	# showtool, like difftoo but for a single commit
+	# required for the command above
+	showtool = "!st() { rev=${1:-HEAD}; git difftool --no-prompt $rev~1 $rev; }; st $1"
+
 	# View the current working tree status using the short format / might remove the -s
 	s = status -s
 

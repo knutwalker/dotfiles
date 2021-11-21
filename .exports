@@ -53,7 +53,7 @@ test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
 # http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
 # export MARKPATH=$HOME/.marks
 
-# http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+# https://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before-2/
 # Use RipGrep for better search
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

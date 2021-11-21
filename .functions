@@ -260,7 +260,7 @@ function tabname() {
 # 	\ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
 # }
 
-# http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/#update
+# https://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before-2/#update
 fzf_log() {
 	hash=$(git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" | fzf --ansi | awk '{print $1}')
 	echo $hash | pbcopy
