@@ -263,6 +263,7 @@
 	# Remove the /a and /b prefixes from the diff view
 	noprefix = true
 
+	tool = Kaleidoscope
 [diff "bin"]
 
 	# Use `hexdump` to diff binary files
@@ -281,6 +282,7 @@
 	#  https://blog.nilbus.com/take-the-pain-out-of-git-conflict-resolution-use-diff3/
 	conflictstyle = diff3
 
+	tool = Kaleidoscope
 [push]
 
 	# https://git-scm.com/docs/git-config#git-config-pushdefault
@@ -334,3 +336,16 @@
 [init]
 
 	defaultBranch = main
+
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[difftool]
+	prompt = false
+
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+
+[mergetool]
+	prompt = false
