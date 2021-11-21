@@ -44,10 +44,10 @@
 	ca = !git add -A && git commit -av
 
 	# Select files to add
-	a = !"git add $(git status -s | grep -E -v '^M' | sed 's/...//' | fzf -m +s --marker='+' --header='Select files to stage' --layout=reverse)"
+	a = !"git add $(git status -s | grep -E -v '^M' | sed 's/...//' | fzf -m +s --marker='+' --header='Select files (with tab) to stage' --layout=reverse)"
 
 	# Select files to add patch-wise
-	ap = !"git status -s | grep -E -v '^M' | sed 's/...//' | fzf -m +s --marker='+' --header='Select files to stage' --layout=reverse --print0 | xargs -0 -o -n1 git hunk"
+	ap = !"git status -s | grep -E -v '^M' | sed 's/...//' | fzf -m +s --marker='+' --header='Select files (with tab) to stage patch-wise' --layout=reverse --print0 | xargs -0 -o -n1 git hunk"
 
 	# Stage hunk-wise
 	hunks = add -p
