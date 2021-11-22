@@ -7,7 +7,12 @@ display-messages = true
 line-number = "relative"
 
 [keys.normal]
-"A-ret"= "code_action"
-
-[keys.insert]
+"X" = "extend_line_up"
+"G" = "goto_file_end"
+"C-up" = "expand_selection"
+"C-g" = "extend_search_next"
+"C-S-g" = "extend_search_prev"
+"C-r" = "rename_symbol"
 "A-ret" = "code_action"
+"A-[" = "jump_backward"
+"A-]" = "jump_forward"
