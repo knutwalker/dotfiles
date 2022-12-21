@@ -299,7 +299,7 @@ function git-delete-merged() {
 	  # select any number of branches with a preview of what they are
 	  fzf-tmux -- --ansi --print0 --multi --preview="git log {} --" |
 	  # remove each branch with a prompt
-	  xargs -0 -p -n1 git branch --delete
+	  xargs -0 -n1 git branch --delete
 }
 
 # Less safe versoin of git-delete-merged
