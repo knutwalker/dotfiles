@@ -62,7 +62,7 @@ truncation_length = 11
 
 # Shortcuts
 [directory.substitutions]
-#"~/dev" = "👨🏻‍💻"
+"~/dev/rust" = "🦀"
 "~/dev" = ""
 "src/main/java" = "<main>"
 "src/test/java" = "<test>"
