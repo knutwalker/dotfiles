@@ -1,6 +1,6 @@
 # See https://www.iterm2.com/3.3/documentation-scripting-fundamentals.html
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-[ -r "${HOME}/.iterm2_user_vars" ] && [ -f "${HOME}/.iterm2_user_vars" ] && source "${HOME}/.iterm2_user_vars";
+# test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+# [ -r "${HOME}/.iterm2_user_vars" ] && [ -f "${HOME}/.iterm2_user_vars" ] && source "${HOME}/.iterm2_user_vars";
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
