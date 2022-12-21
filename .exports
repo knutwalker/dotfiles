@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Make VS Code the default editor.
-export EDITOR='code -w';
+# Make neovim the default editor.
+export EDITOR='nvim';
 
-# Except for git
-export GIT_EDITOR='vim -c startinsert';
+# Open neovim in insert mode for git git
+export GIT_EDITOR='nvim -c startinsert';
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';

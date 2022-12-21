@@ -216,9 +216,9 @@ function s() {
 # opens the given location
 function e() {
 	if [ $# -eq 0 ]; then
-		code .
+		nvim .
 	else
-		code "$@"
+		nvim "$@"
 	fi
 }
 
