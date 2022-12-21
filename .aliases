@@ -30,6 +30,8 @@ alias gac='git ap && gc'
 alias gca='git ap && gc'
 alias asd='git hunks && gc'
 alias vi="hx"
+alias gw="./gradlew"
+alias gr="./gradl"
 
 # Typos
 alias whoch='which'
