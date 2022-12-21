@@ -200,6 +200,9 @@
 	# Don't warn upon entering a detached HEAD
 	detachedHead = false
 
+	# Disable message about skipping previously applied commits
+	skippedCherryPicks = false
+
 [apply]
 
 	# Detect whitespace errors when applying a patch
