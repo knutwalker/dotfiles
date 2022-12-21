@@ -54,7 +54,7 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 # Install Nord dircolors
 # Based of https://www.nordtheme.com/docs/ports/dircolors/installation
 # With changes so that it runs on this system
-test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
+# test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
 
 # Shell Bookmarks
 # http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
