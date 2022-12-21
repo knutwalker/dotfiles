@@ -68,8 +68,11 @@ alias l0="ls --long --git-ignore"
 ### List files in long format
 alias l="ls --long"
 
+### List files in long format
+alias ll="ls --long"
+
 ### List files in long format, including git status
-alias ll="ls --long --git"
+alias llg="ls --long --git"
 
 ### List all files long format, excluding . and ..
 alias la="ls --long --all"
