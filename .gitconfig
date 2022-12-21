@@ -103,7 +103,7 @@
 
 	# Start interactive rebase while automatically selecting commits
 	# that were created with `fu` for fixup at their repsective positions
-	uf = rebase --autosquash --interactive
+	uf = rebase --autosquash --autostash --interactive
 
 	# Fixup some previous commit, calling `fu $sha` and `uf $sha^`
 	fufu = "!f() { git fu ${1-HEAD} && git uf ${1-HEAD}^; }; f"
@@ -112,10 +112,10 @@
 	fixup = fufu
 
 	# Rebase onto master
-	remaster = "!f() { git fetch ${2-origin} ${1-master}:${1-master} && git rebase --interactive ${1-master}; }; f"
+	remaster = "!f() { git fetch ${2-origin} ${1-master}:${1-master} && git uf ${1-master}; }; f"
 
 	# Rebase onto main
-	remain = "!f() { git fetch ${2-origin} ${1-main}:${1-main} && git rebase --interactive ${1-main}; }; f"
+	remain = "!f() { git fetch ${2-origin} ${1-main}:${1-main} && git uf ${1-main}; }; f"
 
 	# Credit an author on the latest commit
 	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
