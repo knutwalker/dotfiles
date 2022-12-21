@@ -1,5 +1,6 @@
 [build]
-# rustc-wrapper = "sccache"
+rustc-wrapper = "sccache"
+target-dir = "/Users/knut/.local/share/rustc-target-dir"
 
 [alias]
 br = "build --release"

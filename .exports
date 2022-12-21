@@ -75,3 +75,9 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 # Rm ImProved
 # https://github.com/nivekuil/rip#-notes
 export GRAVEYARD="${HOME}/.local/share/Trash"
+
+# Workaround nightly bug: https://github.com/rust-lang/rust/issues/92221
+# export CARGO_INCREMENTAL=0
+
+# Increase local cache size for sccache
+export SCCACHE_CACHE_SIZE="100G"
