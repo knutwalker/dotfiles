@@ -5,4 +5,14 @@ target-dir = "/Users/knut/.local/share/rustc-target-dir"
 [alias]
 br = "build --release"
 rr = "run --release"
+cr = "check --release"
+tr = "test --release"
 m = "make"
+nt = "nextest run"
+
+[profile.dev]
+split-debuginfo = "unpacked"
+
+[expand]
+theme = "TwoDark"
+pager = true
