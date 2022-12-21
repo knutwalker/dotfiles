@@ -20,6 +20,12 @@ function cdgitroot() {
 # https://github.com/ajeetdsouza/zoxide
 # eval "$(zoxide init bash)"
 
+# Tere: https://github.com/mgunyho/tere
+function tere() {
+	local result=$($HOME/.cargo/bin/tere "$@")
+	[ -n "$result" ] && cd -- "$result"
+}
+
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
 	local tmpFile="${@%/}.tar";
