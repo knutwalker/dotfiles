@@ -32,6 +32,8 @@ alias asd='git hunks && gc'
 alias vi="hx"
 alias gw="./gradlew"
 alias gr="./gradl"
+# alias za="zellij attach"
+# alias zn="zellij --session"
 
 # Typos
 alias whoch='which'
