@@ -6,12 +6,22 @@
 	# search git log
 	sl = !bash -c 'source $HOME/.functions && fzf_log'
 
+	# log with patch
+	lp = log --patch --ext-diff
+
+	# show always with ext-diff
+	sho = show --ext-diff
+	s = show --ext-diff
+
 	# showtool, like difftoo but for a single commit
 	# required for the command above
 	showtool = "!st() { rev=${1:-HEAD}; git difftool --no-prompt $rev~1 $rev; }; st $1"
 
+	# prettier log with commit date
+	lg = "log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short"
+
 	# View the current working tree status using the short format / might remove the -s
-	s = status -s
+	# s = status -s
 
 	# show the current HEAD's commit hash
 	id = log --pretty=format:'%H' -n 1
@@ -20,7 +30,7 @@
 	it = !git init && git commit -m 'root' --allow-empty
 
 	# Show the diff between the latest commit and the current state
-	d = "!git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	d = "!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
 
 	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
 	di = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
@@ -254,6 +264,9 @@
 [delta]
 
 	syntax-theme = OneHalfDark
+	navigate = true
+	line-numbers = true
+	side-by-side = true
 
 [diff]
 
@@ -262,6 +275,12 @@
 
 	# Remove the /a and /b prefixes from the diff view
 	noprefix = true
+
+	# According to delta
+	colorMoved = default
+
+	# https://difftastic.wilfred.me.uk/git.html
+	external = difft
 
 	tool = Kaleidoscope
 [diff "bin"]
@@ -285,7 +304,7 @@
 	tool = Kaleidoscope
 [push]
 
-	# https://git-scm.com/docs/git-config#git-config-pushdefault
+	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault
 	default = simple
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
