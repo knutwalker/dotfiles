@@ -44,6 +44,9 @@ export HOMEBREW_NO_ANALYTICS=1
 # Don't automatically update homebrew on every install
 export HOMEBREW_NO_AUTO_UPDATE=1
 
+# Don't run cleanups automatically during install
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+
 # Avoid issues with `gpg` as installed via Homebrew.
 # https://stackoverflow.com/a/42265848/96656
 # export GPG_TTY=$(tty);
