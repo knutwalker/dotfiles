@@ -32,6 +32,9 @@ add_newline = false
 # Allow command up to 1.337 seconds to complete
 command_timeout = 1337
 
+# Continuation Prompt
+continuation_prompt = ".."
+
 [battery]
 full_symbol = ""
 charging_symbol = ""
