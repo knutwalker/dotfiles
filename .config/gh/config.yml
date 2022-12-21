@@ -8,13 +8,14 @@ prompt: enabled
 pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
-    # checkout a PR
     co: pr checkout
-    # dump json about a PR
-    prd: api repos/:owner/:repo/pulls/$1
-    # These don't seem to work?
     heart: api -H Accept:application/vnd.github.squirrel-girl-preview+json repos/:owner/:repo/issues/$1/reactions --raw-field content=heart
     rocket: api -H Accept:application/vnd.github.squirrel-girl-preview+json repos/:owner/:repo/issues/$1/reactions --raw-field content=rocket
     eyes: api -H Accept:application/vnd.github.squirrel-girl-preview+json repos/:owner/:repo/issues/$1/reactions --raw-field content=eyes
     tada: api -H Accept:application/vnd.github.squirrel-girl-preview+json repos/:owner/:repo/issues/$1/reactions --raw-field content=hooray
-    
+    prd: api repos/:owner/:repo/pulls/$1
+    pr-engine: pr create --label=EngineGroup
+    pr-2.1: pr create --base=2.1 --label=2.1 --label=cherry-picked
+    pr-2.2: pr create --base=2.2 --label=2.2 --label=cherry-picked
+    pr-2.3: pr create --base=2.3 --label=2.3 --label=cherry-picked
+    pr-2.4: pr create --base=2.4 --label=2.4 --label=cherry-picked
