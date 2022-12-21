@@ -9,6 +9,7 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
+alias b="bacon"
 alias c="cargo"
 alias n="cargo +nightly"
 alias d="cd ~/dev"
