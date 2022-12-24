@@ -23,8 +23,11 @@ opt.wrap = false
 -- undo over backups
 opt.swapfile = false
 opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
+opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 opt.undofile = true
+
+-- automatically write changes to file
+opt.autowrite = true
 
 -- search settings
 opt.ignorecase = true
@@ -49,8 +52,8 @@ opt.colorcolumn = "80,120"
 -- Try to keep 8 lines at the bottom
 opt.scrolloff = 8
 
--- faster cursor update time
-opt.updatetime = 500
+-- faster time to trigger CursorHold
+opt.updatetime = 200
 
 -- allow backspace over autoindent, line breaks, and beyond start of insert
 opt.backspace = "indent,eol,start"
@@ -71,9 +74,6 @@ opt.iskeyword:append("-")
 
 -- Disable command line
 opt.cmdheight = 0
-
--- Disable auto <tab> mapping from copilot. Need to do before plugin is loaded
-vim.g.copilot_no_tap_map = true
 
 -- Undotree config, before plugin is loaded
 vim.g.undotree_WindowLayout = 4
