@@ -49,9 +49,9 @@ return {
 		end,
 	},
 
-	"tpope/vim-surround",
-	"tpope/vim-unimpaired",
-	"tpope/vim-obsession",
+	{ "tpope/vim-surround", event = "BufReadPre" },
+	{ "tpope/vim-unimpaired", event = "BufReadPre" },
+	{ "tpope/vim-obsession", cmd = "Obsess" },
 
-	"makerj/vim-pdf",
+	{ "makerj/vim-pdf", ft = "pdf" },
 }
