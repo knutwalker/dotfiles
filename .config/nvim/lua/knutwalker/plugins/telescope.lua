@@ -133,6 +133,11 @@ return {
 				},
 				sorting_strategy = "ascending",
 			},
+			pickers = {
+				buffers = {
+					sort_mru = true,
+				},
+			},
 		})
 
 		telescope.load_extension("fzf")
