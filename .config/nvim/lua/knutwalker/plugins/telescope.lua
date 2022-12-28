@@ -31,14 +31,10 @@ return {
 		end, "Search [e]dit history")
 
 		bind("n", "<leader>ff", function()
-			require("telescope.builtin").git_files()
-		end, "[F]ind [f]iles in this git repository")
-
-		bind("n", "<leader>fF", function()
 			require("telescope.builtin").find_files()
 		end, "[F]ind all [F]iles")
 
-		bind("n", "<leader>FF", function()
+		bind("n", "<leader>fF", function()
 			require("telescope.builtin").find_files({
 				hidden = true,
 				no_ignore = true,
