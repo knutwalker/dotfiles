@@ -25,6 +25,10 @@ bind("n", "<leader>pv", vim.cmd.Ex, { desc = "Open [P]roject [V]iew" })
 bind("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 bind("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
+-- Intent lines while keeping visual selection
+bind("v", "<", "<gv", { desc = "Indent lines in" })
+bind("v", ">", ">gv", { desc = "Indent lines out" })
+
 -- join lines with J while keeping the cursor at the beginning
 -- join lines with C-j to move the cursor to the end
 bind("n", "J", "mzJ`z", { desc = "Join lines" })
