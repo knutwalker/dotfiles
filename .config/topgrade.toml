@@ -5,7 +5,7 @@
 #]
 
 # Disable specific steps - same options as the command line flag
-disable = ["system", "gem", "node"]
+disable = ["system", "gem", "node", "tmux", "conda", "vim", "ruby_gems", "pip3" ]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
