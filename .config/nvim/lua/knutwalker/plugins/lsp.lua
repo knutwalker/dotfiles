@@ -238,6 +238,7 @@ return {
 
 			if capabilities.hoverProvider then
 				bind("K", buf.hover, "Hover symbol")
+				bind("<C-k>", buf.hover, "Hover symbol", "i")
 				if client.name == "rust_analyzer" then
 					bind("<leader>k", rt.hover_actions.hover_actions, "RA: Hover Action", { "n", "x", "v" })
 				else
