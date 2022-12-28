@@ -58,6 +58,9 @@ bind("v", "<leader>d", '"+d', { desc = "[D]elete to system clipboard" })
 -- always trigger ESC when Ctrl-C is pressed
 bind("i", "<C-c>", "<Esc>", { desc = "Trigger <ESC> also in visual insert mode" })
 
+-- faster write
+bind("n", "<leader>x", ":w<CR>", { desc = "Write buffer" })
+
 -- Never press Q
 bind("n", "Q", "<nop>")
 
@@ -79,7 +82,7 @@ bind(
 bind("n", "<leader><ESC>", ":nohl<CR>", { desc = "Remove highlighting" })
 
 -- delete with space x without copying into register
-bind("n", "<leader>x", '"_x"', { desc = "[X] Delete without copying into register" })
+bind("n", "x", '"_x', { desc = "[X] Delete without copying into register" })
 
 -- space + and space - to increment/decrement
 bind("n", "<leader>=", "<C-a>", { desc = "Increment number" })
