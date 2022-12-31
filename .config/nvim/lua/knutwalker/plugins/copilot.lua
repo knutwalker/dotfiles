@@ -19,9 +19,9 @@ return {
 		)
 
 		-- Custom mapping to <leader>c group
-		vim.keymap.set("n", "<leader>cl", ":Copilot panel<CR>", { desc = "Open [C]opilot [l]ist" })
-		vim.keymap.set("n", "<leader>ce", ":Copilot enable<CR>", { desc = "[C]opilot: [E]nable" })
-		vim.keymap.set("n", "<leader>cd", ":Copilot disable<CR>", { desc = "[C]opilot: [D]isable" })
-		vim.keymap.set("n", "<leader>cs", ":Copilot status<CR>", { desc = "Show [C]opilot [s]tatus" })
+		vim.keymap.set("n", "<leader>Cl", ":Copilot panel<CR>", { desc = "Open [C]opilot [l]ist" })
+		vim.keymap.set("n", "<leader>Ce", ":Copilot enable<CR>", { desc = "[C]opilot: [E]nable" })
+		vim.keymap.set("n", "<leader>Cd", ":Copilot disable<CR>", { desc = "[C]opilot: [D]isable" })
+		vim.keymap.set("n", "<leader>Cs", ":Copilot status<CR>", { desc = "Show [C]opilot [s]tatus" })
 	end,
 }
