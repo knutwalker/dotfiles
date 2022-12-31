@@ -72,4 +72,7 @@ dwsync.xml
 #
 !.gitignore
 
+# Vim session file
+Session.vim
+
 \#*#
