@@ -13,9 +13,9 @@ return {
 		-- Use C-j to accept solutions
 		vim.keymap.set(
 			"i",
-			"<C-J>",
-			'copilot#Accept("\\<CR>")',
-			{ remap = false, silent = true, script = true, expr = true }
+			"<C-j>",
+			[[copilot#Accept("<CR>")]],
+			{ remap = false, silent = true, script = true, expr = true, replace_keycodes = false }
 		)
 
 		-- Custom mapping to <leader>c group
