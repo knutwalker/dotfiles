@@ -216,7 +216,11 @@ function s() {
 # opens the given location
 function e() {
 	if [ $# -eq 0 ]; then
-		nvim .
+        if [ -f Session.vim ]; then
+            nvim -S Session.vim
+        else
+            nvim .
+        fi
 	else
 		nvim "$@"
 	fi
