@@ -12,9 +12,6 @@
 #
 #
 
-# completly ignore dotfiles
-.*
-
 # Numerous always-ignore extensions
 *.gz
 *.bz2
