@@ -112,11 +112,6 @@ return {
 			require("telescope.builtin").git_bcommits()
 		end, "[G]it [d]iff current file")
 
-		-- bind('n', '<leader>s', function() require("telescope.builtin").lsp_document_symbols() end, 'Search [s]ymbols in this file')
-		-- bind('n', '<leader>S', function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end, 'Search [S]ymbols in this workspace')
-		-- bind('n', '<leader>fs', function() require("telescope.builtin").lsp_workspace_symbols() end, 'Search [S]ymbols in this workspace (once)')
-		-- bind('n', '<leader>fd', function() require("telescope.builtin").lsp_definitions() end, '[F]ind [d]efinitions')
-		-- bind('n', '<leader>fy', function() require("telescope.builtin").lsp_type_definitions() end, '[F]ind t[y]pe definitions')
 		bind("n", "<leader>{", function()
 			require("telescope.builtin").diagnostics()
 		end, "Search Diagnostics")
