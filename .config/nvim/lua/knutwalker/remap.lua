@@ -87,16 +87,16 @@ bind("n", "<leader>`", ":e #<CR>", { desc = "Switch to other buffer" })
 -- window management with space w in addition to C-w
 bind("n", "<leader>w", "<C-w>", { desc = "Window management" })
 
--- open new tab
-bind("n", "<leader>tc", ":tabnew<CR>", { desc = "[C]reate new tab" })
--- close current tab
-bind("n", "<leader>tq", ":tabclose<CR>", { desc = "[Q]uit current tab" })
---  go to next tab
-bind("n", "<leader>tn", ":tabn<CR>", { desc = "[N]ext tab" })
---  go to previous tab
-bind("n", "<leader>tp", ":tabp<CR>", { desc = "[P]revious tab" })
--- list all tabs
-bind("n", "<leader>tl", ":tabs<CR>", { desc = "[L]ist all tabs" })
+-- tab management with space tab
+bind("n", "<leader><tab><tab>", ":tabnew<CR>", { desc = "New tab" })
+bind("n", "<leader><tab>n", ":tabn<CR>", { desc = "[N]ext tab" })
+bind("n", "<leader><tab>p", ":tabp<CR>", { desc = "[P]revious tab" })
+bind("n", "<leader><tab>]", ":tabn<CR>", { desc = "[N]ext tab" })
+bind("n", "<leader><tab>[", ":tabp<CR>", { desc = "[P]revious tab" })
+bind("n", "<leader><tab>f", ":tabfirst<CR>", { desc = "[F]irst tab" })
+bind("n", "<leader><tab>l", ":tablast<CR>", { desc = "[L]ast tab" })
+bind("n", "<leader><tab>c", ":tabclose<CR>", { desc = "[C]lose current tab" })
+bind("n", "<leader><tab><space>", ":tabs<CR>", { desc = "[L]ist all tabs" })
 
 -- navigate the quickfix list
 bind("n", "<leader>cn", ":cnext<CR>zz", { desc = "[N]ext quickfix item" })
