@@ -118,3 +118,40 @@ bind("n", "<leader>gl", function(cwd)
 		},
 	})
 end, { desc = "Open [l]azygit" })
+
+--- git-drive integration
+local function git_drive(args)
+	local cmd = { "git-drive" }
+	for _, v in ipairs(args or {}) do
+		table.insert(cmd, v)
+	end
+	require("lazy.util").open_cmd(cmd, {
+		terminal = true,
+		close_on_exit = true,
+		enter = true,
+		float = {
+			win_opts = { border = "rounded" },
+			size = { width = 0.75, height = 0.75 },
+			margin = { top = 2, right = 2, bottom = 2, left = 2 },
+		},
+	})
+end
+
+bind("n", "<leader>gvv", function()
+	git_drive()
+end, { desc = "Open git-dri[v]e" })
+
+bind("n", "<leader>gva", function()
+	git_drive({ "alone" })
+end, { desc = "git-dri[v]e [a]lone" })
+
+bind("n", "<leader>gvw", function()
+	local cmd = { "with" }
+	local navigator = vim.fn.input("git drive with ")
+	for nav in string.gmatch(navigator, "[^%s]+") do
+		if nav ~= "" then
+			table.insert(cmd, nav)
+		end
+	end
+	git_drive(cmd)
+end, { desc = "git-dri[v]e [w]ith" })
