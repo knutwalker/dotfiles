@@ -54,6 +54,11 @@ bind("n", "<leader>x", ":w<CR>", { desc = "Write buffer" })
 bind("i", "<C-s>", "<CMD>:w<CR><ESC>")
 bind("n", "<C-s>", "<CMD>:w<CR><ESC>")
 
+-- Add undo break-points
+bind("i", ",", ",<c-g>u")
+bind("i", ".", ".<c-g>u")
+bind("i", ";", ";<c-g>u")
+
 -- Never press Q
 bind("n", "Q", "<nop>")
 
