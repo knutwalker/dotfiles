@@ -44,7 +44,7 @@ return {
 					},
 				},
 				lualine_y = { "progress" },
-				lualine_z = { "location" },
+				lualine_z = { { "location", separator = "" }, "ObsessionStatus" },
 			},
 			inactive_sections = {
 				lualine_a = {},
