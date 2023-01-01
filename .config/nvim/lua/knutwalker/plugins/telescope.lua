@@ -82,9 +82,9 @@ return {
 			require("telescope.builtin").man_pages()
 		end, "[F]ind [M]an")
 
-		bind("n", "<leader>fr", function()
+		bind("n", [[<leader>f"]], function()
 			require("telescope.builtin").registers()
-		end, "[F]ind [r]egisters")
+		end, [[[F]ind ["]Registers]])
 
 		bind("n", "<leader>fk", function()
 			require("telescope.builtin").keymaps()
