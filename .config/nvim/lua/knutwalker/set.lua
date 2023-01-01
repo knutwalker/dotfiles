@@ -51,6 +51,8 @@ opt.colorcolumn = "80,120"
 
 -- Try to keep 8 lines at the bottom
 opt.scrolloff = 8
+-- Keep cursor line centered
+opt.scrolloff = 9999
 
 -- faster time to trigger CursorHold
 opt.updatetime = 200
