@@ -150,11 +150,10 @@ return {
 
 			if capabilities.codeActionProvider then
 				if client.name == "rust_analyzer" then
-					bind("<leader><CR>", rt.code_action_group.code_action_group, "RA Code Action", { "n", "x", "v" })
+					bind("<leader>R<CR>", rt.code_action_group.code_action_group, "RA Code Action", { "n", "x", "v" })
 					bind([[<leader>\]], rt.hover_actions.hover_actions, "RA Hover Action", { "n", "x", "v" })
-				else
-					bind("<leader><CR>", buf.code_action, "Code Action", { "n", "x", "v" })
 				end
+				bind("<leader><CR>", buf.code_action, "Code Action", { "n", "x", "v" })
 			end
 
 			if capabilities.codeLensProvider then
