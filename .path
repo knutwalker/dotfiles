@@ -21,6 +21,9 @@ PATH="/usr/local/bin:/usr/local/sbin:$PATH";
 # Add aarch64 brew directories
 PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH";
 
+# Add Go installation (see .export for GOPATH)
+PATH="${HOME}/.go/bin:$PATH";
+
 # Add x86_64 cargo binaries
 PATH="$HOME/.x86_64/.cargo/bin:$PATH";
 # Add aarch64 cargo binaries

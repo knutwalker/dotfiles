@@ -88,3 +88,6 @@ export GRAVEYARD="${HOME}/.local/share/Trash"
 
 # Increase local cache size for sccache
 export SCCACHE_CACHE_SIZE="100G"
+
+# Go PATH because ~/go is... weird
+export GOPATH="${HOME}/.go"
