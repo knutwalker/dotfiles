@@ -70,4 +70,6 @@ return {
 	{ "makerj/vim-pdf", ft = "pdf" },
 
 	{ "editorconfig/editorconfig-vim", event = "BufReadPre" },
+
+	{ "mg979/vim-visual-multi", branch = "master", event = "BufReadPre" },
 }
