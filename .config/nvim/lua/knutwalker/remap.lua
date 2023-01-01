@@ -50,6 +50,10 @@ bind("i", "<C-c>", "<Esc>", { desc = "Trigger <ESC> also in visual insert mode" 
 -- faster write
 bind("n", "<leader>x", ":w<CR>", { desc = "Write buffer" })
 
+-- save in insert mode
+bind("i", "<C-s>", "<CMD>:w<CR><ESC>")
+bind("n", "<C-s>", "<CMD>:w<CR><ESC>")
+
 -- Never press Q
 bind("n", "Q", "<nop>")
 
