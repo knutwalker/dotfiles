@@ -109,6 +109,12 @@ bind("n", "<leader>qp", ":cprev<CR>zz", { desc = "[P]revious quickfix item" })
 bind("n", "<leader>qo", ":copen", { desc = "[O]pen the quickfix list" })
 bind("n", "<leader>qq", ":cclose<CR>", { desc = "[Q]uit quickfix list" })
 bind("n", "<leader>qc", ":cc", { desc = "Select an item from the quickfix list" })
+bind(
+	"n",
+	"<leader>qt",
+	":TroubleToggle quickfix<CR>",
+	{ desc = "Open [q]uickfix list in [T]rouble", silent = true, noremap = true }
+)
 
 -- navigate the location list
 bind("n", "<leader>ln", ":lnext<CR>zz", { desc = "[N]ext location item" })
@@ -116,6 +122,12 @@ bind("n", "<leader>lp", ":lprev<CR>zz", { desc = "[P]revious location item" })
 bind("n", "<leader>lo", ":lopen", { desc = "[O]pen the location list" })
 bind("n", "<leader>lq", ":lclose<CR>", { desc = "[Q]uit location list" })
 bind("n", "<leader>ll", ":ll", { desc = "Select an item from the location list" })
+bind(
+	"n",
+	"<leader>lt",
+	":TroubleToggle loclist<CR>",
+	{ desc = "Open [l]ocation list in [T]rouble", silent = true, noremap = true }
+)
 
 -- lazygit integration
 bind("n", "<leader>gl", function(cwd)

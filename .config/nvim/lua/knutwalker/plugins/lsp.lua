@@ -44,9 +44,6 @@ return {
 		--
 		-- -- LSP Saga
 		-- "glepnir/lspsaga.nvim",
-		--
-		-- -- LSP Trouble
-		-- "folke/lsp-trouble.nvim",
 	},
 	config = function()
 		local lsp = require("lsp-zero")
@@ -166,11 +163,12 @@ return {
 			end
 
 			if capabilities.declarationProvider then
-				bind("gD", buf.declaration, "[G]o to [D]eclaration")
+				bind("gl", buf.declaration, "[G]o to dec[l]aration")
 			end
 
 			if capabilities.definitionProvider then
 				bind("gd", telescope.lsp_definitions, "[G]o to [d]efinition")
+				bind("gD", "<CMD>TroubleToggle lsp_definitions<CR>", "[G]o to [D]efinition in Trouble")
 				bind("<leader>fd", telescope.lsp_definitions, "[F]ind [d]efinitions")
 			end
 
@@ -252,6 +250,7 @@ return {
 
 			if capabilities.referencesProvider then
 				bind("gr", telescope.lsp_references, "[G]o to [r]eferences")
+				bind("gR", "<CMD>TroubleToggle lsp_references<CR>", "[G]o to [R]eferences in Trouble")
 			end
 
 			if capabilities.renameProvider then
@@ -265,6 +264,7 @@ return {
 
 			if capabilities.typeDefinitionProvider then
 				bind("gy", telescope.lsp_type_definitions, "[G]o to t[y]pe definition")
+				bind("gY", "<CMD>TroubleToggle lsp_type_definitions<CR>", "[G]o to t[y]pe definition in Trouble")
 				bind("<leader>fy", telescope.lsp_type_definitions, "[F]ind t[y]pe definitions")
 			end
 

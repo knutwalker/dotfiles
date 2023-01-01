@@ -132,6 +132,18 @@ return {
 					preview_cutoff = 0,
 				},
 				sorting_strategy = "ascending",
+				mappings = {
+					i = {
+						["<c-t>"] = function(...)
+							require("trouble.providers.telescope").open_with_trouble(...)
+						end,
+					},
+					n = {
+						["<c-t>"] = function(...)
+							require("trouble.providers.telescope").open_with_trouble(...)
+						end,
+					},
+				},
 			},
 			pickers = {
 				buffers = {
