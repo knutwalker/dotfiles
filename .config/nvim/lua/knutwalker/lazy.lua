@@ -15,7 +15,7 @@ vim.opt.runtimepath:prepend(lazypath)
 -- load lazy
 require("lazy").setup("knutwalker.plugins", {
 	defaults = { lazy = false },
-	install = { colorscheme = { "tokyonight" } },
+	install = { colorscheme = { "tokyonight-moon" } },
 	checker = {
 		-- do not automatically check for plugin updates
 		enabled = false,
