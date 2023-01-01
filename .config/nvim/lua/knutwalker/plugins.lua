@@ -47,7 +47,12 @@ return {
 		end,
 	},
 
-	{ "tpope/vim-surround", event = "BufReadPre" },
+	{
+		"kylechui/nvim-surround",
+		tag = "v1.0.0",
+		event = "BufReadPre",
+		config = true,
+	},
 	{ "tpope/vim-unimpaired", event = "BufReadPre" },
 	{ "tpope/vim-obsession", event = "VeryLazy" },
 
