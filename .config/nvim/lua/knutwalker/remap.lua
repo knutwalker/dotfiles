@@ -104,3 +104,17 @@ bind("n", "<leader>lp", ":lprev<CR>zz", { desc = "[P]revious location item" })
 bind("n", "<leader>lo", ":lopen", { desc = "[O]pen the location list" })
 bind("n", "<leader>lq", ":lclose<CR>", { desc = "[Q]uit location list" })
 bind("n", "<leader>ll", ":ll", { desc = "Select an item from the location list" })
+
+-- lazygit integration
+bind("n", "<leader>gl", function(cwd)
+	require("lazy.util").open_cmd({ "lazygit" }, {
+		cwd = cwd,
+		terminal = true,
+		close_on_exit = true,
+		enter = true,
+		float = {
+			size = { width = 0.95, height = 0.95 },
+			margin = { top = 0, right = 0, bottom = 0, left = 0 },
+		},
+	})
+end, { desc = "Open [l]azygit" })

@@ -86,6 +86,12 @@ alias lla="ls --long --git --all"
 ### List only directories
 alias lsdir="exa --time-style=long-iso --long --only-dirs"
 
+# Lazygit
+alias lg="lazygit"
+# The next two mirror the nvim keybindings for invoking lazygit
+alias ly="lazygit"
+alias lz="lazygit"
+
 ## cat -> bat
 ## https://github.com/sharkdp/bat
 alias cat='bat --plain --theme=TwoDark'
