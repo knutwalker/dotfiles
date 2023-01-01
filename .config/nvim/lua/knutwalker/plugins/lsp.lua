@@ -367,6 +367,7 @@ return {
 				{ name = "nvim_lsp_signature_help" },
 				{ name = "nvim_lua" },
 				{ name = "luasnip" },
+				{ name = "crates" },
 				{ name = "emoji" },
 				{ name = "git" },
 				{ name = "path" },
