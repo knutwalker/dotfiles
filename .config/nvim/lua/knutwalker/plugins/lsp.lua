@@ -314,7 +314,7 @@ return {
 		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 		vim.keymap.set("n", "<leader>[", vim.diagnostic.open_float, { desc = "Show diagnostic" })
-		vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Set diagnostic to loclist" })
+		vim.keymap.set("n", "<leader>qd", vim.diagnostic.setloclist, { desc = "Set diagnostic to loclist" })
 
 		-- Load some vscode snippets
 		local snippets_path = vim.fn.stdpath("data") .. "/vscode_snippets/"

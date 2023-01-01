@@ -99,11 +99,11 @@ bind("n", "<leader><tab>c", ":tabclose<CR>", { desc = "[C]lose current tab" })
 bind("n", "<leader><tab><space>", ":tabs<CR>", { desc = "[L]ist all tabs" })
 
 -- navigate the quickfix list
-bind("n", "<leader>cn", ":cnext<CR>zz", { desc = "[N]ext quickfix item" })
-bind("n", "<leader>cp", ":cprev<CR>zz", { desc = "[P]revious quickfix item" })
-bind("n", "<leader>co", ":copen", { desc = "[O]pen the quickfix list" })
-bind("n", "<leader>cq", ":cclose<CR>", { desc = "[Q]uit quickfix list" })
-bind("n", "<leader>cc", ":cc", { desc = "Select an item from the quickfix list" })
+bind("n", "<leader>qn", ":cnext<CR>zz", { desc = "[N]ext quickfix item" })
+bind("n", "<leader>qp", ":cprev<CR>zz", { desc = "[P]revious quickfix item" })
+bind("n", "<leader>qo", ":copen", { desc = "[O]pen the quickfix list" })
+bind("n", "<leader>qq", ":cclose<CR>", { desc = "[Q]uit quickfix list" })
+bind("n", "<leader>qc", ":cc", { desc = "Select an item from the quickfix list" })
 
 -- navigate the location list
 bind("n", "<leader>ln", ":lnext<CR>zz", { desc = "[N]ext location item" })
