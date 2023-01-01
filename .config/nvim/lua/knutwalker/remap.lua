@@ -81,6 +81,9 @@ bind("n", "x", '"_x', { desc = "[X] Delete without copying into register" })
 bind("n", "<leader>=", "<C-a>", { desc = "Increment number" })
 bind("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
 
+-- switch to other buffer
+bind("n", "<leader>`", ":e #<CR>", { desc = "Switch to other buffer" })
+
 -- window management with space w in addition to C-w
 bind("n", "<leader>w", "<C-w>", { desc = "Window management" })
 
