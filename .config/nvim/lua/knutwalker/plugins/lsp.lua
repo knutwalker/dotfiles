@@ -36,14 +36,13 @@ return {
 		-- LSP kind symbols for completion items
 		"onsails/lspkind-nvim",
 
+		-- Multiline diagnostics
+		{
+			url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		},
+
 		-- -- LSP Signature
 		-- "ray-x/lsp_signature.nvim",
-		--
-		-- -- LSP Status
-		-- "nvim-lua/lsp-status.nvim",
-		--
-		-- -- LSP Saga
-		-- "glepnir/lspsaga.nvim",
 	},
 	config = function()
 		local lsp = require("lsp-zero")
@@ -398,8 +397,10 @@ return {
 			-- Update diagnostics live while typing
 			-- if false, diagnostics are only updated on InsertLeave
 			update_in_insert = true,
-			-- Show diagnostics in the virtual text
-			virtual_text = true,
+			-- Don't show diagnostics in the virtual text
+			virtual_text = false,
+			-- Show diagnostics as multiple lines
+			virtual_lines = true,
 		})
 
 		-- save configs for RA and null-ls since we set those up manually
@@ -408,6 +409,35 @@ return {
 
 		lsp.nvim_workspace()
 		lsp.setup()
+
+		-- Setup LSP diagnostics
+
+		-- Readme says to setup lsp-lines after lspconfig
+		require("lsp_lines").setup()
+
+		-- Toggle between multiline and single line diagnostics
+		local function toggle_lsp_lines()
+			local flag = not vim.diagnostic.config().virtual_lines
+			print("LSP lines has been " .. (flag and "enabled" or "disabled"))
+			vim.diagnostic.config({ virtual_lines = flag, virtual_text = not flag })
+		end
+		vim.keymap.set("n", "<leader>}", toggle_lsp_lines, { desc = "Toggle LSP line diagnostics" })
+		vim.keymap.set("i", "<M-d>", toggle_lsp_lines, { desc = "Toggle LSP line diagnostics" })
+
+		-- Use single line diagnostics while in insert mode
+		-- and multiline diagnostics when not in insert mode
+
+		vim.api.nvim_create_autocmd("InsertEnter", {
+			callback = function()
+				vim.diagnostic.config({ virtual_lines = false, virtual_text = true })
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("InsertLeave", {
+			callback = function()
+				vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
+			end,
+		})
 
 		-- Configure rust-tools
 
