@@ -68,4 +68,6 @@ return {
 	{ "tpope/vim-obsession", event = "VeryLazy" },
 
 	{ "makerj/vim-pdf", ft = "pdf" },
+
+	{ "editorconfig/editorconfig-vim", event = "BufReadPre" },
 }
