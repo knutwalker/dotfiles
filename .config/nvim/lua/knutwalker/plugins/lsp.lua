@@ -253,7 +253,7 @@ return {
 			end
 
 			if capabilities.renameProvider then
-				bind("<leader>r", buf.rename, "[R]ename")
+				bind("<leader>rr", buf.rename, "[R]ename")
 			end
 
 			if capabilities.signatureHelpProvider then
