@@ -4,6 +4,18 @@ return {
 	event = "BufReadPost",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
+		{
+			"nvim-treesitter/nvim-treesitter-context",
+			config = {
+				patterns = {
+					rust = {
+						"impl_item",
+						"match",
+						"loop",
+					},
+				},
+			},
+		},
 		{ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 	},
 	config = function()
