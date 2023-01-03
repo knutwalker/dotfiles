@@ -39,8 +39,8 @@ return {
 			url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		},
 
-		-- -- LSP Signature
-		-- "ray-x/lsp_signature.nvim",
+		-- LSP Signature
+		{ "ray-x/lsp_signature.nvim", config = true },
 	},
 	config = function()
 		local lsp = require("lsp-zero")
