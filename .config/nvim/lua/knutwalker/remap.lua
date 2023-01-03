@@ -83,8 +83,8 @@ bind("n", "<leader><ESC>", ":nohl<CR>", { desc = "Remove highlighting" })
 bind("n", "x", '"_x', { desc = "[X] Delete without copying into register" })
 
 -- space + and space - to increment/decrement
-bind("n", "<leader>=", "<C-a>", { desc = "Increment number" })
-bind("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
+bind("n", "<leader>=", "<C-a>", { remap = true, desc = "Increment number" })
+bind("n", "<leader>-", "<C-x>", { remap = true, desc = "Decrement number" })
 
 -- switch to other buffer
 bind("n", "<leader>`", ":e #<CR>", { desc = "Switch to other buffer" })
