@@ -9,15 +9,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"MunifTanjim/nui.nvim",
 	},
-	keys = {
-		{
-			"<leader>t",
-			function()
-				require("neo-tree.command").execute({ toggle = true })
-			end,
-			desc = "Open File[t]ree",
-		},
-	},
+	keys = require("knutwalker.keymap").neotree,
 	config = {
 		close_if_last_window = true,
 		sort_case_insensitive = true,

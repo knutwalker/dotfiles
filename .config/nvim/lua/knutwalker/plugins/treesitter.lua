@@ -101,32 +101,32 @@ return {
 					lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
 					keymaps = {
 						-- You can use the capture groups defined in textobjects.scm
-						["aa"] = "@parameter.outer",
-						["ia"] = "@parameter.inner",
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
-						["ac"] = "@class.outer",
-						["ic"] = "@class.inner",
+						["aa"] = { query = "@parameter.outer", desc = "Select outer parameter" },
+						["ia"] = { query = "@parameter.inner", desc = "Select inner parameter" },
+						["af"] = { query = "@function.outer", desc = "Select outer function" },
+						["if"] = { query = "@function.inner", desc = "Select inner function" },
+						["ac"] = { query = "@class.outer", desc = "Select outer class" },
+						["ic"] = { query = "@class.inner", desc = "Select inner class" },
 					},
 				},
 				move = {
 					enable = true,
 					set_jumps = true, -- whether to set jumps in the jumplist
 					goto_next_start = {
-						["]m"] = "@function.outer",
-						["]]"] = "@class.outer",
+						["]m"] = { query = "@function.outer", desc = "Goto next function" },
+						["]]"] = { query = "@class.outer", desc = "Goto next class" },
 					},
 					goto_next_end = {
-						["]M"] = "@function.outer",
-						["]["] = "@class.outer",
+						["]M"] = { query = "@function.outer", desc = "Goto the end of the next function" },
+						["]["] = { query = "@class.outer", desc = "Goto the end of the next class" },
 					},
 					goto_previous_start = {
-						["[m"] = "@function.outer",
-						["[["] = "@class.outer",
+						["[m"] = { query = "@function.outer", desc = "Goto previous function" },
+						["[["] = { query = "@class.outer", desc = "Goto previous class" },
 					},
 					goto_previous_end = {
-						["[M"] = "@function.outer",
-						["[]"] = "@class.outer",
+						["[M"] = { query = "@function.outer", desc = "Goto the end of the previous function" },
+						["[]"] = { query = "@class.outer", desc = "Goto the end of the previous class" },
 					},
 				},
 				swap = {
@@ -136,6 +136,15 @@ return {
 					},
 					swap_previous = {
 						["<leader>A"] = "@parameter.inner",
+					},
+				},
+				lsp_interop = {
+					enable = true,
+					border = "none",
+					floating_preview_opts = {},
+					peek_definition_code = {
+						["gdf"] = "@function.outer",
+						["gdF"] = "@class.outer",
 					},
 				},
 			},

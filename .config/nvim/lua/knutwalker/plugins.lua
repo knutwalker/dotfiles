@@ -1,11 +1,7 @@
+local keymap = require("knutwalker.keymap")
+
 return {
-	{
-		"tpope/vim-fugitive",
-		cmd = "Git",
-		init = function()
-			vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "[G]it [S]tatus" })
-		end,
-	},
+	{ "tpope/vim-fugitive", cmd = "Git", keys = keymap.git },
 
 	{ "tpope/vim-unimpaired", event = "BufReadPre" },
 
@@ -23,57 +19,33 @@ return {
 
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
 
-	{
-		"mbbill/undotree",
-		cmd = "UndotreeToggle",
-		init = function()
-			vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "Toggle [U]ndo tree" })
-		end,
-	},
+	{ "ThePrimeagen/harpoon", keys = keymap.harpoon },
+
+	{ "mbbill/undotree", cmd = "UndotreeToggle", keys = keymap.undotree },
+
+	{ "folke/which-key.nvim", config = true },
+
+	{ "kylechui/nvim-surround", tag = "v1.0.0", event = "BufReadPre", config = true },
+
+	{ "windwp/nvim-autopairs", event = "InsertEnter", config = { check_ts = true } },
+
+	{ "szw/vim-maximizer", keys = keymap.maximizer, cmd = "MaximizerToggle" },
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		config = function()
-			require("indent_blankline").setup({
-				ohar = "",
-				space_char_blankline = " ",
-				show_current_context = true,
-				show_current_context_start = true,
-				show_trailing_blankline_indent = true,
-			})
-		end,
-	},
-
-	{
-		"folke/which-key.nvim",
-		config = function()
-			require("which-key").setup()
-		end,
-	},
-
-	{
-		"kylechui/nvim-surround",
-		tag = "v1.0.0",
-		event = "BufReadPre",
-		config = true,
-	},
-
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = function()
-			require("nvim-autopairs").setup({
-				check_ts = true,
-			})
-		end,
+		config = {
+			ohar = "",
+			space_char_blankline = " ",
+			show_current_context = true,
+			show_current_context_start = true,
+			show_trailing_blankline_indent = true,
+		},
 	},
 
 	{
 		"simrat39/symbols-outline.nvim",
 		cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
-		init = function()
-			vim.keymap.set({ "n", "v", "i" }, "<F12>", "<cmd>SymbolsOutline<CR>", { desc = "Symbols outline" })
-		end,
+		keys = keymap.symbols_outline,
 		config = true,
 	},
 
@@ -92,6 +64,42 @@ return {
 			pre_hook = nil, -- Function to run before the scrolling animation starts
 			post_hook = nil, -- Function to run after the scrolling animation ends
 			performance_mode = false, -- Disable "Performance Mode" on all buffers.
+		},
+	},
+
+	{
+		"saecki/crates.nvim",
+		event = { "BufRead Cargo.toml" },
+		requires = { { "nvim-lua/plenary.nvim" } },
+		keys = keymap.crates,
+		config = true,
+	},
+
+	{
+		"ThePrimeagen/refactoring.nvim",
+		keys = keymap.refactoring,
+		config = function()
+			require("refactoring").setup({})
+			require("telescope").load_extension("refactoring")
+		end,
+	},
+
+	{
+		"folke/todo-comments.nvim",
+		cmd = { "TodoTrouble", "TodoTelescope" },
+		event = "BufReadPost",
+		config = true,
+		keys = keymap.todo_comments,
+	},
+
+	{
+		"folke/trouble.nvim",
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		cmd = { "TroubleToggle", "Trouble" },
+		keys = keymap.trouble,
+		config = {
+			auto_open = false,
+			use_diagnostic_signs = true,
 		},
 	},
 }
