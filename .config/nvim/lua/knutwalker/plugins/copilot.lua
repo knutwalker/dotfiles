@@ -1,27 +1,45 @@
 return {
-	"github/copilot.vim",
+	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
-	-- load copilot on InsertEnter
 	event = "InsertEnter",
 	init = function()
-		-- Disable auto <tab> mapping from copilot.
-		vim.g.copilot_no_tap_map = true
-
-		-- Don't copilot in Telescope prompts, do in markdown
-		vim.g.copilot_filetypes = { ["TelescopePrompt"] = 0, ["markdown"] = 1 }
-
-		-- Use C-j to accept solutions
-		vim.keymap.set(
-			"i",
-			"<C-j>",
-			[[copilot#Accept("<CR>")]],
-			{ remap = false, silent = true, script = true, expr = true, replace_keycodes = false }
-		)
-
-		-- Custom mapping to <leader>c group
-		vim.keymap.set("n", "<leader>Cl", ":Copilot panel<CR>", { desc = "Open [C]opilot [l]ist" })
-		vim.keymap.set("n", "<leader>Ce", ":Copilot enable<CR>", { desc = "[C]opilot: [E]nable" })
-		vim.keymap.set("n", "<leader>Cd", ":Copilot disable<CR>", { desc = "[C]opilot: [D]isable" })
+		-- Custom mapping to <leader>C group
 		vim.keymap.set("n", "<leader>Cs", ":Copilot status<CR>", { desc = "Show [C]opilot [s]tatus" })
+		vim.keymap.set("n", "<leader>Cv", ":Copilot version<CR>", { desc = "Show [C]opilot [v]ersion" })
+		vim.keymap.set("n", "<leader>Cl", ":Copilot panel<CR>", { desc = "Open [C]opilot [l]ist" })
+		vim.keymap.set("n", "<leader>Ca", function()
+			require("copilot.suggestion").toggle_auto_trigger()
+		end, { desc = "Toggle [C]opilot [a]uto-trigger" })
+		vim.keymap.set("n", "<leader>CC", ":Copilot toggle<CR>", { desc = "Toggle [C]opilot" })
+		vim.keymap.set("n", "<leader>Cd", ":CopilotDetach<CR>", { desc = "[D]etach [C]opilot from buffer" })
+		vim.keymap.set("n", "<leader>CS", ":CopilotStop<CR>", { desc = "[S]top [C]opilot" })
+	end,
+	config = function()
+		require("copilot").setup({
+			panel = {
+				enabled = true,
+				auto_refresh = false,
+				keymap = {
+					jump_prev = "[[",
+					jump_next = "]]",
+					accept = "<CR>",
+					refresh = "gr",
+					open = false,
+				},
+			},
+			suggestion = {
+				enabled = true,
+				auto_trigger = false,
+				keymap = {
+					accept = "<C-j>",
+					accept_word = false,
+					accept_line = false,
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>",
+				},
+			},
+			filetypes = { TelescopePrompt = false, markdown = true, yaml = true },
+		})
 	end,
 }
