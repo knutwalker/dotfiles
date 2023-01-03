@@ -1,17 +1,33 @@
 return {
 	{
-		"mbbill/undotree",
-		cmd = "UndotreeToggle",
-		init = function()
-			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle [U]ndo tree" })
-		end,
-	},
-
-	{
 		"tpope/vim-fugitive",
 		cmd = "Git",
 		init = function()
 			vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "[G]it [S]tatus" })
+		end,
+	},
+
+	{ "tpope/vim-unimpaired", event = "BufReadPre" },
+
+	{ "tpope/vim-obsession", event = "VeryLazy" },
+
+	{ "makerj/vim-pdf", ft = "pdf" },
+
+	{ "editorconfig/editorconfig-vim", event = "BufReadPre" },
+
+	{ "mg979/vim-visual-multi", branch = "master", event = "BufReadPre" },
+
+	{ "numToStr/Comment.nvim", config = true },
+
+	{ "dstein64/vim-startuptime", cmd = "StartupTime" },
+
+	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
+
+	{
+		"mbbill/undotree",
+		cmd = "UndotreeToggle",
+		init = function()
+			vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "Toggle [U]ndo tree" })
 		end,
 	},
 
@@ -27,18 +43,6 @@ return {
 			})
 		end,
 	},
-
-	{
-		"numToStr/Comment.nvim",
-		config = true,
-	},
-
-	{
-		"dstein64/vim-startuptime",
-		cmd = "StartupTime",
-	},
-
-	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
 
 	{
 		"folke/which-key.nvim",
@@ -64,12 +68,5 @@ return {
 		end,
 	},
 
-	{ "tpope/vim-unimpaired", event = "BufReadPre" },
-	{ "tpope/vim-obsession", event = "VeryLazy" },
 
-	{ "makerj/vim-pdf", ft = "pdf" },
-
-	{ "editorconfig/editorconfig-vim", event = "BufReadPre" },
-
-	{ "mg979/vim-visual-multi", branch = "master", event = "BufReadPre" },
 }
