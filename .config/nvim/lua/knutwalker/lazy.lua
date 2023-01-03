@@ -20,6 +20,10 @@ require("lazy").setup("knutwalker.plugins", {
 		-- do not automatically check for plugin updates
 		enabled = false,
 	},
+	change_detection = {
+		-- Don't notify when changes are found
+		notify = false,
+	},
 	performance = {
 		rtp = {
 			disabled_plugins = {
