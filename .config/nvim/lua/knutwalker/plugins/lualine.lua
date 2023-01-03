@@ -62,7 +62,7 @@ return {
 			tabline = {},
 			winbar = {},
 			inactive_winbar = {},
-			extensions = { "fugitive", "fzf", "nvim-dap-ui", "quickfix" },
+			extensions = { "fugitive", "neo-tree", "nvim-dap-ui", "symbols-outline", "quickfix" },
 		})
 	end,
 }
