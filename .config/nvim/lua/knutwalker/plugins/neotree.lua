@@ -11,11 +11,11 @@ return {
 	},
 	keys = {
 		{
-			"<leader><leader>",
+			"<leader>t",
 			function()
 				require("neo-tree.command").execute({ toggle = true })
 			end,
-			desc = "Open [F]ile[t]ree",
+			desc = "Open File[t]ree",
 		},
 	},
 	config = {

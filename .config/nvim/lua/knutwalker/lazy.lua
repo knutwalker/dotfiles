@@ -20,20 +20,14 @@ require("lazy").setup("knutwalker.plugins", {
 		-- do not automatically check for plugin updates
 		enabled = false,
 	},
-	-- performance = {
-	-- 	rtp = {
-	-- 		disabled_plugins = {
-	-- 			"gzip",
-	-- 			"matchit",
-	-- 			"matchparen",
-	-- 			"netrwPlugin",
-	-- 			"tarPlugin",
-	-- 			"tohtml",
-	-- 			"tutor",
-	-- 			"zipPlugin",
-	-- 		},
-	-- 	},
-	-- },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"netrwPlugin",
+				"matchparen",
+			},
+		},
+	},
 })
 vim.keymap.set("n", "<leader>lz", "<cmd>:Lazy<cr>")
 vim.keymap.set("n", "<leader>ly", "<cmd>:Lazy<cr>")

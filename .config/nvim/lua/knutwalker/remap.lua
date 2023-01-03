@@ -8,7 +8,6 @@ local bind = vim.keymap.set
 bind({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- Explore opened folder
-bind("n", "<leader>pv", vim.cmd.Ex, { desc = "Open [P]roject [V]iew" })
 
 -- move things around in visual mode
 bind("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
@@ -36,8 +35,8 @@ bind("n", "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
 bind("v", "<leader>y", '"+y', { desc = "[Y]ank to system clipboard" })
 bind("n", "<leader>Y", '"+Y', { desc = "[Y]ank to system clipboard" })
 
-bind("n", "<leader>pp", '"+p', { desc = "[P]aste from system clipboard" })
-bind("v", "<leader>pp", '"+p', { desc = "[P]aste from system clipboard" })
+bind("n", "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
+bind("v", "<leader>p", '"+p', { desc = "[P]aste from system clipboard" })
 bind("n", "<leader>P", '"+P', { desc = "[P]aste from system clipboard" })
 bind("v", "<leader>P", '"+P', { desc = "[P]aste from system clipboard" })
 
