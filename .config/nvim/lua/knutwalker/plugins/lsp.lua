@@ -11,7 +11,6 @@ return {
 		"simrat39/rust-tools.nvim",
 
 		-- Formatting
-
 		"jose-elias-alvarez/null-ls.nvim",
 		"jayp0521/mason-null-ls.nvim",
 
@@ -20,7 +19,6 @@ return {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-nvim-lsp-signature-help",
 		"hrsh7th/cmp-nvim-lua",
 		"petertriho/cmp-git",
 		"hrsh7th/cmp-emoji",
@@ -325,6 +323,35 @@ return {
 		})
 
 		-- Actually setup completions
+		local types = require("cmp.types")
+		local kinds = types.lsp.CompletionItemKind
+		local kind_mapping = {
+			[kinds.Variable] = 1,
+			[kinds.Method] = 1,
+			[kinds.Function] = 1,
+			[kinds.Field] = 1,
+			[kinds.Property] = 1,
+			[kinds.EnumMember] = 1,
+			[kinds.Constant] = 1,
+			[kinds.Constructor] = 1,
+			[kinds.Class] = 1,
+			[kinds.Enum] = 1,
+			[kinds.Struct] = 1,
+			[kinds.Interface] = 1,
+			[kinds.TypeParameter] = 1,
+			[kinds.Module] = 1,
+			[kinds.Keyword] = 1,
+			[kinds.Unit] = 1,
+			[kinds.Value] = 1,
+			[kinds.Color] = 2,
+			[kinds.File] = 2,
+			[kinds.Reference] = 2,
+			[kinds.Folder] = 2,
+			[kinds.Event] = 2,
+			[kinds.Operator] = 2,
+			[kinds.Snippet] = 24,
+			[kinds.Text] = 25,
+		}
 		lsp.setup_nvim_cmp({
 			mapping = cmp_mappings,
 			-- Do not preselect an item from the completions
@@ -347,22 +374,48 @@ return {
 					ellipsis_char = "…",
 					preset = "default",
 					menu = {
-						buffer = "[buf]",
 						nvim_lsp = "[lsp]",
-						nvim_lsp_signature_help = "[sig]",
 						nvim_lua = "[lua]",
 						luasnip = "[snip]",
-						path = "[path]",
-						git = "[git]",
+						crates = "[crates]",
 						emoji = "[🙈]",
+						git = "[git]",
+						path = "[path]",
+						buffer = "[buf]",
 					},
 				}),
+			},
+
+			-- Try to modify the order of suggested items
+			sorting = {
+				priority_weight = 2,
+				comparators = {
+
+					-- cmp.config.compare.exact,
+					cmp.config.compare.locality,
+					cmp.config.compare.recently_used,
+					cmp.config.compare.sort_text,
+
+					function(entry1, entry2)
+						local kind1 = kind_mapping[entry1:get_kind()]
+						local kind2 = kind_mapping[entry2:get_kind()]
+						local diff = kind1 - kind2
+						if diff < 0 then
+							return true
+						elseif diff > 0 then
+							return false
+						end
+					end,
+
+					cmp.config.compare.score,
+					cmp.config.compare.offset,
+					cmp.config.compare.order,
+				},
 			},
 
 			-- setup completion sources
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "nvim_lsp_signature_help" },
 				{ name = "nvim_lua" },
 				{ name = "luasnip" },
 				{ name = "crates" },
