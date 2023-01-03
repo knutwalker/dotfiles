@@ -65,7 +65,7 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="cd ${HOME}/dev; bfs -type d -nohidden | sed s*^\.*${HOME}/dev*"
-bind -x '"\C-x\C-p": vim $(fzf);'
+# bind -x '"\C-x\C-p": vim $(fzf);'
 
 # fw: https://github.com/brocode/fw/blob/b797b3c51e1400400b2d9b5c2b602b7c733e4f5b/doc/installation.org
 # if [[ -x "$(command -v fw)" ]]; then
