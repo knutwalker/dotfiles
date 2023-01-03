@@ -532,6 +532,8 @@ return {
 					expressionAdjustmentHints = { enable = "reborrow" },
 					lifetimeElisionHints = { enable = "skip_trivial", useParameterNames = true },
 					maxLength = 42,
+					-- Fix for https://github.com/simrat39/rust-tools.nvim/issues/300
+					locationLinks = false,
 				},
 				lens = { references = { method = { enable = true }, trait = { enable = true } } },
 				procMacro = { attributes = { enable = true }, enable = true },
