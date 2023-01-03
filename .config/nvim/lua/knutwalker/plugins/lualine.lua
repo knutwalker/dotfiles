@@ -30,6 +30,15 @@ return {
 						"filename",
 						path = 1, -- show relative path to project root
 					},
+					{
+						function()
+							local ret = require("nvim-navic").get_location()
+							return ret:len() > 2000 and "navic error" or ret
+						end,
+						cond = function()
+							return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+						end,
+					},
 				},
 				lualine_x = {
 					{

@@ -39,6 +39,9 @@ return {
 			url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		},
 
+		-- File location
+		{ "SmiteshP/nvim-navic", lazy = true },
+
 		-- LSP Signature
 		{ "ray-x/lsp_signature.nvim", config = true },
 	},
@@ -227,6 +230,7 @@ return {
 			end
 
 			if capabilities.documentSymbolProvider then
+				require("nvim-navic").attach(client, bufnr)
 				bind("<leader>s", telescope.lsp_document_symbols, "Search [s]ymbols in this file")
 			end
 
