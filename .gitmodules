@@ -4,3 +4,6 @@
 [submodule ".local/share/nvim/vscode_snippets/trusty_rusty_snippets"]
 	path = .local/share/nvim/vscode_snippets/trusty_rusty_snippets
 	url = https://github.com/polypus74/trusty_rusty_snippets
+[submodule ".config/nvim"]
+	path = .config/nvim
+	url = https://github.com/knutwalker/init.lua.git
