@@ -68,5 +68,13 @@ return {
 		end,
 	},
 
+	{
+		"simrat39/symbols-outline.nvim",
+		cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
+		init = function()
+			vim.keymap.set({ "n", "v", "i" }, "<F12>", "<cmd>SymbolsOutline<CR>", { desc = "Symbols outline" })
+		end,
+		config = true,
+	},
 
 }
