@@ -25,7 +25,12 @@ return {
 			sections = {
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = { { "filename", path = 1, file_status = true } },
+				lualine_c = {
+					{
+						"filename",
+						path = 1, -- show relative path to project root
+					},
+				},
 				lualine_x = {
 					{
 						"encoding",
@@ -44,7 +49,7 @@ return {
 					},
 				},
 				lualine_y = { "progress" },
-				lualine_z = { { "location", separator = "" }, "ObsessionStatus" },
+				lualine_z = { { "location", separator = "", padding = 0 }, "ObsessionStatus" },
 			},
 			inactive_sections = {
 				lualine_a = {},
