@@ -10,3 +10,6 @@
 [submodule ".bash.rc"]
 	path = .bash.rc
 	url = https://github.com/knutwalker/bashrc.git
+[submodule "git-coprs"]
+	path = git-coprs
+	url = https://github.com/knutwalker/git-coprs.git
