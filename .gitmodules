@@ -7,3 +7,6 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = https://github.com/knutwalker/init.lua.git
+[submodule ".bash.rc"]
+	path = .bash.rc
+	url = https://github.com/knutwalker/bashrc.git
