@@ -13,3 +13,6 @@
 [submodule "git-coprs"]
 	path = git-coprs
 	url = https://github.com/knutwalker/git-coprs.git
+[submodule ".local/share/nvim/lox/tree-sitter-lox"]
+	path = .local/share/nvim/lox/tree-sitter-lox
+	url = https://github.com/otherJL0/tree-sitter-lox.git
