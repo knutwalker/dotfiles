@@ -16,3 +16,12 @@
 [submodule ".local/share/nvim/lox/tree-sitter-lox"]
 	path = .local/share/nvim/lox/tree-sitter-lox
 	url = https://github.com/otherJL0/tree-sitter-lox.git
+[submodule ".local/share/nvim/java-debug"]
+	path = .local/share/nvim/java-debug
+	url = https://github.com/microsoft/java-debug.git
+[submodule ".local/share/nvim/vscode-java-test"]
+	path = .local/share/nvim/vscode-java-test
+	url = https://github.com/microsoft/vscode-java-test.git
+[submodule ".local/share/nvim/just/tree-sitter-just"]
+	path = .local/share/nvim/just/tree-sitter-just
+	url = https://github.com/IndianBoy42/tree-sitter-just.git
