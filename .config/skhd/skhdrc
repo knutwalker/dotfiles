@@ -24,6 +24,9 @@ ctrl + alt - 0x18 : yabai -m space --balance
 # Maximize window with Ctrl+Alt+M
 ctrl + alt - m : yabai -m window --toggle zoom-fullscreen
 
+# Minimize window with Ctrl+Alt+B
+ctrl + alt - b : yabai -m window --minimize
+
 # Toggle floating window with Ctrl+Alt+T
 ctrl + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
