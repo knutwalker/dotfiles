@@ -9,7 +9,7 @@ function doIt() {
 		--exclude ".DS_Store" \
 		--exclude ".osx" \
 		--exclude ".editorconfig" \
-		--exclude "bootstrap.sh" \
+		--exclude "sync-to-home.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
 		-avh --no-perms . ~;
