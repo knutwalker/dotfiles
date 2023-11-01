@@ -1,3 +1,4 @@
+[misc]
 # Additional git repositories to pull
 #git_repos = [
 #    "~/src/*/",
@@ -5,7 +6,11 @@
 #]
 
 # Disable specific steps - same options as the command line flag
-disable = ["system", "gem", "node", "tmux", "conda", "vim", "ruby_gems", "pip3" ]
+disable = ["system", "gem", "node", "tmux", "conda", "vim", "vscode", "ruby_gems", "pip3" ]
+
+# don't notify at the end
+# https://github.com/topgrade-rs/topgrade/issues/288
+skip_notify = true
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
