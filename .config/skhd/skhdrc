@@ -18,7 +18,7 @@ ctrl + alt - 0x1B : yabai -m space --mirror x-axis
 # Rotate layout clockwise with Ctrl+Alt+R
 ctrl + alt - r : yabai -m space --rotate 270
 
-# Balance window splits with Ctrl+Alt+=
+# Balance window splits with Ctrl+Alt
 ctrl + alt - 0x18 : yabai -m space --balance
 
 # Maximize window with Ctrl+Alt+M
