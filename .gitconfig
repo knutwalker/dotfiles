@@ -266,6 +266,9 @@
 	# https://help.github.com/articles/signing-commits-using-gpg/
 	gpgsign = true
 
+	# Always do verbose commits
+	verbose = true
+
 [delta]
 
 	syntax-theme = OneHalfDark
