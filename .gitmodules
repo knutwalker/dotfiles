@@ -25,3 +25,6 @@
 [submodule ".local/share/nvim/just/tree-sitter-just"]
 	path = .local/share/nvim/just/tree-sitter-just
 	url = https://github.com/IndianBoy42/tree-sitter-just.git
+[submodule ".local/share/alacritty/themes"]
+	path = .local/share/alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme.git
