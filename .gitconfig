@@ -286,6 +286,7 @@
 	external = difft
 
 	tool = Kaleidoscope
+
 [diff "bin"]
 
 	# Use `hexdump` to diff binary files
@@ -305,6 +306,7 @@
 	conflictstyle = diff3
 
 	tool = Kaleidoscope
+
 [push]
 
 	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault
@@ -359,15 +361,16 @@
 
 	defaultBranch = main
 
+[difftool]
+	prompt = false
+
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
-[difftool]
+[mergetool]
 	prompt = false
 
 [mergetool "Kaleidoscope"]
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustExitCode = true
 
-[mergetool]
-	prompt = false
