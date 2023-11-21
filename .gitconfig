@@ -85,7 +85,8 @@
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
-	ls = !git checkout $(git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads | pick | cut -f2)
+	ls = !git checkout $(git for-each-ref --sort='-authordate:iso8601' --no-merged=master --omit-empty --format='%(if)%(HEAD)%(then)%(else)%(objectname) %(refname:short)%(end)' refs/heads | fzf --nth=2 --with-nth=2 --preview='git preview {2}' | cut -d' ' -f2)
+	preview = show --no-patch --format='format:     Sha: %H%n    Name: %D%n Version: %(describe:tags=true)%nAuthored: %ar (%ai)%n  Author: %aN <%aE>%n          %(trailers:key=Co-Authored-By,valueonly,separator=%x0A%          )%n%n%s%n%n%-N'
 
 	# List aliases
 	aliases = config --get-regexp alias
