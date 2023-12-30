@@ -1,3 +1,10 @@
 # Automatically normalize line endings for all text-based files
 #* text=auto
 # Disabled because of https://github.com/mathiasbynens/dotfiles/issues/149 :(
+
+# https://github.com/your-tools/lockdiff
+Cargo.lock diff=lockdiff
+composer.lock diff=lockdiff
+poetry.lock diff=lockdiff
+package-lock.json diff=lockdiff
+yarn.lock diff=lockdiff

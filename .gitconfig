@@ -298,6 +298,10 @@
 	# Use `hexdump` to diff binary files
 	textconv = hexdump -v -C
 
+[diff "lockdiff"]
+	# https://github.com/your-tools/lockdiff
+	textconv = lockdiff
+
 [help]
 
 	# Automatically correct and execute mistyped commands
