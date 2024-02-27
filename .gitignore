@@ -12,37 +12,6 @@
 #
 #
 
-# Numerous always-ignore extensions
-*.gz
-*.bz2
-*.lzma
-*.patch
-*.pyc
-*.diff
-*.err
-*.orig
-*.log
-*.rej
-*.swo
-*.swp
-*.vi
-*~
-*.sass-cache
-
-# Editor files
-.cache
-.project
-.settings
-.tmproj
-nbproject
-*.sublime-project
-*.sublime-workspace
-External Libraries
-*.iml
-*.ipr
-*.iws
-atlassian-ide-plugin.xml
-
 # Folder view configuration files
 .DS_Store
 Desktop.ini
@@ -54,22 +23,3 @@ Thumbs.db
 # Files that might appear on external disks
 .Spotlight-V100
 .Trashes
-
-# Dreamweaver added files
-_notes
-dwsync.xml
-
-# Folders to ignore
-.hg
-.svn
-.CVS
-
-#
-# git files that we don't want to ignore even it they are dot-files
-#
-!.gitignore
-
-# Vim session file
-Session.vim
-
-\#*#
