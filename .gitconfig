@@ -291,6 +291,8 @@
 	# https://difftastic.wilfred.me.uk/git.html
 	external = difft
 
+	algorithm = histogram
+
 	tool = Kaleidoscope
 
 [diff "bin"]
