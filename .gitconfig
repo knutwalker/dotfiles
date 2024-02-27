@@ -324,6 +324,8 @@
 
 	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault
 	default = simple
+	autoSetupRemote = true
+
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
 
