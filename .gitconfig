@@ -313,9 +313,10 @@
 
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+
 	# Use three-way conflict style merges
 	#  https://blog.nilbus.com/take-the-pain-out-of-git-conflict-resolution-use-diff3/
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 
 	tool = Kaleidoscope
 
