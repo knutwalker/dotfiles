@@ -334,6 +334,11 @@
 	# Use rebase strategy for pulls by default
 	rebase = true
 
+[rebase]
+
+	autosquash = true
+	autostash = true
+
 [interactive]
 
 	# Don't require to press Enter when doing an interactive add
