@@ -339,6 +339,9 @@
 	autosquash = true
 	autostash = true
 
+	# https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
+	updateRefs = true
+
 [interactive]
 
 	# Don't require to press Enter when doing an interactive add
