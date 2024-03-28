@@ -464,7 +464,7 @@ live_config_reload: true
 #working_directory: None
 
 # Offer IPC using `alacritty msg` (unix only)
-#ipc_socket: true
+ipc_socket: true
 
 #mouse:
   # Click settings
