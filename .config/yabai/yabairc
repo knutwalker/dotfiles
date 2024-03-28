@@ -39,4 +39,6 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Kaleidoscope$" manage=off
 yabai -m rule --add app="^krisp$" manage=off
 yabai -m rule --add app="^JetBrains Toolbox$" manage=off
+yabai -m rule --add app="^IntelliJ IDEA$" title="^[^-]+$" manage=off
 yabai -m rule --add app="^Arc$" title="^$" mouse_follows_focus=off
+
