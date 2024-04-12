@@ -40,3 +40,7 @@ decorations = "buttonless"
 dynamic_title = true
 option_as_alt = "OnlyLeft"
 startup_mode = "Windowed"
+
+[shell]
+program = "/opt/homebrew/bin/bash"
+args = ["--login", "-c", "/usr/local/bin/sessionizer"]
