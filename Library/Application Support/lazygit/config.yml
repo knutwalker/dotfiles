@@ -1,0 +1,55 @@
+gui:
+  filterMode: 'fuzzy'
+  sidePanelWidth: 0.3333 # number from 0 to 1
+  timeFormat: '02 Jan 06 15:04 MST' # https://pkg.go.dev/time#Time.Format
+  theme:
+    activeBorderColor:
+      - green
+      - bold
+    inactiveBorderColor:
+      - white
+    searchingActiveBorderColor:
+      - cyan
+      - bold
+    optionsTextColor:
+      - blue
+    selectedLineBgColor:
+      - cyan # set to `default` to have no background colour
+    cherryPickedCommitBgColor:
+      - cyan
+    cherryPickedCommitFgColor:
+      - blue
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - default
+  commitLength:
+    show: true
+  mouseEvents: true
+  showIcons: true
+  nerdFontsVersion: "3"
+  commandLogSize: 8
+  splitDiff: 'auto' # one of 'auto' | 'always'
+git:
+  paging:
+    colorArg: always
+    useConfig: false
+  commit:
+    signOff: false
+    verbose: true
+    autoWrapCommitMessage: false
+    autoWrapWidth: 72
+  overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
+  disableForcePushing: false
+  parseEmoji: false
+  autoFetch: false
+  autoRefresh: false
+os:
+  editPreset: 'nvim'
+  open: 'open {{filename}}'
+update:
+  method: never
+confirmOnQuit: false
+disableStartupPopups: true
+notARepository: 'prompt' # one of: 'prompt' | 'create' | 'skip' | 'quit'
+promptToReturnFromSubprocess: false # display confirmation when subprocess terminates
