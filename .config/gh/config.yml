@@ -22,3 +22,4 @@ aliases:
     pr-2.5: pr create --base=2.5 --label=2.5 --label=cherry-picked
     pr-2.6: pr create --base=2.6 --label=2.6 --label=cherry-picked
     pr-2.7: pr create --base=2.7 --label=2.7 --label=cherry-picked
+version: "1"

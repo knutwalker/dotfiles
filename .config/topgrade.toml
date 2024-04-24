@@ -37,7 +37,7 @@ skip_notify = true
 #yay_arguments = "--nodevel"
 
 # Do not set the terminal title
-#set_title = false
+set_title = false
 # Commands to run before anything
 #[pre_commands]
 #"Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
