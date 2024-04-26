@@ -1,0 +1,318 @@
+let mapleader=" "
+let maplocalleader=","
+
+" big cursor in insert mode
+" set guicursor="n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:block"
+" highlight line with cursor
+set cursorline
+
+" line numbers
+set number
+set relativenumber
+
+" 4 space indentation
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+
+" disable line wrapping
+set nowrap
+
+" undo over backups
+" set noswapfile
+" set nobackup
+" set undodir=vim.fn.stdpath("data") .. "/undodir"
+" set undofile
+
+" search settings
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" pretty and dark colors
+set termguicolors
+set background="dark"
+
+" show whitespace
+set list
+set listchars="space:·,lead:·,trail:·,nbsp:☐,tab:▸ ,extends:❯,precedes:❮"
+
+" always show the sign column
+set signcolumn="yes"
+
+" show columns at 80 and 120 width
+set colorcolumn="80,120"
+
+" Try to keep 8 lines at the bottom
+set scrolloff=8
+" Keep cursor line centered
+" opt.scrolloff=9999
+
+" faster time to trigger CursorHold
+set updatetime=200
+
+" allow backspace over autoindent, line breaks, and beyond start of insert
+set backspace="indent,eol,start"
+
+" always show completion menu and don't select automatically
+set completeopt="menu,menuone,noinsert,noselect,preview"
+
+" yank/paste to/from system clipboard
+" we do this with leader mappings instead
+" opt.clipboard:append('unnamedplus')
+
+" split windows to the right and down by default
+set splitright
+set splitbelow
+
+" include - when jumping over keywords e.g. with w or b
+set iskeyword+="-"
+
+" sync marks and bookmarks
+set ideamarks
+" Use IDE join behavior
+set ideajoin
+
+" plugins
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set exchange
+set highlightedyank
+set textobj-indent
+set quickscope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+set which-key
+" Faster timeout for mapped sequences, also when which-key is triggered
+set notimeout
+
+" Set VIM mode for some C- key bindings
+sethandler <C-A> a:vim
+sethandler <C-D> a:vim
+sethandler <C-J> a:vim
+sethandler <C-K> a:vim
+sethandler <C-N> a:vim
+sethandler <C-O> a:vim
+sethandler <C-P> a:vim
+sethandler <C-T> a:vim
+sethandler <C-V> a:vim
+sethandler <C-W> a:vim
+
+" Set IDE mode for come C- key bindings
+sethandler <C-Tab> a:ide
+sethandler <C-G> a:ide
+sethandler <C-L> a:ide
+sethandler <C-S> a:ide
+
+" Use IDE behavior for C-i, C-o, C-r in insert mode, use VIM behavior in other modes
+sethandler <C-I> n-x-v:vim i:ide
+sethandler <C-R> n-x-v:vim i:ide
+
+" Keep selection when indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Keep cursor in the middle of the screen when jumping around
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Paste with <leader>v without losing content of the paste register
+nnoremap <leader>v "_dP
+nnoremap <leader>V "_dp
+vnoremap <leader>v "_dP
+vnoremap <leader>V "_dp
+xnoremap <leader>v "_dP
+xnoremap <leader>V "_dp
+
+" paste with p or P and move cursor to the end of the pasted text
+nnoremap p gp
+nnoremap P gP
+vnoremap p gp
+vnoremap P gP
+xnoremap p gp
+xnoremap P gP
+nnoremap gp p
+nnoremap gP P
+vnoremap gp p
+vnoremap gP P
+xnoremap gp p
+xnoremap gP P
+
+" yank and paste to and from the system clipboard
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+vnoremap <leader>Y "+Y
+
+nnoremap <leader>p "+gp
+vnoremap <leader>p "+gp
+nnoremap <leader>P "+gP
+vnoremap <leader>P "+gP
+
+" delete to the system clipboard
+nnoremap <leader>d "+d
+vnoremap <leader>d "+d
+
+" always trigger ESC when Ctrl-C is pressed
+inoremap <C-c> <ESC>
+
+" use 0 to go to the first non-ws character
+nnoremap 0 ^
+
+" save in insert mode
+inoremap <C-s> <CMD>:w<CR><ESC>
+nnoremap <C-s> <CMD>:w<CR><ESC>
+
+" Add undo break-points for , and . and ; and :
+" Unfortunately, C-g doesn't seem to be supported in IDEA vim
+" inoremap , ,<C-g>u
+" inoremap . .<C-g>u
+" inoremap ; ;<C-g>u
+" inoremap : :<C-g>u
+" inoremap <space> <space><C-g>u
+
+
+" Never press Q
+nnoremap Q <nop>
+
+" escape to remove highlighting
+nnoremap <ESC> :nohl<CR>
+
+" delete with x without copying into register
+nnoremap x "_x
+
+" space + and space - to increment/decrement
+nnoremap <leader>= <C-a>
+nnoremap <leader>- <C-x>
+
+" switch to most recently used buffer
+nnoremap <leader>` :e #<CR>
+
+" window management with space w in addition to C-w
+nnoremap <leader>w <C-w>
+
+" tab management with space tab
+nnoremap <leader><tab><tab> <CMD>:tabnew<CR>
+nnoremap <leader><tab>n <CMD>:tabn<CR>
+nnoremap <leader><tab>p <CMD>:tabp<CR>
+nnoremap <leader><tab>] <CMD>:tabn<CR>
+nnoremap <leader><tab>[ <CMD>:tabp<CR>
+nnoremap <leader><tab>f <CMD>:tabfirst<CR>
+nnoremap <leader><tab>l <CMD>:tablast<CR>
+nnoremap <leader><tab>c <CMD>:tabclose<CR>
+nnoremap <leader><tab>x <CMD>:tabclose<CR>
+nnoremap <leader><tab><space> <CMD>:tabs<CR>
+
+" navigate the quickfix list
+nnoremap <leader>qn <CMD>:cnext<CR>zz
+nnoremap <leader>qp <CMD>:cprev<CR>zz
+nnoremap <leader>qo <CMD>:copen<CR>
+nnoremap <leader>qq <CMD>:cclose<CR>
+nnoremap <leader>qc <CMD>:cc<CR>
+
+" navigate the location list
+nnoremap <leader>ln <CMD>:lnext<CR>zz
+nnoremap <leader>lp <CMD>:lprev<CR>zz
+nnoremap <leader>lo <CMD>:lopen<CR>
+nnoremap <leader>lq <CMD>:lclose<CR>
+nnoremap <leader>ll <CMD>:ll<CR>
+
+" Pane navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
+
+" nmap <c-w>v <Action>(SplitVertically)
+" nmap <c-w>s <Action>(SplitHorizontally)
+" nmap <c-w>W <Action>(MoveEditorToOppositeTabGroup)
+" nmap <c-w>w <Action>(NextWindow)
+" nmap <leader>q <Action>(CloseContent)
+" nmap <leader>Q <Action>(CloseAllEditors)
+nmap <leader>x <Action>(CloseContent)
+
+nmap ]d <Action>(GotoNextError) \| <Action>(ShowErrorDescription)
+nmap [d <Action>(GotoPreviousError) \| <Action>(ShowErrorDescription)
+nmap ]h <Action>(VcsShowNextChangeMarker)
+nmap [h <Action>(VcsShowPrevChangeMarker)
+nmap ]m <Action>(MethodDown)
+nmap [m <Action>(MethodUp)
+
+nmap <leader>ra <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>r/ <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>rr <Action>(RenameElement)
+nmap <leader>rt <Action>(SurroundWith)
+nmap <leader>rv <Action>(IntroduceVariable)
+nmap <leader>rm <Action>(ExtractMethod)
+nmap <leader>rf <Action>(IntroduceField)
+nmap <leader>rp <Action>(IntroduceParameter)
+nmap <leader>rc <Action>(IntroduceConstant)
+nmap <leader>lf <Action>(ReformatCode)
+
+nmap <leader>e <Action>(RecentFiles)
+nmap <leader>E <Action>(RecentLocations)
+
+nmap gr <Action>(ShowUsages)
+nmap gR <Action>(FindUsages)
+nmap gi <Action>(GotoImplementation)
+nmap gd <Action>(GotoDeclaration)
+nmap gT <Action>(GotoTest)
+nmap gp <Action>(GotoSuperMethod)
+nmap gy <Action>(GotoTypeDeclaration)
+
+nmap <leader>S <Action>(GotoClass)
+nmap <leader>s <Action>(FileStructurePopup)
+nmap <leader>/ <Action>(GotoFile)
+nmap <leader>F <Action>(FindInPath)
+nmap <leader>: <Action>(GotoSymbol)
+nmap <leader>A <Action>(GotoAction)
+nmap <leader>? <Action>(SearchEverywhere)
+nmap <leader>t <Action>(ActivateProjectToolWindow)
+nmap <leader>T <Action>(HideActiveWindow)
+
+nmap <leader>a <Action>(ShowIntentionActions)
+nmap <leader><CR> <Action>(ShowIntentionActions)
+
+nmap <leader>b <Action>(CompileDirty)
+nmap <leader>R <Action>(ChooseRunConfiguration)
+nmap <leader><space> <Action>(RunClass)
+
+nmap <leader>gg <Action>(Vcs.QuickListPopupAction)
+nmap <leader>gs <Action>(ChangesView.AddUnversioned)
+nmap <leader>ga <Action>(ChangesView.AddUnversioned)
+nmap <leader>gh <Action>(Github.Open.In.Browser)
+nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
+nmap <leader>gR <Action>(ChangesView.Revert)
+
+nmap <S-K> <Action>(ShowHoverInfo)
+nmap <S-H> <Action>(QuickJavaDoc)
+nmap <S-Y> <Action>(ExpressionTypeInfo)
+
+nmap <leader>uh <Action>(ToggleInlayHintsGloballyAction)
+nmap <leader>uy <Action>(CopyReferencePopupGroup)
+
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+" Does not work on column selection mode
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+nmap <C-x> <Plug>SkipOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+nmap <C-p> <Plug>RemoveOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+" Alternatively use the Unicode hex keyboard in macOS
+nmap <S-C-n> <Plug>AllWholeOccurrences
+xmap <S-C-n> <Plug>AllWholeOccurrences
+nmap g<S-C-n> <Plug>AllOccurrences
+xmap g<S-C-n> <Plug>AllOccurrences
