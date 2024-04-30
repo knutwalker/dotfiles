@@ -281,8 +281,18 @@ nmap <leader>a <Action>(ShowIntentionActions)
 nmap <leader><CR> <Action>(ShowIntentionActions)
 
 nmap <leader>b <Action>(CompileDirty)
-nmap <leader>R <Action>(ChooseRunConfiguration)
-nmap <leader><space> <Action>(RunClass)
+
+nmap <leader><space>r <Action>(RunClass)
+nmap <leader><space>R <Action>(ChooseRunConfiguration)
+nmap <leader><space>d <Action>(DebugClass)
+nmap <leader><space>D <Action>(ChooseDebugConfiguration)
+nmap <leader><space>t <Action>(RerunFailedTests)
+
+nmap <leader><space>b <Action>(ToggleLineBreakpoint)
+nmap <leader><space>B <Action>(ToggleBreakpointEnabled)
+nmap <leader><space>? <Action>(EditBreakpoint)
+nmap <leader><space>/ <Action>(ViewBreakpoints)
+
 
 nmap <leader>gg <Action>(Vcs.QuickListPopupAction)
 nmap <leader>gs <Action>(ChangesView.AddUnversioned)
