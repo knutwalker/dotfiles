@@ -293,13 +293,12 @@ nmap <leader><space>B <Action>(ToggleBreakpointEnabled)
 nmap <leader><space>? <Action>(EditBreakpoint)
 nmap <leader><space>/ <Action>(ViewBreakpoints)
 
-
 nmap <leader>gg <Action>(Vcs.QuickListPopupAction)
-nmap <leader>gs <Action>(ChangesView.AddUnversioned)
-nmap <leader>ga <Action>(ChangesView.AddUnversioned)
-nmap <leader>gh <Action>(Github.Open.In.Browser)
-nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
-nmap <leader>gR <Action>(ChangesView.Revert)
+nmap <leader>go <Action>(Github.Open.In.Browser)
+nmap <leader>ghS <Action>(ChangesView.AddUnversioned)
+nmap <leader>ghA <Action>(ChangesView.AddUnversioned)
+nmap <leader>ghr <Action>(Vcs.RollbackChangedLines)
+nmap <leader>ghR <Action>(ChangesView.Revert)
 
 nmap <S-K> <Action>(ShowHoverInfo)
 nmap <S-H> <Action>(QuickJavaDoc)
