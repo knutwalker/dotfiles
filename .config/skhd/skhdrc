@@ -49,8 +49,8 @@ ctrl + cmd + alt - k : yabai -m window --warp north
 ctrl + cmd + alt - l : yabai -m window --warp east
 
 # Move windows to spaces with Ctrl+Shift+Alt+NP
-ctrl + shift + alt - n : yabai -m window --space next || yabai -m window --space first
-ctrl + shift + alt - p : yabai -m window --space prev || yabai -m window --space last
+ctrl + shift + alt - n : (yabai -m window --space next || yabai -m window --space first) && yabai -m window --focus recent
+ctrl + shift + alt - p : (yabai -m window --space prev || yabai -m window --space last) &&  yabai -m window --focus recent
 
 # Move windows to specfic space # with Cttrl+Shift+Alt+1-9
 ctrl + shift + alt - 0x12 : yabai -m window --space 1
