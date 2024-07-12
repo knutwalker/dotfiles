@@ -1,6 +1,4 @@
-import = [
-  "~/.local/share/alacritty/themes/themes/kanagawa_wave.toml",
-]
+import = ["~/.local/share/alacritty/themes/themes/kanagawa_wave.toml"]
 ipc_socket = true
 live_config_reload = true
 
@@ -43,4 +41,4 @@ startup_mode = "Windowed"
 
 [shell]
 program = "/opt/homebrew/bin/bash"
-args = ["--login", "-c", "/usr/local/bin/sessionizer; exec bash --login"]
+args = ["--login", "-c", "sessionizer; exec bash --login"]
