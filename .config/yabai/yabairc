@@ -41,4 +41,4 @@ yabai -m rule --add app="^krisp$" manage=off
 yabai -m rule --add app="^JetBrains Toolbox$" manage=off
 yabai -m rule --add app="^IntelliJ IDEA$" title="^[^-]+$" manage=off
 yabai -m rule --add app="^Arc$" title="^$" mouse_follows_focus=off
-
+yabai -m rule --add app="^Orion$" title="^(General|Appearance|Tabs|Browsing|Sync|Passwords|Search|Privacy|Websites|Advanced|Plus)$" manage=off
