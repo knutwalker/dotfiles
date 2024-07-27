@@ -1,10 +1,12 @@
+# The current version of the config schema
+version: 1
 # What protocol to use when performing git operations. Supported values: ssh, https
 git_protocol: ssh
 # What editor gh should run when creating issues, pull requests, etc. If blank, will refer to environment.
 editor:
 # When to interactively prompt. This is a global config that cannot be overridden by hostname. Supported values: enabled, disabled
 prompt: enabled
-# A pager program to send command output to, e.g. "less". Set the value to "cat" to disable the pager.
+# A pager program to send command output to, e.g. "less". If blank, will refer to environment. Set the value to "cat" to disable the pager.
 pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
@@ -14,12 +16,8 @@ aliases:
     eyes: api -H Accept:application/vnd.github.squirrel-girl-preview+json repos/:owner/:repo/issues/$1/reactions --raw-field content=eyes
     tada: api -H Accept:application/vnd.github.squirrel-girl-preview+json repos/:owner/:repo/issues/$1/reactions --raw-field content=hooray
     prd: api repos/:owner/:repo/pulls/$1
-    pr-engine: pr create --label=EngineGroup
-    pr-2.1: pr create --base=2.1 --label=2.1 --label=cherry-picked
-    pr-2.2: pr create --base=2.2 --label=2.2 --label=cherry-picked
-    pr-2.3: pr create --base=2.3 --label=2.3 --label=cherry-picked
-    pr-2.4: pr create --base=2.4 --label=2.4 --label=cherry-picked
-    pr-2.5: pr create --base=2.5 --label=2.5 --label=cherry-picked
-    pr-2.6: pr create --base=2.6 --label=2.6 --label=cherry-picked
-    pr-2.7: pr create --base=2.7 --label=2.7 --label=cherry-picked
-version: "1"
+
+# The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
+http_unix_socket:
+# What web browser gh should use when opening URLs. If blank, will refer to environment.
+browser:
