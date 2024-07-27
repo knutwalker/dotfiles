@@ -14,7 +14,7 @@ gui:
     optionsTextColor:
       - blue
     selectedLineBgColor:
-      - cyan # set to `default` to have no background colour
+      - cyan
     cherryPickedCommitBgColor:
       - cyan
     cherryPickedCommitFgColor:
@@ -25,11 +25,12 @@ gui:
       - default
   commitLength:
     show: true
-  mouseEvents: true
-  showIcons: true
-  nerdFontsVersion: "3"
+  mouseEvents: false
   commandLogSize: 8
   splitDiff: 'auto' # one of 'auto' | 'always'
+  showRandomTip: false
+  showCommandLog: false
+  nerdFontsVersion: "3"
 git:
   paging:
     colorArg: always
@@ -41,7 +42,7 @@ git:
     autoWrapWidth: 72
   overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
   disableForcePushing: false
-  parseEmoji: false
+  parseEmoji: true
   autoFetch: false
   autoRefresh: false
 os:
