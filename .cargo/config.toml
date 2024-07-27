@@ -1,6 +1,6 @@
 [build]
-rustc-wrapper = "sccache"
-target-dir = ".local/share/rustc-target-dir"
+rustc-wrapper = "/opt/homebrew/bin/sccache"
+target-dir = ".cache/cargo/target"
 
 [alias]
 br = "build --release"
@@ -9,6 +9,8 @@ cr = "check --release"
 tr = "test --release"
 m = "make"
 nt = "nextest run"
+w = "watch"
+x = "xtask"
 
 [profile.dev]
 split-debuginfo = "unpacked"
