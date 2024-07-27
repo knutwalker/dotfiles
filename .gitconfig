@@ -176,8 +176,11 @@
 	# create a work-in-progress-point (don't include untracked files)
 	wip = !git add -u && git commit -m WIP
 
-	# undo last commit (e.g. save point)
-	undo = reset HEAD~1 --mixed
+	# undo last commit
+	undo = revert --no-commit HEAD
+
+	# throw away last commit (e.g. save point)
+	throw-away = reset HEAD~1 --mixed
 
 	# wipe current directory, but save state in reflog
 	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
@@ -402,4 +405,3 @@
 
 [gpg "ssh"]
 	allowedSignersFile = "~/.ssh/allowed_signers"
-
