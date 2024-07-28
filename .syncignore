@@ -12,3 +12,4 @@ brew.sh
 cargo-setup.sh
 sync-to-home.sh
 sync.rs
+.aws/config
