@@ -98,7 +98,7 @@ if.app-id = 'com.yubico.yubioath'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.window-title-regex-substring = '^(General|Appearance|Tabs|Browsing|Sync|Passwords|Search|Privacy|Websites|Advanced|Plus|Extensions)$'
+if.window-title-regex-substring = '^(General|Appearance|Tabs|Browsing|Sync|Passwords|Search|Privacy|Websites|Advanced|Plus|Extensions|Completions)$'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -179,15 +179,25 @@ ctrl-shift-alt-j = 'move down'
 ctrl-shift-alt-k = 'move up'
 ctrl-shift-alt-l = 'move right'
 
-# Move workspace to next/previous monitor with Ctrl+Alt+NP
-ctrl-alt-n = 'move-workspace-to-monitor --wrap-around next'
-ctrl-alt-p = 'move-workspace-to-monitor --wrap-around prev'
+# Move node to next/previous monitor with Ctrl+Alt+NP
+ctrl-alt-n = 'move-node-to-monitor --wrap-around next'
+ctrl-alt-p = 'move-node-to-monitor --wrap-around prev'
+
+# Move workspace to next/previous monitor with Ctrl+Alt+ShiftNP
+ctrl-alt-shift-n = 'move-workspace-to-monitor --wrap-around next'
+ctrl-alt-shift-p = 'move-workspace-to-monitor --wrap-around prev'
 
 # Maximize window with Ctrl+Alt+M
 ctrl-alt-m = 'fullscreen'
 
 # Toggle floating window with Ctrl+Alt+T
 ctrl-alt-t = 'layout floating tiling'
+
+# Native maximize window with Ctrl+Alt+F
+ctrl-alt-f = 'macos-native-fullscreen'
+
+# Native minimize window with Ctrl+Alt+Z
+ctrl-alt-z = 'macos-native-minimize'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 ctrl-alt-slash = 'layout tiles horizontal vertical'
@@ -222,18 +232,23 @@ ctrl-alt-8 = ['move-node-to-workspace 8', 'workspace 8']
 ctrl-alt-9 = ['move-node-to-workspace C', 'workspace C']
 ctrl-alt-0 = ['move-node-to-workspace D', 'workspace D']
 
+# Move node to next/previous workspace with Ctrl+Alt+Left/Right
+ctrl-alt-left = 'workspace --wrap-around prev'
+ctrl-alt-right = 'workspace --wrap-around next'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 ctrl-alt-semicolon = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
-esc = ['reload-config', 'mode main']
-r = ['flatten-workspace-tree', 'mode main'] # reset layout
-f = [
-    'layout floating tiling',
+space = [
+    'reload-config',
+    "exec-and-forget osascript -e 'display notification \"Config reloaded\" with title \"Aerospace\"'",
     'mode main',
-] # Toggle between floating and tiling layout
+]
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+f = ['layout floating tiling', 'mode main'] # Toggle layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
 ctrl-alt-h = ['join-with left', 'mode main']
