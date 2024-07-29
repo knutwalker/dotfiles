@@ -25,7 +25,9 @@ use std::{
     fmt::Display,
     fs::{self, Metadata, OpenOptions},
     io::Write as _,
+    num::NonZeroUsize,
     ops::ControlFlow,
+    sync::mpsc::Sender,
 };
 
 use camino::{Utf8Path as Path, Utf8PathBuf as PathBuf};
@@ -57,6 +59,9 @@ fn main() {
 
 fn run(args: Args) -> Result<()> {
     let verbose = args.verbose >= 1;
+    let max_jobs = NonZeroUsize::new(usize::from(args.jobs))
+        .or_else(|| std::thread::available_parallelism().ok())
+        .map_or(1, |x| x.get());
 
     let sh = xshell::Shell::new()?;
     let home = sh.var("HOME")?;
@@ -91,21 +96,59 @@ fn run(args: Args) -> Result<()> {
     };
 
     while !files.is_empty() {
+        let max_workers = files.len().min(max_jobs);
         let current_files = std::mem::take(&mut files);
 
-        for file in current_files {
-            if let Some(action) = work(
-                |action, file| act(verbose, args.dry_run, &ignorefile, &mut files, file, action),
-                repo,
-                home,
-                &sh,
-                file,
-            ) {
-                match action? {
-                    ControlFlow::Continue(_) => continue,
-                    ControlFlow::Break(_) => break,
+        if max_workers == 1 {
+            for file in current_files {
+                if let Some(action) = work(
+                    |action, file| {
+                        act(verbose, args.dry_run, &ignorefile, &mut files, file, action)
+                    },
+                    repo,
+                    home,
+                    &sh,
+                    file,
+                ) {
+                    match action? {
+                        ControlFlow::Continue(_) => continue,
+                        ControlFlow::Break(_) => break,
+                    }
                 }
             }
+        } else {
+            std::thread::scope(|s| -> Result<()> {
+                let (arbiter, workers) = std::sync::mpsc::channel();
+                let (send_action, recv_action) = std::sync::mpsc::channel();
+
+                for _ in 0..max_workers {
+                    s.spawn({
+                        let arbiter = arbiter.clone();
+                        let send_action = send_action.clone();
+                        let send_action =
+                            move |action, file| send_action.send((action, file)).unwrap();
+                        move || worker(arbiter, send_action, repo, home)
+                    });
+                }
+
+                for file in current_files {
+                    let worker = workers.recv().unwrap();
+                    worker.send(file).unwrap();
+                }
+
+                drop(send_action);
+                drop(arbiter);
+                drop(workers);
+
+                for (action, file) in recv_action.iter() {
+                    match act(verbose, args.dry_run, &ignorefile, &mut files, file, action)? {
+                        ControlFlow::Continue(_) => continue,
+                        ControlFlow::Break(_) => break,
+                    }
+                }
+
+                Ok(())
+            })?;
         }
     }
 
@@ -715,6 +758,28 @@ impl<T: SelectOption> Display for OptItem<T> {
     }
 }
 
+fn worker<'a>(
+    arbiter: Sender<Sender<&'a Path>>,
+    handler: impl Fn(Action, &'a Path),
+    repo: &'a Path,
+    home: &'a Path,
+) {
+    let (sender, receiver) = std::sync::mpsc::channel();
+    let sh = xshell::Shell::new().unwrap();
+
+    loop {
+        if arbiter.send(sender.clone()).is_err() {
+            break;
+        }
+
+        let Ok(file) = receiver.recv() else {
+            break;
+        };
+
+        work(&handler, repo, home, &sh, file);
+    }
+}
+
 fn work<'a, R>(
     mut handler: impl FnMut(Action, &'a Path) -> R,
     repo: &'a Path,
@@ -1134,6 +1199,7 @@ fn print_dbg(command: &xshell::Cmd<'_>) -> Option<String> {
 struct Args {
     dry_run: u8,
     verbose: u8,
+    jobs: u8,
     repo: PathBuf,
 }
 
@@ -1154,6 +1220,13 @@ fn parse_args() -> Args {
         .count()
         .map(|v| v.clamp(0, 2) as u8);
 
+    let jobs = short('j')
+        .long("jobs")
+        .help("The number of threads to use. 0 selects based on CPU cores. 1 disables multithreading.")
+        .argument::<u8>("JOBS")
+        .fallback(0)
+        .display_fallback();
+
     let repo = positional::<PathBuf>("REPO")
         .help("The path to the repo to sync")
         .fallback(PathBuf::from("."))
@@ -1162,6 +1235,7 @@ fn parse_args() -> Args {
     let args = construct!(Args {
         dry_run,
         verbose,
+        jobs,
         repo
     });
 
