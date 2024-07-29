@@ -3,7 +3,6 @@
 [dependencies]
 bpaf = "0.9.12"
 camino = "1.1.7"
-itertools = "0.13.0"
 termion = "4.0.2"
 xshell = "0.2.6"
 
@@ -20,18 +19,20 @@ opt-level = 3
 ---
 
 use std::{
-    collections::HashSet,
-    ffi::OsStr,
+    collections::{HashSet, VecDeque},
+    env,
+    ffi::OsString,
     fmt::Display,
-    fs::{self, Metadata, OpenOptions},
-    io::Write as _,
+    fs::{self, File, Metadata, OpenOptions},
+    hash::{DefaultHasher, Hasher},
+    io::{self, Read as _, Write as _},
     num::NonZeroUsize,
     ops::ControlFlow,
-    sync::mpsc::Sender,
+    process::Command,
+    sync::{mpsc::Sender, LazyLock},
 };
 
 use camino::{Utf8Path as Path, Utf8PathBuf as PathBuf};
-use itertools::Itertools as _;
 use termion::{
     clear::{AfterCursor, CurrentLine},
     color::{Fg, LightGreen, LightRed},
@@ -51,22 +52,27 @@ const RED: Fg<LightRed> = Fg(LightRed);
 const RESET: Reset = Reset;
 
 fn main() {
-    let args = parse_args();
-    let Err(e) = run(args) else { return };
+    let Err(e) = real_main() else { return };
     eprintln!("{e}");
     std::process::exit(1);
 }
 
-fn run(args: Args) -> Result<()> {
+fn real_main() -> Result<()> {
+    let sh = xshell::Shell::new()?;
+    let home = sh.var("HOME")?;
+    let home = PathBuf::from(home);
+    let args = parse_args(home);
+
+    run(args, &sh)
+}
+
+fn run(args: Args, sh: &Shell) -> Result<()> {
     let verbose = args.verbose >= 1;
     let max_jobs = NonZeroUsize::new(usize::from(args.jobs))
         .or_else(|| std::thread::available_parallelism().ok())
         .map_or(1, |x| x.get());
 
-    let sh = xshell::Shell::new()?;
-    let home = sh.var("HOME")?;
-    let home = Path::new(&home);
-
+    let home = args.home.as_path();
     let repo = args.repo.as_path();
     let ignorefile = repo.join(".syncignore");
 
@@ -92,31 +98,28 @@ fn run(args: Args) -> Result<()> {
             .lines()
             .map(Path::new)
             .filter(|file| !exclude.contains(file))
-            .collect_vec()
+            .collect::<VecDeque<_>>()
     };
 
-    while !files.is_empty() {
-        let max_workers = files.len().min(max_jobs);
-        let current_files = std::mem::take(&mut files);
+    let max_workers = files.len().min(max_jobs);
 
-        if max_workers == 1 {
-            for file in current_files {
-                if let Some(action) = work(
-                    |action, file| {
-                        act(verbose, args.dry_run, &ignorefile, &mut files, file, action)
-                    },
-                    repo,
-                    home,
-                    &sh,
-                    file,
-                ) {
-                    match action? {
-                        ControlFlow::Continue(_) => continue,
-                        ControlFlow::Break(_) => break,
-                    }
+    if max_workers == 1 {
+        while let Some(file) = files.pop_front() {
+            if let Some(action) = work(
+                |action, file| act(verbose, args.dry_run, &ignorefile, &mut files, file, action),
+                repo,
+                home,
+                sh,
+                file,
+            ) {
+                match action? {
+                    ControlFlow::Continue(_) => continue,
+                    ControlFlow::Break(_) => break,
                 }
             }
-        } else {
+        }
+    } else {
+        while !files.is_empty() {
             std::thread::scope(|s| -> Result<()> {
                 let (arbiter, workers) = std::sync::mpsc::channel();
                 let (send_action, recv_action) = std::sync::mpsc::channel();
@@ -131,7 +134,7 @@ fn run(args: Args) -> Result<()> {
                     });
                 }
 
-                for file in current_files {
+                for file in files.drain(..) {
                     let worker = workers.recv().unwrap();
                     worker.send(file).unwrap();
                 }
@@ -159,11 +162,38 @@ fn act<'a>(
     verbose: bool,
     dry_run: u8,
     ignorefile: &Path,
-    files: &mut Vec<&'a Path>,
+    files: &mut VecDeque<&'a Path>,
     file: &'a Path,
     action: Action,
 ) -> Result<ControlFlow<()>> {
     let decision = handler(verbose, dry_run >= 2, action)?;
+    let decision =
+        try_act(dry_run, ignorefile, file, decision).or_else(|e| recover_act(file, e))?;
+    Ok(match decision {
+        Acted::Continue => ControlFlow::Continue(()),
+        Acted::Retry(file) => {
+            files.push_front(file);
+            ControlFlow::Continue(())
+        }
+        Acted::Stop => {
+            files.clear();
+            ControlFlow::Break(())
+        }
+    })
+}
+
+enum Acted<'a> {
+    Continue,
+    Retry(&'a Path),
+    Stop,
+}
+
+fn try_act<'a>(
+    dry_run: u8,
+    ignorefile: &Path,
+    file: &'a Path,
+    decision: Decision,
+) -> Result<Acted<'a>> {
     match decision {
         Decision::Meta(meta) => match meta {
             MetaDecision::Skip => {}
@@ -177,27 +207,18 @@ fn act<'a>(
                 }
             }
             MetaDecision::Retry => {
-                files.push(file);
+                return Ok(Acted::Retry(file));
             }
             MetaDecision::Abort => {
-                files.clear();
-                return Ok(ControlFlow::Break(()));
+                return Ok(Acted::Stop);
             }
         },
-        Decision::Copy { from, to } => {
+        Decision::Copy(Copy { from, to, .. }) => {
             if dry_run >= 1 {
                 println!("cp {from} {to}");
             } else {
-                std::fs::copy(from, to)?;
-            }
-        }
-        Decision::Pull { repo } => {
-            if dry_run >= 1 {
-                println!("cd {repo}; git pull");
-            } else {
-                let sh = xshell::Shell::new()?;
-                sh.change_dir(repo);
-                cmd!(sh, "git pull").dbg_run()?;
+                to.parent().map(fs::create_dir_all).transpose()?;
+                fs::copy(from, to)?;
             }
         }
         Decision::Delete(file) => {
@@ -209,13 +230,43 @@ fn act<'a>(
         }
     };
 
-    Ok(ControlFlow::Continue(()))
+    Ok(Acted::Continue)
+}
+
+fn recover_act<E: Display>(file: &Path, err: E) -> Result<Acted<'_>> {
+    println!("Last action failed: {err}");
+    println!();
+
+    let selected = selection_prompt(
+        [
+            ('R', "Retry file"),
+            ('I', "Ignore"),
+            ('$', "Drop to the shell and then retry the file"),
+            ('Q', "Quit"),
+        ],
+        "What now?",
+    )?;
+
+    Ok(match selected {
+        Some(('I', _)) => Acted::Continue,
+        Some(('R', _)) => Acted::Retry(file),
+        Some(('$', _)) => {
+            run_shell([])?;
+            Acted::Retry(file)
+        }
+        _ => Acted::Stop,
+    })
+}
+
+#[derive(Clone, Debug)]
+struct Copy {
+    from: PathBuf,
+    to: PathBuf,
 }
 
 #[derive(Clone, Debug)]
 enum Decision {
-    Copy { from: PathBuf, to: PathBuf },
-    Pull { repo: PathBuf },
+    Copy(Copy),
     Delete(PathBuf),
     Meta(MetaDecision),
 }
@@ -230,19 +281,10 @@ enum MetaDecision {
 
 fn handler(verbose: bool, really_dry_run: bool, action: Action) -> Result<Decision> {
     macro_rules! handle {
-        ($home_file:expr, $repo_file:expr, $action:expr) => {
+        ($action:expr) => {
             return Ok(match $action? {
-                Handled::CopyFromHomeToRepo => Decision::Copy {
-                    from: $home_file,
-                    to: $repo_file,
-                },
-                Handled::CopyFromRepoToHome => Decision::Copy {
-                    from: $repo_file,
-                    to: $home_file,
-                },
-                Handled::PullHome => Decision::Pull { repo: $home_file },
-                Handled::PullRepo => Decision::Pull { repo: $repo_file },
-                Handled::DeleteFromRepo => Decision::Delete($repo_file),
+                Handled::Copy(cp) => Decision::Copy(cp),
+                Handled::Delete(f) => Decision::Delete(f),
                 Handled::Meta(meta) => Decision::Meta(meta),
             });
         };
@@ -254,11 +296,13 @@ fn handler(verbose: bool, really_dry_run: bool, action: Action) -> Result<Decisi
             repo_file,
             diff,
         } => {
-            handle!(
-                home_file,
-                repo_file,
-                handle_file_diff(verbose, really_dry_run, &home_file, &repo_file, &diff)
-            );
+            handle!(handle_file_diff(
+                verbose,
+                really_dry_run,
+                &home_file,
+                &repo_file,
+                &diff
+            ));
         }
         Action::DifferentRemotes {
             home_file,
@@ -266,17 +310,13 @@ fn handler(verbose: bool, really_dry_run: bool, action: Action) -> Result<Decisi
             repo_file,
             repo_remote,
         } => {
-            handle!(
-                home_file,
-                repo_file,
-                handle_different_remotes(
-                    really_dry_run,
-                    &home_file,
-                    &home_remote,
-                    &repo_file,
-                    &repo_remote,
-                )
-            );
+            handle!(handle_different_remotes(
+                really_dry_run,
+                &home_file,
+                &home_remote,
+                &repo_file,
+                &repo_remote,
+            ));
         }
         Action::DifferentHashes {
             home_file,
@@ -286,16 +326,12 @@ fn handler(verbose: bool, really_dry_run: bool, action: Action) -> Result<Decisi
             repo_hash,
             repo_show,
         } => {
-            handle!(
-                home_file,
-                repo_file,
-                handle_different_hashes(
-                    verbose,
-                    really_dry_run,
-                    (&home_file, &home_hash, &home_show),
-                    (&repo_file, &repo_hash, &repo_show),
-                )
-            );
+            handle!(handle_different_hashes(
+                verbose,
+                really_dry_run,
+                (&home_file, &home_hash, &home_show),
+                (&repo_file, &repo_hash, &repo_show),
+            ));
         }
         Action::LinkDiff {
             home_file,
@@ -304,18 +340,14 @@ fn handler(verbose: bool, really_dry_run: bool, action: Action) -> Result<Decisi
             repo_link,
             repo_at_home_link,
         } => {
-            handle!(
-                home_file,
-                repo_file,
-                handle_link_diff(
-                    really_dry_run,
-                    &home_file,
-                    &home_link,
-                    &repo_file,
-                    &repo_link,
-                    &repo_at_home_link,
-                )
-            );
+            handle!(handle_link_diff(
+                really_dry_run,
+                &home_file,
+                &home_link,
+                &repo_file,
+                &repo_link,
+                &repo_at_home_link,
+            ));
         }
         Action::FileMissing {
             repo_file,
@@ -323,11 +355,11 @@ fn handler(verbose: bool, really_dry_run: bool, action: Action) -> Result<Decisi
             would_be_home_file,
         } => {
             if matches!(repo_class, ValidFileType::File(_)) {
-                handle!(
-                    would_be_home_file,
-                    repo_file,
-                    handle_missing_file(really_dry_run, &would_be_home_file, &repo_file)
-                );
+                handle!(handle_missing_file(
+                    really_dry_run,
+                    &would_be_home_file,
+                    &repo_file
+                ));
             } else if verbose {
                 println!("TODO: file is missing: repo={repo_file} type={repo_class:?}");
             }
@@ -372,13 +404,10 @@ fn handler(verbose: bool, really_dry_run: bool, action: Action) -> Result<Decisi
     Ok(Decision::Meta(MetaDecision::Skip))
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Clone, Debug)]
 enum Handled {
-    CopyFromHomeToRepo,
-    CopyFromRepoToHome,
-    DeleteFromRepo,
-    PullHome,
-    PullRepo,
+    Copy(Copy),
+    Delete(PathBuf),
     Meta(MetaDecision),
 }
 
@@ -400,14 +429,16 @@ fn handle_file_diff(
 
     make_decision(
         [
-            Options::Handled(Handled::CopyFromRepoToHome),
-            Options::Handled(Handled::CopyFromHomeToRepo),
-            Options::Handled(Handled::Meta(MetaDecision::Skip)),
+            Options::CopyFromRepoToHome,
+            Options::CopyFromHomeToRepo,
+            Options::HunksFromRepoToHome,
+            Options::HunksFromHomeToRepo,
+            Options::Meta(MetaDecision::Skip),
             Options::EditHomeAndRetry,
             Options::EditRepoAndRetry,
             Options::ShellAndRetry,
-            Options::Handled(Handled::Meta(MetaDecision::Ignore)),
-            Options::Handled(Handled::Meta(MetaDecision::Abort)),
+            Options::Meta(MetaDecision::Ignore),
+            Options::Meta(MetaDecision::Abort),
         ],
         really_dry_run,
         home_file,
@@ -428,10 +459,10 @@ fn handle_different_remotes(
 
     make_decision(
         [
-            Options::Handled(Handled::Meta(MetaDecision::Skip)),
+            Options::Meta(MetaDecision::Skip),
             Options::ShellAndRetry,
-            Options::Handled(Handled::Meta(MetaDecision::Ignore)),
-            Options::Handled(Handled::Meta(MetaDecision::Abort)),
+            Options::Meta(MetaDecision::Ignore),
+            Options::Meta(MetaDecision::Abort),
         ],
         really_dry_run,
         home_file,
@@ -457,12 +488,12 @@ fn handle_different_hashes(
 
     make_decision(
         [
-            Options::Handled(Handled::PullHome),
-            Options::Handled(Handled::PullRepo),
-            Options::Handled(Handled::Meta(MetaDecision::Skip)),
+            Options::PullHomeAndRetry,
+            Options::PullRepoAndRetry,
+            Options::Meta(MetaDecision::Skip),
             Options::ShellAndRetry,
-            Options::Handled(Handled::Meta(MetaDecision::Ignore)),
-            Options::Handled(Handled::Meta(MetaDecision::Abort)),
+            Options::Meta(MetaDecision::Ignore),
+            Options::Meta(MetaDecision::Abort),
         ],
         really_dry_run,
         home_file,
@@ -485,12 +516,12 @@ fn handle_link_diff(
 
     make_decision(
         [
-            Options::Handled(Handled::CopyFromRepoToHome),
-            Options::Handled(Handled::CopyFromHomeToRepo),
-            Options::Handled(Handled::Meta(MetaDecision::Skip)),
+            Options::CopyFromRepoToHome,
+            Options::CopyFromHomeToRepo,
+            Options::Meta(MetaDecision::Skip),
             Options::ShellAndRetry,
-            Options::Handled(Handled::Meta(MetaDecision::Ignore)),
-            Options::Handled(Handled::Meta(MetaDecision::Abort)),
+            Options::Meta(MetaDecision::Ignore),
+            Options::Meta(MetaDecision::Abort),
         ],
         really_dry_run,
         home_file,
@@ -509,12 +540,12 @@ fn handle_missing_file(
 
     make_decision(
         [
-            Options::Handled(Handled::CopyFromRepoToHome),
-            Options::Handled(Handled::DeleteFromRepo),
-            Options::Handled(Handled::Meta(MetaDecision::Skip)),
+            Options::CopyFromRepoToHome,
+            Options::DeleteFromRepo,
+            Options::Meta(MetaDecision::Skip),
             Options::ShellAndRetry,
-            Options::Handled(Handled::Meta(MetaDecision::Ignore)),
-            Options::Handled(Handled::Meta(MetaDecision::Abort)),
+            Options::Meta(MetaDecision::Ignore),
+            Options::Meta(MetaDecision::Abort),
         ],
         really_dry_run,
         home_file,
@@ -525,14 +556,14 @@ fn handle_missing_file(
 fn make_decision<const N: usize>(
     options: [Options; N],
     really_dry_run: bool,
-    home_file: impl AsRef<OsStr>,
-    repo_file: impl AsRef<OsStr>,
+    home_file: impl AsRef<Path>,
+    repo_file: impl AsRef<Path>,
 ) -> Result<Handled> {
     let decision = if really_dry_run {
-        Options::Handled(Handled::Meta(MetaDecision::Skip))
+        Options::Meta(MetaDecision::Skip)
     } else {
         let decision = selection_prompt(options, "What do you want to do?")?;
-        let decision = decision.unwrap_or(Options::Handled(Handled::Meta(MetaDecision::Abort)));
+        let decision = decision.unwrap_or(Options::Meta(MetaDecision::Abort));
 
         println!("{decision}\n");
 
@@ -544,76 +575,241 @@ fn make_decision<const N: usize>(
 
 fn apply_decision(
     decision: Options,
-    home_file: impl AsRef<OsStr>,
-    repo_file: impl AsRef<OsStr>,
+    home_file: impl AsRef<Path>,
+    repo_file: impl AsRef<Path>,
 ) -> Result<Handled> {
+    static EDITOR: LazyLock<OsString> =
+        LazyLock::new(|| env::var_os("EDITOR").unwrap_or_else(|| "vi".into()));
+
     Ok(match decision {
-        Options::Handled(handled) => handled,
+        Options::Meta(meta) => Handled::Meta(meta),
+        Options::CopyFromHomeToRepo => Handled::Copy(Copy {
+            from: home_file.as_ref().to_path_buf(),
+            to: repo_file.as_ref().to_path_buf(),
+        }),
+        Options::CopyFromRepoToHome => Handled::Copy(Copy {
+            from: repo_file.as_ref().to_path_buf(),
+            to: home_file.as_ref().to_path_buf(),
+        }),
+        Options::PullHomeAndRetry => {
+            Command::new("git")
+                .arg("pull")
+                .current_dir(home_file.as_ref())
+                .status()?;
+            Handled::Meta(MetaDecision::Retry)
+        }
+        Options::PullRepoAndRetry => {
+            Command::new("git")
+                .arg("pull")
+                .current_dir(repo_file.as_ref())
+                .status()?;
+            Handled::Meta(MetaDecision::Retry)
+        }
         Options::EditHomeAndRetry => {
-            if std::process::Command::new(std::env::var_os("EDITOR").unwrap_or_else(|| "vi".into()))
-                .arg(home_file)
-                .status()?
-                .success()
-            {
-                Handled::Meta(MetaDecision::Retry)
-            } else {
-                Handled::Meta(MetaDecision::Skip)
-            }
+            Command::new(&*EDITOR).arg(home_file.as_ref()).status()?;
+            Handled::Meta(MetaDecision::Retry)
         }
         Options::EditRepoAndRetry => {
-            if std::process::Command::new(std::env::var_os("EDITOR").unwrap_or_else(|| "vi".into()))
-                .arg(repo_file)
-                .status()?
-                .success()
-            {
-                Handled::Meta(MetaDecision::Retry)
-            } else {
-                Handled::Meta(MetaDecision::Skip)
-            }
+            Command::new(&*EDITOR).arg(repo_file.as_ref()).status()?;
+            Handled::Meta(MetaDecision::Retry)
         }
+        Options::HunksFromRepoToHome => {
+            let hunk = copy_hunks(repo_file.as_ref(), home_file.as_ref())?;
+            Handled::Copy(Copy {
+                from: hunk,
+                to: home_file.as_ref().to_path_buf(),
+            })
+        }
+        Options::HunksFromHomeToRepo => {
+            let hunk = copy_hunks(home_file.as_ref(), repo_file.as_ref())?;
+            Handled::Copy(Copy {
+                from: hunk,
+                to: repo_file.as_ref().to_path_buf(),
+            })
+        }
+        Options::DeleteFromRepo => Handled::Delete(repo_file.as_ref().to_path_buf()),
         Options::ShellAndRetry => {
-            if std::process::Command::new(std::env::var_os("SHELL").unwrap_or_else(|| "sh".into()))
-                .envs([
-                    ("HOME_FILE", home_file.as_ref()),
-                    ("REPO_FILE", repo_file.as_ref()),
-                ])
-                .status()?
-                .success()
-            {
-                Handled::Meta(MetaDecision::Retry)
-            } else {
-                Handled::Meta(MetaDecision::Skip)
-            }
+            let home_file = home_file.as_ref();
+            let repo_file = repo_file.as_ref();
+            let home_parent = home_file.parent();
+            let repo_parent = repo_file.parent();
+
+            let envs = [("HOME_FILE", home_file), ("REPO_FILE", repo_file)]
+                .into_iter()
+                .chain(home_parent.map(|p| ("HOME_PARENT", p)))
+                .chain(repo_parent.map(|p| ("REPO_PARENT", p)));
+
+            run_shell(envs)?;
+            Handled::Meta(MetaDecision::Retry)
         }
     })
 }
 
-#[derive(Copy, Clone, Debug)]
+fn copy_hunks(from: &Path, to: &Path) -> Result<PathBuf> {
+    fn temp_name() -> Result<OsString> {
+        let mut buffer = [0u8; 4096];
+        File::open("/dev/urandom")?.read_exact(&mut buffer)?;
+
+        let mut hasher = DefaultHasher::new();
+        hasher.write(&buffer);
+        hasher.write_u32(std::process::id());
+        if let Ok(unix) = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH) {
+            hasher.write_u64(unix.as_secs());
+        }
+
+        let hash = format!("{:08x}", hasher.finish());
+        let hash = &hash[..8];
+
+        let prefix = concat!(env!("CARGO_PKG_NAME"), "_git_hunks_");
+
+        let cap = prefix.len() + hash.len();
+        let mut buffer = OsString::with_capacity(cap);
+        buffer.push(prefix);
+        buffer.push(hash);
+
+        Ok(buffer)
+    }
+
+    fn temp_dir() -> Result<PathBuf> {
+        let temp_dir = env::temp_dir();
+
+        for _ in 0..1024 {
+            let name = temp_name()?;
+            let path = temp_dir.join(name);
+
+            match fs::create_dir(&path) {
+                Ok(()) => return Ok(PathBuf::from_path_buf(path).expect("utf8 name")),
+                Err(e) if e.kind() == io::ErrorKind::AlreadyExists => continue,
+                Err(e) => return Err(e.into()),
+            }
+        }
+
+        Err(io::Error::other("failed to create temp dir").into())
+    }
+
+    fn temp_file(op: impl Fn(&Path) -> io::Result<()>) -> Result<PathBuf> {
+        let temp_dir = env::temp_dir();
+
+        for _ in 0..1024 {
+            let name = temp_name()?;
+            let path = temp_dir.join(name);
+            let path = PathBuf::from_path_buf(path).expect("utf8 path");
+
+            match op(&path) {
+                Ok(()) => return Ok(path),
+                Err(e) if e.kind() == io::ErrorKind::AlreadyExists => continue,
+                Err(e) => return Err(e.into()),
+            }
+        }
+
+        Err(io::Error::other("failed to create temp file").into())
+    }
+
+    let from_buf;
+    let from = if from.is_absolute() {
+        from
+    } else {
+        from_buf = PathBuf::from_path_buf(from.canonicalize()?).expect("utf8 path");
+        from_buf.as_path()
+    };
+
+    let to_buf;
+    let to = if to.is_absolute() {
+        to
+    } else {
+        to_buf = PathBuf::from_path_buf(to.canonicalize()?).expect("utf8 path");
+        to_buf.as_path()
+    };
+
+    assert!(from.is_absolute(), "{from:?} must be absolute");
+    assert!(to.is_absolute(), "{to:?} must be absolute");
+
+    let git_dir = temp_dir()?;
+
+    struct DropGuard<'a>(&'a Path);
+    impl<'a> Drop for DropGuard<'a> {
+        fn drop(&mut self) {
+            let _ = fs::remove_dir_all(self.0);
+        }
+    }
+
+    let git_dir = DropGuard(git_dir.as_path());
+
+    let sh = xshell::Shell::new()?;
+    sh.change_dir(git_dir.0);
+
+    cmd!(sh, "git init").quiet().ignore_stdout().dbg_run()?;
+    cmd!(sh, "git config user.name 'SyncDotfiles'")
+        .quiet()
+        .dbg_run()?;
+    cmd!(sh, "git config user.email 'syncdotfiles@local.invalid'")
+        .quiet()
+        .dbg_run()?;
+
+    let file_name = to.file_name().expect("file to have a file name");
+    let git_file = git_dir.0.join(file_name);
+    sh.copy_file(to, &git_file)?;
+
+    cmd!(sh, "git add {file_name}").quiet().dbg_run()?;
+
+    sh.copy_file(from, &git_file)?;
+
+    Command::new("git")
+        .args(["add", "--patch", file_name])
+        .current_dir(git_dir.0)
+        .status()?;
+
+    cmd!(sh, "git restore {file_name}").quiet().dbg_run()?;
+
+    let tmp = temp_file(|p| {
+        fs::copy(&git_file, p)?;
+        Ok(())
+    })?;
+
+    Ok(tmp)
+}
+
+fn run_shell<'x, 'y>(envs: impl IntoIterator<Item = (&'x str, &'y Path)>) -> Result<()> {
+    static SHELL: LazyLock<OsString> =
+        LazyLock::new(|| env::var_os("SHELL").unwrap_or_else(|| "sh".into()));
+
+    Command::new(&*SHELL).envs(envs).status()?;
+    Ok(())
+}
+
+#[derive(Clone, Debug)]
 enum Options {
-    Handled(Handled),
+    Meta(MetaDecision),
+    CopyFromHomeToRepo,
+    CopyFromRepoToHome,
+    PullHomeAndRetry,
+    PullRepoAndRetry,
     EditHomeAndRetry,
     EditRepoAndRetry,
+    HunksFromRepoToHome,
+    HunksFromHomeToRepo,
+    DeleteFromRepo,
     ShellAndRetry,
 }
 
 impl Display for Options {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Handled(handled) => match handled {
-                Handled::CopyFromRepoToHome => write!(f, "Copy the file from the repo to home"),
-                Handled::CopyFromHomeToRepo => write!(f, "Copy the file from home to the repo"),
-                Handled::DeleteFromRepo => write!(f, "Delete the file from the repo"),
-                Handled::PullHome => write!(f, "run `git pull` in home"),
-                Handled::PullRepo => write!(f, "run `git pull` in the repo"),
-                Handled::Meta(meta) => match meta {
-                    MetaDecision::Skip => write!(f, "Skip this file"),
-                    MetaDecision::Ignore => write!(f, "Ignore this file now and in the future"),
-                    MetaDecision::Abort => write!(f, "Skip all remaining files and abort"),
-                    MetaDecision::Retry => write!(f, "Just retry"),
-                },
+            Self::Meta(meta) => match meta {
+                MetaDecision::Skip => write!(f, "Skip this file"),
+                MetaDecision::Ignore => write!(f, "Ignore this file now and in the future"),
+                MetaDecision::Abort => write!(f, "Skip all remaining files and abort"),
+                MetaDecision::Retry => write!(f, "Just retry"),
             },
+            Self::CopyFromRepoToHome => write!(f, "Copy the file from the repo to home"),
+            Self::CopyFromHomeToRepo => write!(f, "Copy the file from home to the repo"),
+            Self::PullHomeAndRetry => write!(f, "run `git pull` in home and retry"),
+            Self::PullRepoAndRetry => write!(f, "run `git pull` in the repo and retry"),
             Self::EditHomeAndRetry => write!(f, "Edit the file in home and retry"),
             Self::EditRepoAndRetry => write!(f, "Edit the file in the repo and retry"),
+            Self::HunksFromRepoToHome => write!(f, "Copy the file from the repo to home in hunks"),
+            Self::HunksFromHomeToRepo => write!(f, "Copy the file from home to the repo in hunks"),
+            Self::DeleteFromRepo => write!(f, "Delete the file from the repo"),
             Self::ShellAndRetry => write!(f, "Drop to the shell and retry"),
         }
     }
@@ -626,35 +822,31 @@ impl SelectOption for Options {
 
     fn main_key(&self) -> char {
         match self {
-            Options::Handled(handled) => match handled {
-                Handled::CopyFromRepoToHome => 'c',
-                Handled::CopyFromHomeToRepo => 'C',
-                Handled::DeleteFromRepo => 'D',
-                Handled::PullHome => 'p',
-                Handled::PullRepo => 'P',
-                Handled::Meta(meta) => match meta {
-                    MetaDecision::Skip => 's',
-                    MetaDecision::Ignore => 'I',
-                    MetaDecision::Abort => 'Q',
-                    MetaDecision::Retry => '@',
-                },
+            Self::Meta(meta) => match meta {
+                MetaDecision::Skip => 's',
+                MetaDecision::Ignore => 'I',
+                MetaDecision::Abort => 'Q',
+                MetaDecision::Retry => '@',
             },
-            Options::EditHomeAndRetry => 'e',
-            Options::EditRepoAndRetry => 'E',
-            Options::ShellAndRetry => '$',
+            Self::CopyFromRepoToHome => 'c',
+            Self::CopyFromHomeToRepo => 'C',
+            Self::PullHomeAndRetry => 'p',
+            Self::PullRepoAndRetry => 'P',
+            Self::EditHomeAndRetry => 'e',
+            Self::EditRepoAndRetry => 'E',
+            Self::HunksFromRepoToHome => 'h',
+            Self::HunksFromHomeToRepo => 'H',
+            Self::DeleteFromRepo => 'D',
+            Self::ShellAndRetry => '$',
         }
     }
 
     fn also_matches(&self, &key: &Key) -> bool {
         matches!(
             (self, key),
-            (
-                Self::Handled(Handled::Meta(MetaDecision::Abort)),
-                Key::Char('q')
-            ) | (
-                Self::Handled(Handled::Meta(MetaDecision::Ignore)),
-                Key::Char('i')
-            ) | (Self::Handled(Handled::Meta(MetaDecision::Skip)), Key::Esc),
+            (Self::Meta(MetaDecision::Abort), Key::Char('q'))
+                | (Self::Meta(MetaDecision::Ignore), Key::Char('i'))
+                | (Self::Meta(MetaDecision::Skip), Key::Esc),
         )
     }
 }
@@ -674,7 +866,7 @@ fn selection_prompt<'a, T: SelectOption, P: Into<Option<&'a str>>>(
 
     writeln!(tty, "{}{}", CurrentLine, prompt)?;
 
-    let mut opts = OptItem::from(options).collect_vec();
+    let mut opts = OptItem::from(options).collect::<Vec<_>>();
     for opt in &opts {
         writeln!(tty, "{}{}{}", Goto(x, y + opt.index), CurrentLine, opt)?;
     }
@@ -719,10 +911,22 @@ trait SelectOption {
 
     fn main_key(&self) -> char;
 
-    fn also_matches(&self, key: &Key) -> bool;
+    fn also_matches(&self, _key: &Key) -> bool {
+        false
+    }
 
     fn matches(&self, key: &Key) -> bool {
-        self.also_matches(key) || *key == Key::Char(self.main_key())
+        *key == Key::Char(self.main_key()) || self.also_matches(key)
+    }
+}
+
+impl<T: Display + ?Sized> SelectOption for (char, &T) {
+    fn text(&self) -> &impl Display {
+        &self.1
+    }
+
+    fn main_key(&self) -> char {
+        self.0
     }
 }
 
@@ -913,6 +1117,7 @@ fn work<'a, R>(
     None
 }
 
+#[derive(Debug)]
 enum Action {
     FileDiff {
         home_file: PathBuf,
@@ -1104,9 +1309,10 @@ impl FileDiff {
             .quiet()
             .dbg_read()
             .expect("git hash-object to not fail on two existing files");
-        let (home_hash, repo_hash) = hashes
+        let [home_hash, repo_hash] = hashes
             .lines()
-            .collect_tuple()
+            .collect::<Vec<_>>()
+            .try_into()
             .expect("git hash-object to return two hashes");
 
         if repo_hash != home_hash {
@@ -1200,10 +1406,11 @@ struct Args {
     dry_run: u8,
     verbose: u8,
     jobs: u8,
+    home: PathBuf,
     repo: PathBuf,
 }
 
-fn parse_args() -> Args {
+fn parse_args(home: PathBuf) -> Args {
     use bpaf::{construct, positional, short, Parser};
 
     let dry_run = short('n')
@@ -1224,8 +1431,15 @@ fn parse_args() -> Args {
         .long("jobs")
         .help("The number of threads to use. 0 selects based on CPU cores. 1 disables multithreading.")
         .argument::<u8>("JOBS")
-        .fallback(0)
+        .fallback(1)
         .display_fallback();
+
+    let home = short('H')
+        .long("home")
+        .argument::<PathBuf>("HOME")
+        .help("The path to the home to sync")
+        .fallback(home.to_path_buf())
+        .debug_fallback();
 
     let repo = positional::<PathBuf>("REPO")
         .help("The path to the repo to sync")
@@ -1236,6 +1450,7 @@ fn parse_args() -> Args {
         dry_run,
         verbose,
         jobs,
+        home,
         repo
     });
 
