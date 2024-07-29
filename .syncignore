@@ -13,3 +13,6 @@ cargo-setup.sh
 sync-to-home.sh
 sync.rs
 .aws/config
+.local/share/nvim/codelldb/README
+.local/share/nvim/undodir/.gitkeep
+.ssh/config

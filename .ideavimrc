@@ -95,7 +95,6 @@ set notimeout
 sethandler <C-A> a:vim
 sethandler <C-D> a:vim
 sethandler <C-J> a:vim
-sethandler <C-K> a:vim
 sethandler <C-N> a:vim
 sethandler <C-O> a:vim
 sethandler <C-P> a:vim
@@ -106,12 +105,13 @@ sethandler <C-W> a:vim
 " Set IDE mode for come C- key bindings
 sethandler <C-Tab> a:ide
 sethandler <C-G> a:ide
-sethandler <C-L> a:ide
 sethandler <C-S> a:ide
 
-" Use IDE behavior for C-i, C-o, C-r in insert mode, use VIM behavior in other modes
+" Use IDE behavior for C-I, C-K, C-L, C-R in insert mode, use VIM behavior in other modes
 sethandler <C-I> n-x-v:vim i:ide
-sethandler <C-R> n-x-v:vim i:ide
+sethandler <C-K> n-x-v:vim i:ide
+sethandler <C-L> n-x-v:vim i:ide
+sethandler <C-r> n-x-v:vim i:ide
 
 " Keep selection when indenting
 vnoremap < <gv
@@ -259,6 +259,9 @@ nmap <leader>lf <Action>(ReformatCode)
 nmap <leader>e <Action>(RecentFiles)
 nmap <leader>E <Action>(RecentLocations)
 
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
+
 nmap gr <Action>(ShowUsages)
 nmap gR <Action>(FindUsages)
 nmap gi <Action>(GotoImplementation)
@@ -270,12 +273,14 @@ nmap gy <Action>(GotoTypeDeclaration)
 nmap <leader>S <Action>(GotoClass)
 nmap <leader>s <Action>(FileStructurePopup)
 nmap <leader>/ <Action>(GotoFile)
-nmap <leader>F <Action>(FindInPath)
+nmap <leader>f <Action>(FindInPath)
+nmap <leader>F <Action>(ReplaceInPath)
 nmap <leader>: <Action>(GotoSymbol)
 nmap <leader>A <Action>(GotoAction)
 nmap <leader>? <Action>(SearchEverywhere)
 nmap <leader>t <Action>(ActivateProjectToolWindow)
 nmap <leader>T <Action>(HideActiveWindow)
+nmap <leader>z <Action>(ToggleDistractionFreeMode)
 
 nmap <leader>a <Action>(ShowIntentionActions)
 nmap <leader><CR> <Action>(ShowIntentionActions)
@@ -298,6 +303,7 @@ nmap <leader>gg <Action>(Vcs.QuickListPopupAction)
 nmap <leader>go <Action>(Github.Open.In.Browser)
 nmap <leader>ghS <Action>(ChangesView.AddUnversioned)
 nmap <leader>ghA <Action>(ChangesView.AddUnversioned)
+nmap <leader>ghd <Action>(Compare.SameVersion)
 nmap <leader>ghr <Action>(Vcs.RollbackChangedLines)
 nmap <leader>ghR <Action>(ChangesView.Revert)
 
@@ -309,20 +315,20 @@ nmap <leader>uh <Action>(ToggleInlayHintsGloballyAction)
 nmap <leader>uy <Action>(CopyReferencePopupGroup)
 
 " Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
-nmap <C-n> <Plug>NextWholeOccurrence
+" nmap <C-n> <Plug>NextWholeOccurrence
 " Does not work on column selection mode
-xmap <C-n> <Plug>NextWholeOccurrence
-nmap g<C-n> <Plug>NextOccurrence
-xmap g<C-n> <Plug>NextOccurrence
-nmap <C-x> <Plug>SkipOccurrence
-xmap <C-x> <Plug>SkipOccurrence
-nmap <C-p> <Plug>RemoveOccurrence
-xmap <C-p> <Plug>RemoveOccurrence
+" xmap <C-n> <Plug>NextWholeOccurrence
+" nmap g<C-n> <Plug>NextOccurrence
+" xmap g<C-n> <Plug>NextOccurrence
+" nmap <C-x> <Plug>SkipOccurrence
+" xmap <C-x> <Plug>SkipOccurrence
+" nmap <C-p> <Plug>RemoveOccurrence
+" xmap <C-p> <Plug>RemoveOccurrence
 
 " Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
 " <A-n> is used to enter accented text e.g. ñ
 " Alternatively use the Unicode hex keyboard in macOS
-nmap <S-C-n> <Plug>AllWholeOccurrences
-xmap <S-C-n> <Plug>AllWholeOccurrences
-nmap g<S-C-n> <Plug>AllOccurrences
-xmap g<S-C-n> <Plug>AllOccurrences
+" nmap <S-C-n> <Plug>AllWholeOccurrences
+" xmap <S-C-n> <Plug>AllWholeOccurrences
+" nmap g<S-C-n> <Plug>AllOccurrences
+" xmap g<S-C-n> <Plug>AllOccurrences
