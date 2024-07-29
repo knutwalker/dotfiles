@@ -1,4 +1,4 @@
-#!/usr/bin/env -S cargo +nightly -Zscript
+#!/usr/bin/env -S cargo +nightly --quiet -Zscript
 ---cargo
 [dependencies]
 bpaf = "0.9.12"
