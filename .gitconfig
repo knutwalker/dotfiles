@@ -237,9 +237,6 @@
 	# https://git-scm.com/docs/git-update-index#_untracked_cache
 	untrackedCache = true
 
-	# Use delta: https://github.com/dandavison/delta#configuration
-	pager = delta
-
 [color]
 
 	# Use colors in Git commands that are capable of colored output when
@@ -272,13 +269,6 @@
 
 	# Always do verbose commits
 	verbose = true
-
-[delta]
-
-	syntax-theme = OneHalfDark
-	navigate = true
-	line-numbers = true
-	side-by-side = false
 
 [diff]
 
@@ -349,9 +339,6 @@
 
 	# Don't require to press Enter when doing an interactive add
 	singlekey = true
-
-	# Use delta: https://github.com/dandavison/delta#configuration
-	diffFilter = delta --color-only
 
 [sequence]
 
