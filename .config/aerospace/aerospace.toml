@@ -62,7 +62,19 @@ PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 ## Unmanaged windows (floating)
 
 [[on-window-detected]]
-if.app-id = 'com.apple.systempreferences'
+if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -74,15 +86,15 @@ if.app-id = 'com.apple.iCal'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.apple.ActivityMonitor'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.1password.1password'
+if.app-id = 'com.apple.systempreferences'
 run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.runningwithcrayons.Alfred-Preferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.yubico.yubioath'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -91,10 +103,6 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'org.pqrs.Karabiner-EventViewer'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.yubico.yubioath'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -111,41 +119,68 @@ run = 'layout floating'
 ### Orion windows to the workspace B
 
 [[on-window-detected]]
-if.app-id = 'org.alacritty'
-run = 'move-node-to-workspace T'
-
-[[on-window-detected]]
-if.app-id = 'com.kagi.kagimacOS'
-run = 'move-node-to-workspace B'
-
-[[on-window-detected]]
 if.app-id = 'com.apple.Music'
-run = 'move-node-to-workspace M'
-
-[[on-window-detected]]
-if.app-id = 'com.hnc.Discord'
-run = 'move-node-to-workspace D'
-
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = 'move-node-to-workspace N'
+run = 'move-node-to-workspace M' # [M]usic
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
-run = 'move-node-to-workspace N'
+run = 'move-node-to-workspace N' # [N]otes
 
 [[on-window-detected]]
-if.app-id = 'ru.keepcoder.Telegram'
-run = 'move-node-to-workspace C'
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace B' # [B]rowser
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+run = 'move-node-to-workspace B' # [B]rowser
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace B' # [B]rowser
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace I' # D[i]scord
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.intellij'
+run = 'move-node-to-workspace C'     # [C]ode
+
+[[on-window-detected]]
+if.app-id = 'com.kagi.kagimacOS'
+run = 'move-node-to-workspace B' # [B]rowser
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace M' # [M]usic
 
 [[on-window-detected]]
 if.app-id = 'com.tapbots.Tweetbot'
-run = 'move-node-to-workspace C'
+run = 'move-node-to-workspace H'   # C[h]at
 
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace H'        # C[h]at
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace B'         # [B]rowser
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace N' # [N]otes
+
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = 'move-node-to-workspace T' # [T]erminal
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = 'move-node-to-workspace H'    # C[h]at
 
 [workspace-to-monitor-force-assignment]
-C = 'secondary'
-D = 'secondary'
+H = 'secondary'
+I = 'secondary'
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -211,26 +246,26 @@ ctrl-alt-equal = 'resize smart +50'
 alt-1 = 'workspace T'
 alt-2 = 'workspace B'
 alt-3 = 'workspace N'
-alt-4 = 'workspace 4'
+alt-4 = 'workspace C'
 alt-5 = 'workspace M'
 alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
-alt-9 = 'workspace C'
-alt-0 = 'workspace D'
+alt-9 = 'workspace H'
+alt-0 = 'workspace I'
 alt-backtick = 'workspace-back-and-forth'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 ctrl-alt-1 = ['move-node-to-workspace T', 'workspace T']
 ctrl-alt-2 = ['move-node-to-workspace B', 'workspace B']
 ctrl-alt-3 = ['move-node-to-workspace N', 'workspace N']
-ctrl-alt-4 = ['move-node-to-workspace 4', 'workspace 4']
+ctrl-alt-4 = ['move-node-to-workspace C', 'workspace C']
 ctrl-alt-5 = ['move-node-to-workspace M', 'workspace M']
 ctrl-alt-6 = ['move-node-to-workspace 6', 'workspace 6']
 ctrl-alt-7 = ['move-node-to-workspace 7', 'workspace 7']
 ctrl-alt-8 = ['move-node-to-workspace 8', 'workspace 8']
-ctrl-alt-9 = ['move-node-to-workspace C', 'workspace C']
-ctrl-alt-0 = ['move-node-to-workspace D', 'workspace D']
+ctrl-alt-9 = ['move-node-to-workspace H', 'workspace H']
+ctrl-alt-0 = ['move-node-to-workspace I', 'workspace I']
 
 # Move node to next/previous workspace with Ctrl+Alt+Left/Right
 ctrl-alt-left = 'workspace --wrap-around prev'
