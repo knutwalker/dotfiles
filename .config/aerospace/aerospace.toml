@@ -38,6 +38,9 @@ default-root-container-orientation = 'auto'
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 key-mapping.preset = 'qwerty'
 
+# Mouse lazily follows any focus (window or workspace)
+on-focus-changed = ['move-mouse window-lazy-center']
+
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
 # - Constant:     gaps.outer.top = 8
@@ -90,6 +93,20 @@ if.app-id = 'com.apple.systempreferences'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.kagi.kagimacOS'
+if.window-title-regex-substring = '^(General|Appearance|Tabs|Browsing|Sync|Passwords|Search|Privacy|Websites|Advanced|Plus|Extensions|Completions)$'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.kagi.kagimacOS'
+if.window-title-regex-substring = '^$'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.okta.mobile'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.runningwithcrayons.Alfred-Preferences'
 run = 'layout floating'
 
@@ -103,14 +120,6 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'org.pqrs.Karabiner-EventViewer'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.window-title-regex-substring = '^(General|Appearance|Tabs|Browsing|Sync|Passwords|Search|Privacy|Websites|Advanced|Plus|Extensions|Completions)$'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.window-title-regex-substring = '^$'
 run = 'layout floating'
 
 
@@ -140,7 +149,7 @@ run = 'move-node-to-workspace B' # [B]rowser
 
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
-run = 'move-node-to-workspace I' # D[i]scord
+run = 'move-node-to-workspace D' # [D]iscord
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.intellij'
@@ -179,8 +188,8 @@ if.app-id = 'ru.keepcoder.Telegram'
 run = 'move-node-to-workspace H'    # C[h]at
 
 [workspace-to-monitor-force-assignment]
+D = 'secondary'
 H = 'secondary'
-I = 'secondary'
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -243,6 +252,7 @@ ctrl-alt-minus = 'resize smart -50'
 ctrl-alt-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+alt-shift-1 = 'workspace 1'
 alt-1 = 'workspace T'
 alt-2 = 'workspace B'
 alt-3 = 'workspace C'
@@ -252,7 +262,7 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace H'
-alt-0 = 'workspace I'
+alt-0 = 'workspace D'
 alt-backtick = 'workspace-back-and-forth'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -265,7 +275,7 @@ ctrl-alt-6 = ['move-node-to-workspace 6', 'workspace 6']
 ctrl-alt-7 = ['move-node-to-workspace 7', 'workspace 7']
 ctrl-alt-8 = ['move-node-to-workspace 8', 'workspace 8']
 ctrl-alt-9 = ['move-node-to-workspace H', 'workspace H']
-ctrl-alt-0 = ['move-node-to-workspace I', 'workspace I']
+ctrl-alt-0 = ['move-node-to-workspace D', 'workspace D']
 
 # Move node to next/previous workspace with Ctrl+Alt+Left/Right
 ctrl-alt-left = 'workspace --wrap-around prev'
