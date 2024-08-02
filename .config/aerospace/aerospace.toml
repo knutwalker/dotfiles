@@ -103,6 +103,10 @@ if.window-title-regex-substring = '^$'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.kapeli.dashdoc'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.okta.mobile'
 run = 'layout floating'
 
