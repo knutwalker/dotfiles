@@ -1,0 +1,9 @@
+[tools]
+java = "temurin-21"
+python = "latest"
+node = "latest"
+go = "latest"
+gradle = "latest"
+maven = "latest"
+usage = "latest"
+jbang = "latest"
