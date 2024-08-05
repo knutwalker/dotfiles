@@ -195,9 +195,9 @@ if.app-id = 'ru.keepcoder.Telegram'
 run = 'move-node-to-workspace H'    # C[h]at
 
 [workspace-to-monitor-force-assignment]
-M = 'secondary'
-D = 'secondary'
-H = 'secondary'
+M = ['secondary', 'built-in']
+D = ['secondary', 'ultrafine \(1\)', 'built-in']
+H = ['secondary', 'built-in']
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
