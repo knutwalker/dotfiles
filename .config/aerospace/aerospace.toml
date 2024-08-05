@@ -192,6 +192,7 @@ if.app-id = 'ru.keepcoder.Telegram'
 run = 'move-node-to-workspace H'    # C[h]at
 
 [workspace-to-monitor-force-assignment]
+M = 'secondary'
 D = 'secondary'
 H = 'secondary'
 
@@ -261,10 +262,10 @@ alt-1 = 'workspace T'
 alt-2 = 'workspace B'
 alt-3 = 'workspace C'
 alt-4 = 'workspace N'
-alt-5 = 'workspace M'
+alt-5 = 'workspace 5'
 alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
+alt-8 = 'workspace M'
 alt-9 = 'workspace H'
 alt-0 = 'workspace D'
 alt-backtick = 'workspace-back-and-forth'
@@ -274,10 +275,10 @@ ctrl-alt-1 = ['move-node-to-workspace T', 'workspace T']
 ctrl-alt-2 = ['move-node-to-workspace B', 'workspace B']
 ctrl-alt-3 = ['move-node-to-workspace C', 'workspace C']
 ctrl-alt-4 = ['move-node-to-workspace N', 'workspace N']
-ctrl-alt-5 = ['move-node-to-workspace M', 'workspace M']
+ctrl-alt-5 = ['move-node-to-workspace 5', 'workspace 5']
 ctrl-alt-6 = ['move-node-to-workspace 6', 'workspace 6']
 ctrl-alt-7 = ['move-node-to-workspace 7', 'workspace 7']
-ctrl-alt-8 = ['move-node-to-workspace 8', 'workspace 8']
+ctrl-alt-8 = ['move-node-to-workspace M', 'workspace M']
 ctrl-alt-9 = ['move-node-to-workspace H', 'workspace H']
 ctrl-alt-0 = ['move-node-to-workspace D', 'workspace D']
 
