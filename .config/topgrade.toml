@@ -6,7 +6,18 @@
 #]
 
 # Disable specific steps - same options as the command line flag
-disable = ["system", "gem", "node", "tmux", "conda", "vim", "vscode", "ruby_gems", "pip3" ]
+disable = [
+    "system",
+    "gem",
+    "node",
+    "tmux",
+    "conda",
+    "vim",
+    "vscode",
+    "ruby_gems",
+    "pip3",
+    "sdkman",
+]
 
 # don't notify at the end
 # https://github.com/topgrade-rs/topgrade/issues/288
