@@ -171,6 +171,10 @@ if.app-id = 'com.spotify.client'
 run = 'move-node-to-workspace M' # [M]usic
 
 [[on-window-detected]]
+if.app-id = 'com.tapbots.Ivory'
+run = 'move-node-to-workspace H' # C[h]at
+
+[[on-window-detected]]
 if.app-id = 'com.tapbots.Tweetbot'
 run = 'move-node-to-workspace H'   # C[h]at
 
