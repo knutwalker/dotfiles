@@ -195,6 +195,7 @@ if.app-id = 'ru.keepcoder.Telegram'
 run = 'move-node-to-workspace H'    # C[h]at
 
 [workspace-to-monitor-force-assignment]
+7 = ['secondary', 'ultrafine \(1\)', 'built-in']
 M = ['secondary', 'built-in']
 D = ['secondary', 'ultrafine \(1\)', 'built-in']
 H = ['secondary', 'built-in']
