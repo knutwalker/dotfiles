@@ -97,7 +97,7 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.kagi.kagimacOS'
-if.window-title-regex-substring = '^(General|Appearance|Tabs|Browsing|Sync|Passwords|Search|Privacy|Websites|Advanced|Plus|Extensions|Completions)$'
+if.window-title-regex-substring = '^(General|Appearance|Tabs|Browsing|Sync|Passwords|Search|Privacy|Websites|Advanced|Plus|Extensions|Completions|Untitled)$'
 run = 'layout floating'
 
 [[on-window-detected]]
