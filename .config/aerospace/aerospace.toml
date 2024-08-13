@@ -164,6 +164,11 @@ run = 'move-node-to-workspace C'     # [C]ode
 
 [[on-window-detected]]
 if.app-id = 'com.kagi.kagimacOS'
+if.window-title-regex-substring = 'Excalidraw'
+run = 'move-node-to-workspace E'               # [E]xcalidraw
+
+[[on-window-detected]]
+if.app-id = 'com.kagi.kagimacOS'
 run = 'move-node-to-workspace B' # [B]rowser
 
 [[on-window-detected]]
@@ -270,7 +275,7 @@ alt-1 = 'workspace T'
 alt-2 = 'workspace B'
 alt-3 = 'workspace C'
 alt-4 = 'workspace N'
-alt-5 = 'workspace 5'
+alt-5 = 'workspace E'
 alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace M'
@@ -283,7 +288,7 @@ ctrl-alt-1 = ['move-node-to-workspace T', 'workspace T']
 ctrl-alt-2 = ['move-node-to-workspace B', 'workspace B']
 ctrl-alt-3 = ['move-node-to-workspace C', 'workspace C']
 ctrl-alt-4 = ['move-node-to-workspace N', 'workspace N']
-ctrl-alt-5 = ['move-node-to-workspace 5', 'workspace 5']
+ctrl-alt-5 = ['move-node-to-workspace E', 'workspace E']
 ctrl-alt-6 = ['move-node-to-workspace 6', 'workspace 6']
 ctrl-alt-7 = ['move-node-to-workspace 7', 'workspace 7']
 ctrl-alt-8 = ['move-node-to-workspace M', 'workspace M']
