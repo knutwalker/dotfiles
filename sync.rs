@@ -6,6 +6,9 @@ camino = "1.1.7"
 termion = "4.0.2"
 xshell = "0.2.6"
 
+[dependencies.tiny-select]
+path = "/Users/knut/dev/Rust/tiny-select"
+
 [package]
 edition = "2021"
 

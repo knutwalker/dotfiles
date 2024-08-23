@@ -135,6 +135,10 @@ run = 'layout floating'
 ### Orion windows to the workspace B
 
 [[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = 'move-node-to-workspace N' # [N]otes
+
+[[on-window-detected]]
 if.app-id = 'com.apple.Music'
 run = 'move-node-to-workspace M' # [M]usic
 
@@ -201,7 +205,7 @@ run = 'move-node-to-workspace T' # [T]erminal
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
-run = 'move-node-to-workspace B' # [B]rowser
+run = 'move-node-to-workspace B'  # [B]rowser
 
 [[on-window-detected]]
 if.app-id = 'ru.keepcoder.Telegram'
