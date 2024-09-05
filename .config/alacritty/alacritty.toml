@@ -41,4 +41,4 @@ startup_mode = "Windowed"
 
 [shell]
 program = "/opt/homebrew/bin/bash"
-args = ["--login", "-c", "sessionizer; exec bash --login"]
+args = ["--login", "-c", "sessionizer --shell"]
