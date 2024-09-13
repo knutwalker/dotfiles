@@ -168,7 +168,7 @@ run = 'move-node-to-workspace C'     # [C]ode
 
 [[on-window-detected]]
 if.app-id = 'com.kagi.kagimacOS'
-if.window-title-regex-substring = 'Excalidraw'
+if.window-title-regex-substring = ' — Excalidraw( Plus)?$'
 run = 'move-node-to-workspace E'               # [E]xcalidraw
 
 [[on-window-detected]]
