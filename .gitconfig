@@ -81,6 +81,9 @@
 	go = checkout
 	cd = checkout
 
+	# Switch to the commit of a branch/tag, in a detached state
+	cod = "!f() { git switch --detach $(git rev-parse ${1-HEAD}); }; f"
+
 	# Show verbose output about tags, branches or remotes
 	tags = tag -l
 	branches = branch -a
