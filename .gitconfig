@@ -212,6 +212,9 @@
 	# Disable message about skipping previously applied commits
 	skippedCherryPicks = false
 
+	# Don't warn when adding ignored files
+	addIgnoredFile = false
+
 [apply]
 
 	# Detect whitespace errors when applying a patch
