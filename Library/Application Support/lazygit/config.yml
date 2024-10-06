@@ -29,7 +29,7 @@ gui:
   commandLogSize: 8
   splitDiff: 'auto' # one of 'auto' | 'always'
   showRandomTip: false
-  showCommandLog: false
+  showCommandLog: true
   nerdFontsVersion: "3"
 git:
   paging:
