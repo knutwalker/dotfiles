@@ -314,6 +314,8 @@ nmap <S-Y> <Action>(ExpressionTypeInfo)
 nmap <leader>uh <Action>(ToggleInlayHintsGloballyAction)
 nmap <leader>uy <Action>(CopyReferencePopupGroup)
 
+nmap <leader>C <Action>(EnableSupermaven)
+
 " Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
 " nmap <C-n> <Plug>NextWholeOccurrence
 " Does not work on column selection mode
