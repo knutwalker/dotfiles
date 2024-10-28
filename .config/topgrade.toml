@@ -17,6 +17,7 @@ disable = [
     "ruby_gems",
     "pip3",
     "sdkman",
+    "uv",
 ]
 
 # don't notify at the end
