@@ -897,7 +897,7 @@ fn selection_prompt<'a, T: SelectOption, P: Into<Option<&'a str>>>(
         .and_then(|key| key.map(|k| k - 1));
 
     let items = opts.len() as u16;
-    write!(tty, "{}{}", Goto(x, y - items + 1), AfterCursor)?;
+    write!(tty, "{}{}", Goto(x, y.saturating_sub(items) + 1), AfterCursor)?;
     tty.flush()?;
 
     drop(tty);
