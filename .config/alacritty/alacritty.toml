@@ -12,10 +12,10 @@ TERM = "xterm-256color"
 size = 14.0
 
 [font.bold]
-style = "SemiBold"
+style = "Bold"
 
 [font.bold_italic]
-style = "SemiBold Italic"
+style = "Bold Italic"
 
 [font.italic]
 style = "Light Italic"
