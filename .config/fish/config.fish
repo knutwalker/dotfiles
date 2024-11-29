@@ -21,11 +21,15 @@ if status is-interactive
     # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
     set -gx PYTHONIOENCODING 'UTF-8'
 
-    # Always be able to cd from any of those directories
-    set -gx --path CDPATH ".:~:~/dev:~/dev/rust:~/dev/neo"
+    if not set -q CDPATH
+        # Always be able to cd from any of those directories
+        set -gx --path CDPATH ".:~:~/dev:~/dev/rust:~/dev/neo"
+    end
 
-    # Configure paths for sessionizer
-    set -gx --path SESSIONIZER_PATH "~/.bash.rc:~/.config/*:~/dev/*/*"
+    if not set -q SESSIONIZER_PATH
+        # Configure paths for sessionizer
+        set -gx --path SESSIONIZER_PATH "~/.bash.rc:~/.config/*:~/dev/*/*"
+    end
 
     # Prefer US English and use UTF-8.
     set -gx LANG 'en_US.UTF-8'
