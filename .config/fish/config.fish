@@ -2,14 +2,13 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 
     # setup path -- .path
-    set -gx --prepend PATH "$HOME/.go/bin"      # Add Go installation
-    set -gx --prepend PATH "/usr/local/bin"     # Add /usr/local/bin
-    set -gx --prepend PATH "/usr/local/sbin"    # --''--
-    set -gx --prepend PATH "/opt/homebrew/bin"  # Add aarch64 brew directories
-    set -gx --prepend PATH "/opt/homebrew/sbin" # --''--
-    set -gx --prepend PATH "$HOME/.cargo/bin"   # Add cargo binaries
-    set -gx --prepend PATH "$HOME/.local/bin"   # Add ~/.local/bin and ~/bin
-    set -gx --prepend PATH "$HOME/bin"          # --''--
+    fish_add_path --path "/usr/local/bin"
+    fish_add_path --path "/usr/local/sbin"
+    fish_add_path --path "/opt/homebrew/bin"
+    fish_add_path --path "/opt/homebrew/sbin"
+    fish_add_path --path --move "$HOME/.go/bin"
+    fish_add_path --path --move "$HOME/.cargo/bin"
+    fish_add_path --path --move "$HOME/.local/bin"
 
     # setup env vars -- .exports
 
