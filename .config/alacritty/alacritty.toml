@@ -44,5 +44,5 @@ import = ["~/.local/share/alacritty/themes/themes/kanagawa_wave.toml"]
 [terminal]
 
 [terminal.shell]
-program = "/opt/homebrew/bin/bash"
+program = "/opt/homebrew/bin/fish"
 args = ["--login", "-c", "sessionizer --shell"]
