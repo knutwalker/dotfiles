@@ -1,0 +1,8 @@
+fish_add_path --path "/usr/local/bin"
+fish_add_path --path "/usr/local/sbin"
+fish_add_path --path "/opt/homebrew/bin"
+fish_add_path --path "/opt/homebrew/sbin"
+fish_add_path --path --move "$HOME/.go/bin"
+fish_add_path --path --move "$HOME/.cargo/bin"
+fish_add_path --path --move "$HOME/.local/bin"
+fish_add_path --path --move "$HOME/.local/share/zigup/path"
