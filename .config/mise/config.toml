@@ -8,3 +8,11 @@ usage = "latest"
 jbang = "latest"
 ruby = "latest"
 zig = "latest"
+
+[settings]
+exec_auto_install = false
+not_found_auto_install = false
+task_run_auto_install = false
+
+[settings.cargo]
+binstall = false
