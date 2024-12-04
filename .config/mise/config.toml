@@ -7,7 +7,6 @@ maven = "latest"
 usage = "latest"
 jbang = "latest"
 ruby = "latest"
-zig = "latest"
 
 [settings]
 exec_auto_install = false
