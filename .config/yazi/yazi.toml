@@ -51,11 +51,11 @@ rules = [
 
     { mime = "application/zip", use = "archive" },
     { mime = "application/gzip", use = "archive" },
-    { mime = "application/x-tar", use = "archive" },
-    { mime = "application/x-bzip", use = "archive" },
-    { mime = "application/x-bzip2", use = "archive" },
-    { mime = "application/x-7z-compressed", use = "archive" },
-    { mime = "application/x-rar", use = "archive" },
+    { mime = "application/tar", use = "archive" },
+    { mime = "application/bzip", use = "archive" },
+    { mime = "application/bzip2", use = "archive" },
+    { mime = "application/7z-compressed", use = "archive" },
+    { mime = "application/rar", use = "archive" },
 
     { mime = "*", use = "fallback" },
 ]

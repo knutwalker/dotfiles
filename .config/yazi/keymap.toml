@@ -32,11 +32,11 @@ keymap = [
 	{ on = [ "<Enter>" ],      run = "enter",    desc = "Enter the child directory" },
 
 	# Selection
-	{ on = [ "<Space>" ], run = [ "select --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
+	{ on = [ "<Space>" ], run = [ "toggle", "arrow 1" ],              desc = "Toggle the current selection state" },
 	{ on = [ "v" ],       run = "visual_mode",                        desc = "Enter visual mode (selection mode)" },
 	{ on = [ "V" ],       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
-	{ on = [ "<C-a>" ],   run = "select_all --state=true",            desc = "Select all files" },
-	{ on = [ "<C-r>" ],   run = "select_all --state=none",            desc = "Inverse selection of all files" },
+	{ on = [ "<C-a>" ],   run = "toggle_all --state=on",              desc = "Select all files" },
+	{ on = [ "<C-r>" ],   run = "toggle_all",                         desc = "Inverse selection of all files" },
 
 	# Operation
 	{ on = [ "o" ],         run = "open",                         desc = "Open the selected files" },
@@ -76,10 +76,10 @@ keymap = [
 	# Sorting
 	{ on = [ ",", "a" ], run = "sort alphabetical --dir_first",           desc = "Sort alphabetically, directories first" },
 	{ on = [ ",", "A" ], run = "sort alphabetical --reverse --dir_first", desc = "Sort alphabetically, directories first (reverse)" },
-	{ on = [ ",", "c" ], run = "sort created --dir_first",                desc = "Sort by creation time, directories first" },
-	{ on = [ ",", "C" ], run = "sort created --reverse --dir_first",      desc = "Sort by creation time, directories first (reverse)" },
-	{ on = [ ",", "m" ], run = "sort modified --dir_first",               desc = "Sort by modified time, directories first" },
-	{ on = [ ",", "M" ], run = "sort modified --reverse --dir_first",     desc = "Sort by modified time, directories first (reverse)" },
+	{ on = [ ",", "b" ], run = "sort btime --dir_first",                  desc = "Sort by creation time, directories first" },
+	{ on = [ ",", "B" ], run = "sort btime --reverse --dir_first",        desc = "Sort by creation time, directories first (reverse)" },
+	{ on = [ ",", "m" ], run = "sort mtime --dir_first",                  desc = "Sort by modified time, directories first" },
+	{ on = [ ",", "M" ], run = "sort mtime --reverse --dir_first",        desc = "Sort by modified time, directories first (reverse)" },
 	{ on = [ ",", "n" ], run = "sort natural --dir_first",                desc = "Sort naturally, directories first" },
 	{ on = [ ",", "N" ], run = "sort natural --reverse --dir_first",      desc = "Sort naturally, directories first (reverse)" },
 	{ on = [ ",", "s" ], run = "sort size --dir_first",                   desc = "Sort by size, directories first" },
@@ -140,7 +140,7 @@ keymap = [
 	{ on = [ "?" ], run = "help", desc = "Open help" }
 ]
 
-[select]
+[pick]
 
 keymap = [
 	{ on = [ "<C-q>" ],   run = "close",          desc = "Cancel selection" },

@@ -43,11 +43,11 @@ rules = [
 	# Archives
 	{ mime = "application/zip", fg = "#CD9EFC" },
 	{ mime = "application/gzip", fg = "#CD9EFC" },
-	{ mime = "application/x-tar", fg = "#CD9EFC" },
-	{ mime = "application/x-bzip", fg = "#CD9EFC" },
-	{ mime = "application/x-bzip2", fg = "#CD9EFC" },
-	{ mime = "application/x-7z-compressed", fg = "#CD9EFC" },
-	{ mime = "application/x-rar", fg = "#CD9EFC" },
+	{ mime = "application/tar", fg = "#CD9EFC" },
+	{ mime = "application/bzip", fg = "#CD9EFC" },
+	{ mime = "application/bzip2", fg = "#CD9EFC" },
+	{ mime = "application/7z-compressed", fg = "#CD9EFC" },
+	{ mime = "application/rar", fg = "#CD9EFC" },
 
 	# Fallback
 	{ name = "*", fg = "#C8D3F8" },
