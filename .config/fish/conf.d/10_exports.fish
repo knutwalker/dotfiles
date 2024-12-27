@@ -8,7 +8,7 @@ set -gx GIT_EDITOR 'nvim -c startinsert'
 set -gx PYTHONIOENCODING 'UTF-8'
 
 # Always be able to cd from any of those directories
-set -gx --path CDPATH ".:~:~/dev:~/dev/rust:~/dev/neo"
+set -gx --path CDPATH ".:~:~/dev:~/dev/rust:~/dev/zig"
 
 # Configure paths for sessionizer
 set -gx --path SESSIONIZER_PATH "~/.bash.rc:~/.config/*:~/dev/*/*"
