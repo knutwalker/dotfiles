@@ -1,0 +1,48 @@
+font-size = 14
+
+# Available fonts: ghostty +list-fonts
+font-family = Comic Code Ligatures
+font-synthetic-style = false
+font-style-bold = "SemiBold"
+font-style-bold-italic = "SemiBold Italic"
+# font-thicken = true
+# font-style = "Light"
+
+adjust-cell-width = -10%
+adjust-cell-height = +21%
+
+theme = Kanagawa Wave
+window-theme = dark
+minimum-contrast = 1.1
+window-padding-color = extend
+unfocused-split-opacity = 0.69
+
+cursor-style = underline
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 0.5
+link-url = true
+macos-option-as-alt = left
+desktop-notifications = false
+auto-update = off
+
+# command = /opt/homebrew/bin/fish
+command = /opt/homebrew/bin/fish --login -c 'sessionizer --shell'
+shell-integration = fish
+
+quit-after-last-window-closed = true
+confirm-close-surface = false
+window-padding-y = 0
+window-decoration = false
+# macos-titlebar-style = hidden
+
+# background-opacity = 0.42
+# background-blur-radius = 42
+
+keybind = cmd+shift+plus=increase_font_size:22
+keybind = all:cmd+option+shift+plus=increase_font_size:22
+keybind = cmd+shift+minus=reset_font_size
+keybind = all:cmd+option+shift+minus=reset_font_size
+keybind = cmd+shift+i=toggle_secure_input
