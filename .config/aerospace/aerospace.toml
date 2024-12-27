@@ -204,6 +204,10 @@ if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace T' # [T]erminal
 
 [[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace T'    # [T]erminal
+
+[[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
 run = 'move-node-to-workspace B'  # [B]rowser
 
