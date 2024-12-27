@@ -8,12 +8,13 @@ gui:
       - bold
     inactiveBorderColor:
       - white
+    searchingActiveBorderColor:
+      - cyan
+      - bold
     optionsTextColor:
       - blue
     selectedLineBgColor:
-      - default
-    selectedRangeBgColor:
-      - default
+      - cyan
     cherryPickedCommitBgColor:
       - cyan
     cherryPickedCommitFgColor:
@@ -24,14 +25,16 @@ gui:
       - default
   commitLength:
     show: true
-  mouseEvents: true
-  showIcons: true
+  mouseEvents: false
   commandLogSize: 8
   splitDiff: 'auto' # one of 'auto' | 'always'
+  showRandomTip: false
+  showCommandLog: true
+  nerdFontsVersion: "3"
 git:
   paging:
     colorArg: always
-    useConfig: true
+    useConfig: false
   commit:
     signOff: false
     verbose: true
@@ -39,12 +42,15 @@ git:
     autoWrapWidth: 72
   overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
   disableForcePushing: false
-  parseEmoji: false
-  diffContextSize: 3 # how many lines of context are shown around a change in diffs
+  parseEmoji: true
+  autoFetch: false
+  autoRefresh: false
 os:
-  editCommand: 'nvim'
-  editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
-  openCommand: 'open {{filename}}'
-confirmOnQuit: true
+  editPreset: 'nvim'
+  open: 'open {{filename}}'
+update:
+  method: never
+confirmOnQuit: false
+disableStartupPopups: true
 notARepository: 'prompt' # one of: 'prompt' | 'create' | 'skip' | 'quit'
 promptToReturnFromSubprocess: false # display confirmation when subprocess terminates
