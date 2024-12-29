@@ -27,6 +27,7 @@ link-url = true
 macos-option-as-alt = left
 desktop-notifications = false
 auto-update = off
+quick-terminal-animation-duration = 0.1
 
 # command = /opt/homebrew/bin/fish
 command = /opt/homebrew/bin/fish --login -c 'sessionizer --shell'
@@ -41,8 +42,63 @@ window-decoration = false
 # background-opacity = 0.42
 # background-blur-radius = 42
 
+# disable some default keybinds
+# selecting tab -- we don't have tabs
+keybind = cmd+physical:zero=unbind
+keybind = cmd+physical:one=unbind
+keybind = cmd+physical:two=unbind
+keybind = cmd+physical:three=unbind
+keybind = cmd+physical:four=unbind
+keybind = cmd+physical:five=unbind
+keybind = cmd+physical:six=unbind
+keybind = cmd+physical:seven=unbind
+keybind = cmd+physical:eight=unbind
+keybind = cmd+physical:nine=unbind
+
+# closing things should be done with C-d or similar
+keybind = cmd+alt+shift+w=unbind
+keybind = cmd+shift+w=unbind
+keybind = cmd+w=unbind
+
+# For some reason, having the default decrase font size binding
+# makes it so that no other keybinds work on cmd+minus
+keybind = cmd+minus=unbind
+
+# quake mode
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+
+# "presentation mode"
 keybind = cmd+shift+plus=increase_font_size:22
-keybind = all:cmd+option+shift+plus=increase_font_size:22
-keybind = cmd+shift+minus=reset_font_size
-keybind = all:cmd+option+shift+minus=reset_font_size
+keybind = cmd+option+shift+plus=increase_font_size:28
+# so that we have decrase_font_size bound to something
+keybind = cmd+option+shift+minus=decrease_font_size:1
+
+# auto detect doesn't work because of tmux
 keybind = cmd+shift+i=toggle_secure_input
+
+# "tmux integration"
+# we will rebind cmd+n to mean something else
+keybind = cmd+option+n=new_window
+
+# C-a p, prev window
+keybind = cmd+left_bracket=text:\x01\x70
+# C-a n, next window
+keybind = cmd+right_bracket=text:\x01\x6e
+# C-a c, new window
+keybind = cmd+n=text:\x01\x63
+# C-a ,, remane window
+keybind = cmd+comma=text:\x01\x2c
+
+# C-a |, split horizontally
+keybind = cmd+shift+backslash=text:\x01\x7c
+# C-a -, split vertically
+keybind = cmd+shift+minus=text:\x01\x2d
+
+# C-a C-p, prev session
+keybind = cmd+shift+left_bracket=text:\x01\x10
+# C-a C-n, next session
+keybind = cmd+shift+right_bracket=text:\x01\x0e
+# C-a C-c, switch session
+keybind = cmd+ctrl+s=text:\x01\x03
+keybind = cmd+shift+n=text:\x01\x03
+keybind = cmd+shift+s=text:\x01\x73
