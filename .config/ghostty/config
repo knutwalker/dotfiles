@@ -27,7 +27,6 @@ link-url = true
 macos-option-as-alt = left
 desktop-notifications = false
 auto-update = off
-quick-terminal-animation-duration = 0.1
 
 # command = /opt/homebrew/bin/fish
 command = /opt/homebrew/bin/fish --login -c 'sessionizer --shell'
@@ -63,9 +62,6 @@ keybind = cmd+w=unbind
 # For some reason, having the default decrase font size binding
 # makes it so that no other keybinds work on cmd+minus
 keybind = cmd+minus=unbind
-
-# quake mode
-keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 # "presentation mode"
 keybind = cmd+shift+plus=increase_font_size:22
