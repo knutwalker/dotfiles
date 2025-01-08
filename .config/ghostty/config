@@ -34,6 +34,7 @@ shell-integration = fish
 
 quit-after-last-window-closed = true
 confirm-close-surface = false
+window-padding-x = 0
 window-padding-y = 0
 window-decoration = false
 # macos-titlebar-style = hidden
