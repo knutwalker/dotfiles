@@ -1,15 +1,21 @@
 font-size = 14
 
 # Available fonts: ghostty +list-fonts
-font-family = Comic Code Ligatures
-font-synthetic-style = false
-font-style-bold = "SemiBold"
-font-style-bold-italic = "SemiBold Italic"
-# font-thicken = true
-# font-style = "Light"
 
-adjust-cell-width = -10%
-adjust-cell-height = +21%
+# ==Comic Code config==
+# font-family = Comic Code Ligatures
+# font-style-bold = "SemiBold"
+# font-style-bold-italic = "SemiBold Italic"
+# adjust-cell-width = -10%
+# adjust-cell-height = +21%
+
+# ==Mono Lisa config==
+font-family = MonoLisa Variable
+adjust-cell-height = +6%
+# font-variation = "wght=420"
+
+font-synthetic-style = false
+# font-thicken = true
 
 theme = Kanagawa Wave
 window-theme = dark
