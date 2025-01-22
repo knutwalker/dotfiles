@@ -8,11 +8,47 @@ font-size = 14
 # font-style-bold-italic = "SemiBold Italic"
 # adjust-cell-width = -10%
 # adjust-cell-height = +21%
+# ==Comic code end==
 
 # ==Mono Lisa config==
 font-family = MonoLisa Variable
 adjust-cell-height = +6%
-# font-variation = "wght=420"
+font-variation = "wght=300"
+
+# alt asterisk
+font-feature = "ss01"
+# script
+font-feature = "ss02"
+# # alt g
+# font-feature = "ss03"
+# font-feature = "ss04"
+# # alt sz
+# font-feature = "ss05"
+# alt at
+font-feature = "ss06"
+# font-feature = "ss18"
+# # alt curly braces
+# font-feature = "ss07"
+# # alt parenthesis
+# font-feature = "ss08"
+# alt gte symbol
+# font-feature = "ss9"
+font-feature = "ss10"
+# alt hexadecimal
+font-feature = "ss11"
+# # thin backslash
+# font-feature = "ss12"
+# # alt dollar
+# font-feature = "ss13"
+# # alt ampersand
+# font-feature = "ss14"
+# sans-serif i
+font-feature = "ss15"
+# sans-serif r
+font-feature = "ss16"
+# # alt .= and ..=
+# font-feature = "ss17"
+# ==Mono Lisa end==
 
 font-synthetic-style = false
 # font-thicken = true
