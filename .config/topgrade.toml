@@ -4,17 +4,19 @@
 [misc]
 # Disable specific steps - same options as the command line flag
 disable = [
-    "system",
-    "gem",
-    "node",
-    "tmux",
     "conda",
+    "gem",
+    "helix",
+    "node",
+    "pip3",
+    "ruby_gems",
+    "sdkman",
+    "system",
+    "tmux",
+    "uv",
     "vim",
     "vscode",
-    "ruby_gems",
-    "pip3",
-    "sdkman",
-    "uv",
+    "zvm",
 ]
 
 # don't notify at the end
@@ -32,4 +34,3 @@ no_self_update = true
 # If `Repo Cask Upgrade` exists, then use the `-a` option.
 # Otherwise, use the `--greedy` option.
 greedy_cask = true
-
