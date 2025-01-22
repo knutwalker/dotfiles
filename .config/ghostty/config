@@ -13,7 +13,7 @@ font-size = 14
 # ==Mono Lisa config==
 font-family = MonoLisa Variable
 adjust-cell-height = +6%
-font-variation = "wght=300"
+# font-variation = "wght=300"
 
 # alt asterisk
 font-feature = "ss01"
