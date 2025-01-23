@@ -17,8 +17,8 @@ adjust-cell-height = +6%
 
 # alt asterisk
 font-feature = "ss01"
-# script
-font-feature = "ss02"
+# # script
+# font-feature = "ss02"
 # # alt g
 # font-feature = "ss03"
 # font-feature = "ss04"
