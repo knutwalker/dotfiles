@@ -55,7 +55,7 @@ font-synthetic-style = false
 
 theme = Kanagawa Wave
 window-theme = dark
-minimum-contrast = 1.1
+minimum-contrast = 1.0
 window-padding-color = extend
 unfocused-split-opacity = 0.69
 
