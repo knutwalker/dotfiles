@@ -1,0 +1,6 @@
+{
+    "versionMapUrl": "https://ziglang.org/download/index.json",
+    "zlsVersionMapUrl": "https://releases.zigtools.org/",
+    "useColor": true,
+    "alwaysForceInstall": false
+}
