@@ -47,11 +47,14 @@ set -gx SSH_AUTH_SOCK "$HOME/.ssh/ssh-agent.sock"
 # Disable prompt manipulation by venv
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
-# Disable version update check for zvm
-set -gx ZVM_SET_CU 1
-
 # Set xdg vars since some apps prefer that over the mac defaults
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
+
+# Make ZVM a bit more homely
+set -gx ZVM_PATH "$XDG_DATA_HOME/zvm"
+
+# Disable version update check for zvm
+set -gx ZVM_SET_CU 1
