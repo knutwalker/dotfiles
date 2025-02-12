@@ -111,6 +111,7 @@ keybind = cmd+shift+plus=increase_font_size:22
 keybind = cmd+option+shift+plus=increase_font_size:28
 # so that we have decrase_font_size bound to something
 keybind = cmd+option+shift+minus=decrease_font_size:1
+keybind = cmd+shift+0=reset_font_size
 
 # auto detect doesn't work because of tmux
 keybind = cmd+shift+i=toggle_secure_input
