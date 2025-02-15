@@ -3,7 +3,14 @@ defaults:
   # Always use kitty until Ghostty detection is released
   image_protocol: kitty-local
 
+options:
+  end_slide_shorthand: true
+  incremental_lists: true
+  auto_render_languages: []
+
 snippet:
+  exec_replace:
+    enable: true
   exec:
     enable: true
     custom:
