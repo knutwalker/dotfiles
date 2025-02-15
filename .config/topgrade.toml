@@ -6,6 +6,7 @@
 disable = [
     "conda",
     "gem",
+    "go",
     "helix",
     "node",
     "pip3",
