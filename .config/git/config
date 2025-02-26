@@ -17,6 +17,9 @@
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
 
+[branch]
+	sort = -committerdate
+
 [core]
 
 	# Use custom `.gitignore` and `.gitattributes`
@@ -65,6 +68,9 @@
 	changed = green
 	untracked = cyan
 
+[column]
+	ui = auto
+
 [commit]
 
 	# https://help.github.com/articles/signing-commits-using-gpg/
@@ -75,21 +81,21 @@
 
 [diff]
 
+	# Better diff chunks
+	algorithm = histogram
+
+	# highlight moved code
+	colorMoved = plain
+
+	# replace a/ and b/ prefixes with i(ndex)/, w(orktree)/, or c(ommit)/
+	mnemonicPrfix = true
+
 	# Detect copies as well as renames
 	renames = copies
-
-	# Remove the /a and /b prefixes from the diff view
-	noprefix = true
-
-	# According to delta
-	colorMoved = default
 
 	# https://difftastic.wilfred.me.uk/git.html
 	external = difft
 
-	algorithm = histogram
-
-	tool = Kaleidoscope
 
 [diff "bin"]
 
@@ -100,10 +106,33 @@
 	# https://github.com/your-tools/lockdiff
 	textconv = lockdiff
 
+[difftool]
+	prompt = false
+
+[fetch]
+	# prune things that have been deleted on the remote end
+	prune = true
+	pruneTags = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = "~/.ssh/allowed_signers"
+
 [help]
 
 	# Automatically correct and execute mistyped commands
 	autocorrect = immediate
+
+[init]
+
+	defaultBranch = main
+
+[interactive]
+
+	# Don't require to press Enter when doing an interactive add
+	singlekey = true
 
 [merge]
 
@@ -115,6 +144,9 @@
 	conflictstyle = zdiff3
 
 	tool = Kaleidoscope
+
+[mergetool]
+	prompt = false
 
 [push]
 
@@ -138,11 +170,6 @@
 	# https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
 	updateRefs = true
 
-[interactive]
-
-	# Don't require to press Enter when doing an interactive add
-	singlekey = true
-
 [sequence]
 
 	editor = interactive-rebase-tool
@@ -151,8 +178,10 @@
 
 	enabled = true
 
-# URL shorthands
+[tag]
+	sort = version:refname
 
+# URL shorthands
 [url "git@github.com:"]
 
 	insteadOf = gh:
@@ -172,22 +201,6 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = gist:
-
-[init]
-
-	defaultBranch = main
-
-[difftool]
-	prompt = false
-
-[mergetool]
-	prompt = false
-
-[gpg]
-	format = ssh
-
-[gpg "ssh"]
-	allowedSignersFile = "~/.ssh/allowed_signers"
 
 [include]
 	path = "~/.config/git/alias.config"
