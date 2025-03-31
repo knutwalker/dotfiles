@@ -114,8 +114,8 @@ sethandler <C-L> n-x-v:vim i:ide
 sethandler <C-r> n-x-v:vim i:ide
 
 " Keep selection when indenting
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 
 " Keep cursor in the middle of the screen when jumping around
 nnoremap <C-d> <C-d>zz
@@ -126,39 +126,39 @@ nnoremap N Nzzzv
 " Paste with <leader>v without losing content of the paste register
 nnoremap <leader>v "_dP
 nnoremap <leader>V "_dp
-vnoremap <leader>v "_dP
-vnoremap <leader>V "_dp
+xnoremap <leader>v "_dP
+xnoremap <leader>V "_dp
 xnoremap <leader>v "_dP
 xnoremap <leader>V "_dp
 
 " paste with p or P and move cursor to the end of the pasted text
 nnoremap p gp
 nnoremap P gP
-vnoremap p gp
-vnoremap P gP
+xnoremap p gp
+xnoremap P gP
 xnoremap p gp
 xnoremap P gP
 nnoremap gp p
 nnoremap gP P
-vnoremap gp p
-vnoremap gP P
+xnoremap gp p
+xnoremap gP P
 xnoremap gp p
 xnoremap gP P
 
 " yank and paste to and from the system clipboard
 nnoremap <leader>y "+y
-vnoremap <leader>y "+y
+xnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
-vnoremap <leader>Y "+Y
+xnoremap <leader>Y "+Y
 
 nnoremap <leader>p "+gp
-vnoremap <leader>p "+gp
+xnoremap <leader>p "+gp
 nnoremap <leader>P "+gP
-vnoremap <leader>P "+gP
+xnoremap <leader>P "+gP
 
 " delete to the system clipboard
 nnoremap <leader>d "+d
-vnoremap <leader>d "+d
+xnoremap <leader>d "+d
 
 " always trigger ESC when Ctrl-C is pressed
 inoremap <C-c> <ESC>
