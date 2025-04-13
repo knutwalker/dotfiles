@@ -70,8 +70,8 @@ macos-option-as-alt = left
 desktop-notifications = false
 auto-update = off
 
-# command = /opt/homebrew/bin/fish
-command = /opt/homebrew/bin/fish --login -c 'sessionizer --shell'
+command = /opt/homebrew/bin/fish
+# command = /opt/homebrew/bin/fish --login -c 'sessionizer --shell'
 shell-integration = fish
 
 quit-after-last-window-closed = true
@@ -126,7 +126,7 @@ keybind = cmd+left_bracket=text:\x01\x70
 keybind = cmd+right_bracket=text:\x01\x6e
 # C-a c, new window
 keybind = cmd+n=text:\x01\x63
-# C-a ,, remane window
+# C-a ,, rename window
 keybind = cmd+comma=text:\x01\x2c
 
 # C-a |, split horizontally
