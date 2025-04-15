@@ -2,24 +2,15 @@
 # for a reference
 
 [misc]
-# Disable specific steps - same options as the command line flag
-disable = [
-    "conda",
-    "containers",
-    "gem",
-    "go",
-    "helix",
-    "node",
-    "pip3",
-    "ruby_gems",
-    "sdkman",
-    "system",
-    "tmux",
-    "uv",
-    "vim",
-    "vscode",
-    "zvm",
+only = [
+    "brew_cask",
+    "brew_formula",
+    "cargo",
+    "github_cli_extensions",
+    "mise",
+    "rustup",
 ]
+
 
 # don't notify at the end
 # https://github.com/topgrade-rs/topgrade/issues/288
