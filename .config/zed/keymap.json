@@ -19,39 +19,13 @@
     },
   },
   {
-    "context": "(MessageEditor && !Picker) > (Editor && use_modifier_to_send)",
-    "bindings": {
-      "ctrl-enter": null,
-    },
-  },
-  {
-    "context": "(MessageEditor && !Picker) > (Editor && !use_modifier_to_send)",
-    "bindings": {
-      "ctrl-enter": null,
-    },
-  },
-  {
-    "context": "AcpThread > (Editor && use_modifier_to_send)",
-    "bindings": {
-      "ctrl-enter": null,
-    },
-  },
-  {
     "context": "ContextEditor > Editor",
-    "bindings": {
-      "ctrl-enter": null,
+    "unbind": {
+      "cmd-s": "workspace::Save",
     },
-  },
-  {
-    "context": "!ContextEditor > (Editor && mode == full)",
     "bindings": {
-      "ctrl-enter": null,
-    },
-  },
-  {
-    "context": "Terminal",
-    "bindings": {
-      "ctrl-enter": null,
+      "ctrl-s": "workspace::Save",
+      "ctrl-enter": "editor::ConfirmCompletion",
     },
   },
   {
@@ -61,20 +35,14 @@
     },
   },
   {
-    "bindings": {
-      "ctrl-q": null,
-    },
-  },
-  {
-    "context": "(Editor && showing_completions)",
-    "bindings": {
-      "enter": null,
-    },
-  },
-  {
     "context": "Workspace",
+    "unbind": {
+      "cmd-k": "git_panel::ToggleFocus",
+      "ctrl-k": "git_panel::ToggleFocus",
+      "cmd-s": "workspace::Save",
+    },
     "bindings": {
-      "ctrl-k": null,
+      "ctrl-s": "workspace::Save",
     },
   },
   {
@@ -91,15 +59,90 @@
     },
   },
   {
-    "context": "((((vim_operator == a || vim_operator == i) || vim_operator == cs) || vim_operator == helix_next) || vim_operator == helix_previous)",
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs || vim_operator == helix_next || vim_operator == helix_previous",
     "bindings": {
-      "shift-s": "vim::Sentence",
+      "w": "vim::Subword",
+      "W": "vim::Word",
     },
   },
   {
-    "context": "((((vim_operator == a || vim_operator == i || vim_operator == d) || vim_operator == cs) || vim_operator == helix_next) || vim_operator == helix_previous)",
+    "context": "vim_mode == visual",
     "bindings": {
-      "s": "vim::Subword",
+      "shift-s": "vim::PushAddSurrounds",
+      "shift-x": "vim::Exchange",
+    },
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "z": "vim::PushSneak",
+      "shift-z": "vim::PushSneakBackward",
+    },
+  },
+  {
+    "context": "vim_mode == insert",
+    "unbind": {
+      "ctrl-s": "editor::ShowSignatureHelp",
+    },
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-w": [
+        "editor::DeleteToPreviousWordStart",
+        {
+          "ignore_newlines": false,
+          "ignore_brackets": false,
+        },
+      ],
+    },
+  },
+  {
+    "context": "Terminal",
+    "unbind": {
+      "ctrl-enter": "assistant::InlineAssist",
+    },
+  },
+  {
+    "context": "!ContextEditor && !AcpThread > Editor && mode == full",
+    "unbind": {
+      "ctrl-enter": "assistant::InlineAssist",
+    },
+  },
+  {
+    "context": "ContextEditor > Editor",
+    "unbind": {
+      "shift-enter": "assistant::Split",
+    },
+  },
+  {
+    "context": "ContextEditor > Editor",
+    "unbind": {
+      "cmd-enter": "assistant::Assist",
+    },
+  },
+  {
+    "context": "vim_mode == insert",
+    "unbind": {
+      "ctrl-x ctrl-a": "assistant::InlineAssist",
+    },
+  },
+  {
+    "context": "Editor && mode == full",
+    "unbind": {
+      "cmd-\\": "assistant::InlineAssist",
+    },
+  },
+  {
+    "context": "ContextEditor > Editor",
+    "unbind": {
+      "enter": "assistant::ConfirmCommand",
+    },
+  },
+  {
+    "context": "MessageEditor > Editor && VimControl",
+    "unbind": {
+      "enter": "agent::Chat",
     },
   },
 ]
