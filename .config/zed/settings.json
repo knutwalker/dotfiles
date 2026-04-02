@@ -7,10 +7,13 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "show_edit_predictions": false,
+  "auto_update": false,
+  "show_whitespaces": "all",
   "allow_rewrap": "anywhere",
   "soft_wrap": "none",
   "sticky_scroll": {
-    "enabled": true
+    "enabled": true,
   },
   "auto_signature_help": true,
   "auto_indent_on_paste": false,
@@ -165,6 +168,28 @@
     "use_system_clipboard": "never",
     "use_smartcase_find": false,
     "highlight_on_yank_duration": 300,
+    "custom_digraphs": {
+      "ae": "ä",
+      "Ae": "Ä",
+      "oe": "ö",
+      "Oe": "Ö",
+      "ue": "ü",
+      "Ue": "Ü",
+      "ss": "ß",
+      "sz": "ß",
+      "deg": "°",
+      "(r)": "®",
+      "(c)": "©",
+      "en": "–",
+      "em": "—",
+      "..": "…",
+      "mu": "µ",
+      "eu": "€",
+      "E": "€",
+      "bp": "£",
+      "gbp": "£",
+      "L": "£",
+    },
   },
   "which_key": { "enabled": true, "delay_ms": 450 },
   "base_keymap": "JetBrains",
