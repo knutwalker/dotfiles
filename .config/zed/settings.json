@@ -1,0 +1,182 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "allow_rewrap": "anywhere",
+  "soft_wrap": "none",
+  "sticky_scroll": {
+    "enabled": true
+  },
+  "auto_signature_help": true,
+  "auto_indent_on_paste": false,
+  "snippet_sort_order": "inline",
+  "format_on_save": "on",
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "assist": {
+          "emitMustUse": true,
+          "preferSelf": true,
+        },
+        "cachePriming": { "numThreads": 4 },
+        "cargo": {
+          "buildScripts": { "enable": true },
+          "cfgs": ["debugging", "testing"],
+          "features": "all",
+        },
+        "checkOnSave": true,
+        "check": { "command": "clippy" },
+        "completion": {
+          "callable": { "snippets": "add_parentheses" },
+          "privateEditable": { "enable": true },
+          "styleLints": { "enable": true },
+        },
+        "diagnostics": {
+          "enable": true,
+          "disabled": ["inactive-code", "unlinked-file"],
+          "experimental": { "enable": true },
+        },
+        "files": { "excludeDirs": ["references"] },
+        "hover": {
+          "actions": {
+            "debug": { "enable": true },
+            "enable": true,
+            "gotoTypeDef": { "enable": true },
+            "implementations": { "enable": true },
+            "run": { "enable": true },
+          },
+          "documentation": {
+            "enable": true,
+            "keywords": { "enable": true },
+          },
+          "links": { "enable": true },
+        },
+        "imports": { "prefix": "crate" },
+        "inlayHints": {
+          "bindingModeHints": { "enable": true },
+          "closureReturnTypeHints": { "enable": "always" },
+          "expressionAdjustmentHints": { "enable": "reborrow" },
+          "lifetimeElisionHints": {
+            "enable": "skip_trivial",
+            "useParameterNames": true,
+          },
+          "maxLength": 42,
+        },
+        "lens": {
+          "references": {
+            "method": { "enable": true },
+            "trait": { "enable": true },
+          },
+        },
+        "procMacro": { "attributes": { "enable": true }, "enable": true },
+      },
+    },
+    "tinymist": {
+      "initialization_options": {
+        "preview": {
+          "background": {
+            "enabled": true,
+          },
+          "refresh": "onSave",
+          "scrollSync": "onSelectionChange",
+        },
+      },
+      "settings": {
+        "exportPdf": "onSave",
+        "outputPath": "$root/target/$dir/$name",
+        "lint": {
+          "enabled": true,
+          "when": "onType",
+        },
+        "preview": {
+          "background": {
+            "args": [
+              "--data-plane-host=127.0.0.1:23635",
+              "--invert-colors=never",
+            ],
+          },
+        },
+      },
+    },
+  },
+  "disable_ai": true,
+  "preview_tabs": {
+    "enable_keep_preview_on_code_navigation": true,
+  },
+  "collaboration_panel": {
+    "button": false,
+  },
+  "git_panel": {
+    "button": true,
+  },
+  "terminal": {
+    "dock": "right",
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+    },
+  },
+  "title_bar": {
+    "show_sign_in": false,
+  },
+  "git": {
+    "blame": {
+      "show_avatar": false,
+    },
+    "inline_blame": {
+      "enabled": false,
+    },
+  },
+  "inlay_hints": {
+    "show_value_hints": false,
+    "show_background": true,
+    "show_other_hints": true,
+    "show_parameter_hints": true,
+    "show_type_hints": true,
+    "enabled": false,
+    "toggle_on_modifiers_press": {
+      "control": true,
+      "alt": true,
+    },
+  },
+  "use_autoclose": false,
+  "toolbar": {
+    "agent_review": false,
+  },
+  "relative_line_numbers": "enabled",
+  "cursor_blink": false,
+  "ui_font_family": ".ZedSans",
+  "buffer_font_family": "MonoLisa K",
+  "when_closing_with_no_tabs": "close_window",
+  "on_last_window_closed": "quit_app",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true,
+    "use_system_clipboard": "never",
+    "use_smartcase_find": false,
+    "highlight_on_yank_duration": 300,
+  },
+  "which_key": { "enabled": true, "delay_ms": 450 },
+  "base_keymap": "JetBrains",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "buffer_font_features": {
+    "calt": true,
+  },
+  "theme": {
+    "mode": "system",
+    "light": "Kanagawa Lotus",
+    "dark": "Kanagawa Dragon",
+  },
+  "autosave": "off",
+}

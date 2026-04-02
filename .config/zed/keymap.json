@@ -1,0 +1,105 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "(MessageEditor && !Picker) > (Editor && use_modifier_to_send)",
+    "bindings": {
+      "ctrl-enter": null,
+    },
+  },
+  {
+    "context": "(MessageEditor && !Picker) > (Editor && !use_modifier_to_send)",
+    "bindings": {
+      "ctrl-enter": null,
+    },
+  },
+  {
+    "context": "AcpThread > (Editor && use_modifier_to_send)",
+    "bindings": {
+      "ctrl-enter": null,
+    },
+  },
+  {
+    "context": "ContextEditor > Editor",
+    "bindings": {
+      "ctrl-enter": null,
+    },
+  },
+  {
+    "context": "!ContextEditor > (Editor && mode == full)",
+    "bindings": {
+      "ctrl-enter": null,
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-enter": null,
+    },
+  },
+  {
+    "context": "((((((Dock || Workspace) || OutlinePanel) || ProjectPanel) || CollabPanel) || Terminal) || (Editor && mode == auto_height))",
+    "bindings": {
+      "escape": "editor::ToggleFocus",
+    },
+  },
+  {
+    "bindings": {
+      "ctrl-q": null,
+    },
+  },
+  {
+    "context": "(Editor && showing_completions)",
+    "bindings": {
+      "enter": null,
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-k": null,
+    },
+  },
+  {
+    "context": "VimControl && !menu && vim_mode != operator",
+    "bindings": {
+      "w": "vim::NextSubwordStart",
+      "W": "vim::NextWordStart",
+      "b": "vim::PreviousSubwordStart",
+      "B": "vim::PreviousWordStart",
+      "e": "vim::NextSubwordEnd",
+      "E": "vim::NextWordEnd",
+      "g e": "vim::PreviousSubwordEnd",
+      "g E": "vim::PreviousWordEnd",
+    },
+  },
+  {
+    "context": "((((vim_operator == a || vim_operator == i) || vim_operator == cs) || vim_operator == helix_next) || vim_operator == helix_previous)",
+    "bindings": {
+      "shift-s": "vim::Sentence",
+    },
+  },
+  {
+    "context": "((((vim_operator == a || vim_operator == i || vim_operator == d) || vim_operator == cs) || vim_operator == helix_next) || vim_operator == helix_previous)",
+    "bindings": {
+      "s": "vim::Subword",
+    },
+  },
+]
