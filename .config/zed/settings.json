@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "show_signature_help_after_edits": true,
+  "show_completions_on_input": false,
+  "completion_menu_scrollbar": "auto",
   "show_edit_predictions": false,
   "auto_update": false,
   "show_whitespaces": "all",
